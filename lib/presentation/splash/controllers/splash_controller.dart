@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-
-import '../../onboarding/onboarding.dart';
+import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 class SplashController extends GetxController {
   @override
@@ -11,8 +10,8 @@ class SplashController extends GetxController {
   }
 
   void navigateToNext() async {
-    await Future.delayed(const Duration(seconds: 10));
+    await Future.delayed(const Duration(seconds: 5));
 
-    Get.offAll(() => const OnboardingScreen());
+    Get.offNamed(AppRoutes.onboarding);
   }
 }

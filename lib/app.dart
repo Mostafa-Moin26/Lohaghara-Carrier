@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lohaghara_carrier/presentation/splash/splash.dart';
-import 'package:lohaghara_carrier/presentation/splash/splash_temp.dart';
+import 'package:lohaghara_carrier/routes/app_pages.dart';
+import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 import 'core/theme/theme.dart';
 
@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: SplashScreen(),
+      initialRoute: AppRoutes.splash,
+      getPages: AppPages.pages,
     );
   }
 }
