@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../../onboarding/onboarding.dart';
+
 class SplashController extends GetxController {
   @override
   void onInit() {
@@ -9,8 +11,8 @@ class SplashController extends GetxController {
   }
 
   void navigateToNext() async {
-    await Future.delayed(const Duration(seconds: 10000));
+    await Future.delayed(const Duration(seconds: 10));
 
-    // Get.offAll(() => const OnboardingScreen());
+    Get.offAll(() => const OnboardingScreen());
   }
 }

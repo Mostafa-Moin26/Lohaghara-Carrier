@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lohaghara_carrier/presentation/splash/splash.dart';
+import 'package:lohaghara_carrier/presentation/splash/splash_temp.dart';
 
 import 'core/theme/theme.dart';
 

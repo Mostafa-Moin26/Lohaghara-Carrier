@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class OnBoardingController extends GetxController {
+  static OnBoardingController get instance => Get.find();
+
+  /// Controller
+  final pageController = PageController();
+
+  /// Current page index
+  Rx<int> currentPageIndex = 0.obs;
+
+  /// Total pages
+  final int totalPages = 3;
+
+  /// Update index when page changes
+  void updatePageIndicator(int index) {
+    currentPageIndex.value = index;
+  }
+
+  /// Dot navigation
+  void dotNavigationClick(int index) {
+    currentPageIndex.value = index;
+    pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  /// Next button
+  void nextPage() {
+    if (currentPageIndex.value == totalPages - 1) {
+      finishOnboarding();
+    } else {
+      pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  /// Skip button → go to last page
+  void skipPage() {
+    pageController.animateToPage(
+      totalPages - 1,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  /// Check last page
+  bool get isLastPage => currentPageIndex.value == totalPages - 1;
+
+  /// Finish onboarding
+  void finishOnboarding() {
+    // Get.offAll(() => const LoginScreen());
+  }
+}
