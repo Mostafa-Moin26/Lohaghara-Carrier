@@ -33,10 +33,13 @@ class AppTextStrings {
   static const String phoneNo = 'Phone Number';
   static const String rememberMe = 'Remember Me';
   static const String forgetPassword = 'Forget Password';
+  static const String logIn = 'Login';
   static const String signIn = 'Sign In';
+  static const String signUp = 'Sign Up';
   static const String createAccount = 'Create Account';
   static const String orSignInWith = 'or sign in with';
   static const String orSignUpWith = 'or sign up with';
+  static const String dontHaveAcc = "Don't have an account? ";
   static const String iAgreeTo = 'I agree to';
   static const String and = 'and';
   static const String privacyPolicy = 'Privacy Plicy';
@@ -49,6 +52,7 @@ class AppTextStrings {
   static const String loginTitle = 'Smart Logistics. Smooth Deliveries';
   static const String loginSubTitle = 'Smart Logistics. Smooth Deliveries';
   static const String signupTitle = "Let's create your account";
+  static const String copyrightText = '© 2026 Lohaghara Carrier';
   static const String forgetPasswordTitle = 'Forget password';
   static const String forgetPasswordSubTitle =
       "Don't worry, sometimes people can forget too, enter your email and we will send you a password reset link.";

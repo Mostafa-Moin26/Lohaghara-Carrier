@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 class OnBoardingController extends GetxController {
   static OnBoardingController get instance => Get.find();
@@ -54,6 +55,6 @@ class OnBoardingController extends GetxController {
 
   /// Finish onboarding
   void finishOnboarding() {
-    // Get.offAll(() => const LoginScreen());
+    Get.offNamed(AppRoutes.login);
   }
 }
