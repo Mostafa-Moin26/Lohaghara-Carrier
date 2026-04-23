@@ -80,7 +80,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               onTap: controller.finishOnboarding,
                               child: const Center(
                                 child: Text(
-                                  "Get Started",
+                                  AppTextStrings.getstarted,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -91,10 +91,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           )
                         : Material(
                             color: dark
-                                ? AppColors.buttonSecondary.withValues(
-                                    alpha: 0.5,
-                                  )
+                                ? AppColors.darkerGrey
                                 : AppColors.white,
+
                             shape: const StadiumBorder(),
                             child: const Padding(
                               padding: EdgeInsets.symmetric(

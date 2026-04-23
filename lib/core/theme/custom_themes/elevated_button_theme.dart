@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lohaghara_carrier/core/constants/colors.dart';
+import 'package:lohaghara_carrier/core/constants/sizes.dart';
 
 class AppElevatedButtonTheme {
   AppElevatedButtonTheme._();
@@ -19,7 +20,9 @@ class AppElevatedButtonTheme {
         color: Colors.white,
         fontWeight: FontWeight.w600,
       ),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
+      ),
     ),
   );
 

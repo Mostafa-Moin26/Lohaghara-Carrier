@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/common/styles/spacing_styles.dart';
+import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/presentation/auth/signup/widgets/signup_form.dart';
 
@@ -14,15 +15,13 @@ class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: CustomAppBar(showBackArrow: true),
       body: SafeArea(
         child: Padding(
           padding: AppSpacingStyles.paddingWithAppBarHeight,
           child: SingleChildScrollView(
             child: Column(
               children: [
-                // const SizedBox(height: AppSizes.spaceBtwSections),
-
                 /// Signup Text
                 Text(
                   AppTextStrings.signUp,

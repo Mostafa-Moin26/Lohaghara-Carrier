@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/routes/app_pages.dart';
 import 'package:lohaghara_carrier/routes/app_routes.dart';
 
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Lohaghara Carrier',
+      title: AppTextStrings.appName,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme,

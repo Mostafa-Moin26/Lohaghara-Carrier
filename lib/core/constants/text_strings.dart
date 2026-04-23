@@ -10,6 +10,7 @@ class AppTextStrings {
   static const String skip = 'Skip';
   static const String next = 'Next';
   static const String done = 'Done';
+  static const String getstarted = 'Get Started';
 
   // ---OnBoardig Texts
   static const String onBoardingTitle1 = "Manage Your Deliveries";
@@ -44,16 +45,24 @@ class AppTextStrings {
   static const String and = 'and';
   static const String privacyPolicy = 'Privacy Plicy';
   static const String termsOfUse = 'Terms of use';
+
+  /// Password configuration texts
   static const String verificationCode = 'verificationCode';
   static const String resendEmail = 'Resend Email';
   static const String resendEmailIn = 'Resend email in';
+  static const String sendResetLink = 'Send Reset Link';
+  static const String checkUrInbox = 'Check your inbox';
+  static const String sentResetLinkUrEmail =
+      "We've sent a reset link to your email";
+  static const String didntRecvIt = "Didn't receive it?";
+  static const String checkSpam = "Check spam or try again";
 
   // -- Authentication Heading Text
   static const String loginTitle = 'Smart Logistics. Smooth Deliveries';
   static const String loginSubTitle = 'Smart Logistics. Smooth Deliveries';
   static const String signupTitle = "Let's create your account";
   static const String copyrightText = '© 2026 Lohaghara Carrier';
-  static const String forgetPasswordTitle = 'Forget password';
+  static const String forgetPasswordTitle = 'Forgot password?';
   static const String forgetPasswordSubTitle =
       "Don't worry, sometimes people can forget too, enter your email and we will send you a password reset link.";
   static const String changeYourPasswordTitle = 'Password Reset Email Sent';

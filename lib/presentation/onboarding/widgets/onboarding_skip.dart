@@ -10,7 +10,10 @@ class OnBoardingSkip extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () => OnBoardingController.instance.skipPage(),
-      child: const Text(AppTextStrings.skip),
+      child: Text(
+        AppTextStrings.skip,
+        style: Theme.of(context).textTheme.bodySmall,
+      ),
     );
   }
 }
