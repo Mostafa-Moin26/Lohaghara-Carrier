@@ -30,13 +30,16 @@ class AppTextStrings {
   static const String email = 'E-Mail';
   static const String password = 'Password';
   static const String newPassword = 'New Password';
+  static const String confirmNewPassword = 'Confirm new password';
   static const String username = 'Username';
   static const String phoneNo = 'Phone Number';
   static const String rememberMe = 'Remember Me';
   static const String forgetPassword = 'Forget Password';
+
   static const String logIn = 'Login';
   static const String signIn = 'Sign In';
   static const String signUp = 'Sign Up';
+  static const String backToLogin = 'Back to login';
   static const String createAccount = 'Create Account';
   static const String orSignInWith = 'or sign in with';
   static const String orSignUpWith = 'or sign up with';
@@ -47,15 +50,23 @@ class AppTextStrings {
   static const String termsOfUse = 'Terms of use';
 
   /// Password configuration texts
+  static const String resetPassword = 'Reset Password';
   static const String verificationCode = 'verificationCode';
   static const String resendEmail = 'Resend Email';
   static const String resendEmailIn = 'Resend email in';
   static const String sendResetLink = 'Send Reset Link';
   static const String checkUrInbox = 'Check your inbox';
   static const String sentResetLinkUrEmail =
-      "We've sent a reset link to your email";
+      "We will sent a reset link to your email";
   static const String didntRecvIt = "Didn't receive it?";
   static const String checkSpam = "Check spam or try again";
+  static const String passwordRequirementText1 = 'Atleast 8 characters';
+  static const String passwordRequirementText2 =
+      'Include a number & special character';
+  static const String passwordRequirementText3 = 'Password match';
+  static const String passwordResetTitle = 'Password Reset Successful!';
+  static const String passwordResetSubTitle =
+      'You can now login with your new password.';
 
   // -- Authentication Heading Text
   static const String loginTitle = 'Smart Logistics. Smooth Deliveries';
@@ -68,6 +79,9 @@ class AppTextStrings {
   static const String changeYourPasswordTitle = 'Password Reset Email Sent';
   static const String changeYourPasswordSubTitle =
       "Your Account Security is Our Priority! We've Sent You a Secure Link to Safety Change Your Password and Keep Your Account Protected.";
+  static const String createNewPasswordTitle = 'Create New Password';
+  static const String createNewPasswordSubTitle =
+      'Your new password must be different from previous ones.';
   static const String confirmEmail = 'Verify your email address!';
   static const String confirmEmailSubTitle =
       "Congratulations! Your Account Awaits: Verify Your Email to Start Shopping and Experience a World of Unrivaled Deals and Personalized Offers.";

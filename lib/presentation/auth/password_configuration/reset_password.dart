@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
+import 'package:lohaghara_carrier/routes/app_routes.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../core/constants/image_strings.dart';
 import '../../../core/constants/sizes.dart';
@@ -13,8 +16,7 @@ class ResetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
+      appBar: CustomAppBar(
         actions: [
           IconButton(
             onPressed: () => Get.back(),
@@ -27,10 +29,10 @@ class ResetPassword extends StatelessWidget {
           padding: EdgeInsets.all(AppSizes.defaultSpace),
           child: Column(
             children: [
-              /// Image with 60% of screen width
-              Image(
+              /// lottie animation with 60% of screen width
+              Lottie.asset(
+                AppImageStrings.emailSuccessfullySent,
                 width: AppHelperFunctions.screenWidth() * 0.6,
-                image: AssetImage(AppImageStrings.appLogo),
               ),
               const SizedBox(height: AppSizes.spaceBtwSections),
 
@@ -52,7 +54,7 @@ class ResetPassword extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () => Get.back(),
+                  onPressed: () => Get.toNamed(AppRoutes.createNewPassword),
                   child: Text(AppTextStrings.done),
                 ),
               ),

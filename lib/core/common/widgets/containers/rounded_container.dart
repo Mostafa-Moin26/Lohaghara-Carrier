@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:lohaghara_carrier/core/helpers/helper_functions.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/sizes.dart';
@@ -33,18 +34,23 @@ class RoundedContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = AppHelperFunctions.isDarkMode(context);
     return Container(
       width: double.infinity,
       padding: padding ?? const EdgeInsets.all(AppSizes.md),
       decoration: BoxDecoration(
-        color: backgroundColor ?? AppColors.white,
+        color: dark ? AppColors.darkerGrey : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
         boxShadow: [AppShadows.horizontalProductShadow],
       ),
       child: Row(
         children: [
           /// Leading section
-          Icon(icon, size: AppSizes.iconLg, color: AppColors.primaryDark),
+          Icon(
+            icon,
+            size: AppSizes.iconLg,
+            color: dark ? AppColors.light : AppColors.primaryDark,
+          ),
 
           const SizedBox(width: AppSizes.md),
 

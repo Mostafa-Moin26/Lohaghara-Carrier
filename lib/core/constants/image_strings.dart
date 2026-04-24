@@ -15,13 +15,16 @@ class AppImageStrings {
 
   // -- Animations
   static const String loadingIndicator = 'assets/animations/dots.json';
-  static const String verifiyIllustration =
-      'assets/images/animations/verify_email.png';
-  static const String successIllustration =
-      'assets/images/animations/high-five.png';
+  static const String emailSuccessfullySent =
+      'assets/animations/email_successfully_sent.json';
+  static const String success = 'assets/animations/success.json';
 
   // ---- Authentication
   static const String forgotPassIcon = 'assets/images/icons/forgotPassIcon.png';
+  static const String createNewPassIcon =
+      'assets/images/icons/create_new_pass.png';
+  static const String passwordResetSuccessful =
+      'assets/images/icons/reset_successful.png';
 
   /// Review Images
   static const String reviewImage1 = "assets/images/reviews/image1.png";
