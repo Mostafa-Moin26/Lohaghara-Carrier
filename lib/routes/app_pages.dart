@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:lohaghara_carrier/presentation/auth/login/login.dart';
-import 'package:lohaghara_carrier/presentation/auth/password_configuration/create_new_password.dart';
-import 'package:lohaghara_carrier/presentation/auth/password_configuration/forgot_password.dart';
-import 'package:lohaghara_carrier/presentation/auth/password_configuration/reset_password.dart';
-import 'package:lohaghara_carrier/presentation/auth/signup/signup.dart';
-import 'package:lohaghara_carrier/presentation/onboarding/onboarding.dart';
-import '../presentation/splash/splash.dart';
+import 'package:lohaghara_carrier/features/auth/login/login.dart';
+import 'package:lohaghara_carrier/features/auth/password_configuration/create_new_password.dart';
+import 'package:lohaghara_carrier/features/auth/password_configuration/forgot_password.dart';
+import 'package:lohaghara_carrier/features/auth/password_configuration/reset_password.dart';
+import 'package:lohaghara_carrier/features/auth/signup/signup.dart';
+import 'package:lohaghara_carrier/features/onboarding/onboarding.dart';
+import '../features/splash/splash.dart';
 import 'app_routes.dart';
 
 class AppPages {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/constants/image_strings.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
-import 'package:lohaghara_carrier/presentation/splash/controllers/splash_controller.dart';
+import 'package:lohaghara_carrier/features/splash/controllers/splash_controller.dart';
 import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatelessWidget {

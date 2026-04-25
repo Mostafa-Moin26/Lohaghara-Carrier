@@ -6,6 +6,7 @@ import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 import '../../../../core/constants/sizes.dart';
 import '../../../../core/constants/text_strings.dart';
+import '../../../../navigation_menu.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -66,8 +67,8 @@ class LoginForm extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                // onPressed: () => Get.offAll(() => const NavigationMenu()),
-                onPressed: () {},
+                onPressed: () => Get.offAll(() => const NavigationMenu()),
+
                 child: const Text(AppTextStrings.signIn),
               ),
             ),

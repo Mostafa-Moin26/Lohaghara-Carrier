@@ -6,11 +6,11 @@ import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/core/device/device_utility.dart';
 import 'package:lohaghara_carrier/core/helpers/helper_functions.dart';
-import 'package:lohaghara_carrier/presentation/onboarding/controllers/onboarding_controller.dart';
-import 'package:lohaghara_carrier/presentation/onboarding/widgets/onboarding_dot_navigation.dart';
-import 'package:lohaghara_carrier/presentation/onboarding/widgets/onboarding_next_button.dart';
-import 'package:lohaghara_carrier/presentation/onboarding/widgets/onboarding_page.dart';
-import 'package:lohaghara_carrier/presentation/onboarding/widgets/onboarding_skip.dart';
+import 'package:lohaghara_carrier/features/onboarding/controllers/onboarding_controller.dart';
+import 'package:lohaghara_carrier/features/onboarding/widgets/onboarding_dot_navigation.dart';
+import 'package:lohaghara_carrier/features/onboarding/widgets/onboarding_next_button.dart';
+import 'package:lohaghara_carrier/features/onboarding/widgets/onboarding_page.dart';
+import 'package:lohaghara_carrier/features/onboarding/widgets/onboarding_skip.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});

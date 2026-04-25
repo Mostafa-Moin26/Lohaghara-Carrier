@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
-import 'package:lohaghara_carrier/presentation/auth/password_configuration/password_reset_successful.dart';
-import 'package:lohaghara_carrier/presentation/auth/password_configuration/widgets/text_with_verify_icon.dart';
+import 'package:lohaghara_carrier/features/auth/password_configuration/password_reset_successful.dart';
+import 'package:lohaghara_carrier/features/auth/password_configuration/widgets/text_with_verify_icon.dart';
 
 import '../../../core/constants/image_strings.dart';
 import '../../../core/constants/text_strings.dart';
