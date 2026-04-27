@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:lohaghara_carrier/bindings/dashboard_binding.dart';
+import 'package:lohaghara_carrier/features/dashboard/dashboard.dart';
 
 import 'core/constants/colors.dart';
 import 'core/helpers/helper_functions.dart';
@@ -15,37 +17,64 @@ class NavigationMenu extends StatelessWidget {
 
     return Scaffold(
       bottomNavigationBar: Obx(
-        () => NavigationBar(
-          height: 60,
-          elevation: 0,
-          selectedIndex: controller.selectedIndex.value,
-          onDestinationSelected: (index) => controller.updateIndex(index),
-          backgroundColor: dark ? AppColors.black : AppColors.white,
-          indicatorColor: dark
-              ? AppColors.white.withValues(alpha: 0.1)
-              : AppColors.black.withValues(alpha: 0.1),
-          destinations: [
-            const NavigationDestination(
-              icon: Icon(Iconsax.home),
-              label: 'Dashboard',
+        () => Theme(
+          data: Theme.of(context).copyWith(
+            navigationBarTheme: NavigationBarThemeData(
+              backgroundColor: dark ? AppColors.black : AppColors.background,
+
+              indicatorColor: AppColors.primaryColor.withValues(alpha: 0.2),
             ),
-            const NavigationDestination(
-              icon: Icon(Iconsax.buildings_2),
-              label: 'Factories',
-            ),
-            const NavigationDestination(
-              icon: Icon(Iconsax.document_text),
-              label: 'Records',
-            ),
-            const NavigationDestination(
-              icon: Icon(Iconsax.receipt_text),
-              label: 'Reports',
-            ),
-            const NavigationDestination(
-              icon: Icon(Iconsax.setting_2),
-              label: 'More',
-            ),
-          ],
+          ),
+          child: NavigationBar(
+            height: 60,
+            elevation: 0,
+            selectedIndex: controller.selectedIndex.value,
+            onDestinationSelected: controller.updateIndex,
+
+            destinations: const [
+              NavigationDestination(
+                icon: Icon(Iconsax.home),
+                selectedIcon: Icon(Iconsax.home, color: AppColors.primaryDark),
+                label: 'Dashboard',
+              ),
+
+              NavigationDestination(
+                icon: Icon(Iconsax.buildings_2),
+                selectedIcon: Icon(
+                  Iconsax.buildings_2,
+                  color: AppColors.primaryDark,
+                ),
+                label: 'Factories',
+              ),
+
+              NavigationDestination(
+                icon: Icon(Iconsax.document_text),
+                selectedIcon: Icon(
+                  Iconsax.document_text,
+                  color: AppColors.primaryDark,
+                ),
+                label: 'Records',
+              ),
+
+              NavigationDestination(
+                icon: Icon(Iconsax.receipt_text),
+                selectedIcon: Icon(
+                  Iconsax.receipt_text,
+                  color: AppColors.primaryDark,
+                ),
+                label: 'Reports',
+              ),
+
+              NavigationDestination(
+                icon: Icon(Iconsax.setting_2),
+                selectedIcon: Icon(
+                  Iconsax.setting_2,
+                  color: AppColors.primaryDark,
+                ),
+                label: 'More',
+              ),
+            ],
+          ),
         ),
       ),
       body: Obx(() => controller.screens[controller.selectedIndex.value]),
@@ -56,12 +85,19 @@ class NavigationMenu extends StatelessWidget {
 class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+
+    DashboardBinding().dependencies();
+  }
+
   void updateIndex(int index) {
     selectedIndex.value = index;
   }
 
   final screens = [
-    Center(child: Text('Dashboard')),
+    const Dashboard(),
     Center(child: Text('Factories')),
     Center(child: Text('Records')),
     Center(child: Text('Reports')),

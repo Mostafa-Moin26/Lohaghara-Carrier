@@ -41,7 +41,9 @@ class AppElevatedButtonTheme {
         color: Colors.white,
         fontWeight: FontWeight.w600,
       ),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
+      ),
     ),
   );
 }

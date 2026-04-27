@@ -11,6 +11,7 @@ class AppTextStrings {
   static const String next = 'Next';
   static const String done = 'Done';
   static const String getstarted = 'Get Started';
+  static const String ok = 'OK';
 
   // ---OnBoardig Texts
   static const String onBoardingTitle1 = "Manage Your Deliveries";
