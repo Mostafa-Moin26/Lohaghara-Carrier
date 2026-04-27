@@ -18,7 +18,7 @@ class DashBoardHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Hello, Tokiul 👋',
+              'Hello, Mostafa Moin 👋',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             Text('Good Morning', style: Theme.of(context).textTheme.bodyMedium),

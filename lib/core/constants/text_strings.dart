@@ -12,6 +12,7 @@ class AppTextStrings {
   static const String done = 'Done';
   static const String getstarted = 'Get Started';
   static const String ok = 'OK';
+  static const String apply = 'Apply';
 
   // ---OnBoardig Texts
   static const String onBoardingTitle1 = "Manage Your Deliveries";
@@ -101,9 +102,20 @@ class AppTextStrings {
   static const String netProfit = 'Net Profit';
   static const String recentRecords = 'Recent Records';
   static const String viewAll = 'View All';
+  static const String quickActions = 'Quick Actions';
+  static const String monthlyBilling = 'Monthly Billing';
+  static const String totalTrips = 'Total Trips';
+  static const String totalFactories = 'Total Factories';
+  static const String totalDemurrage = 'Total Demurrage';
+  static const String thisMonth = 'This Month';
+  static const String active = 'Active';
+  static const String summary = 'Summary';
+  static const String today = 'Today';
 
   // ── Records ───────────────────────────────────────────────────
   static const String addRecord = 'Add Record';
+  static const String allRecords = 'All Records';
+  static const String monthlyBill = 'Monthly Bill';
   static const String viewRecords = 'View Records';
   static const String truckNumber = 'Truck Number';
   static const String destination = 'Destination';

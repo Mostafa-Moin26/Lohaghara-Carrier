@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lohaghara_carrier/core/common/widgets/texts/section_heading.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
+import 'package:lohaghara_carrier/core/constants/text_strings.dart';
+import 'package:lohaghara_carrier/features/dashboard/widgets/dashboard_state_section.dart';
 import 'package:lohaghara_carrier/features/dashboard/widgets/month_selector.dart';
+import 'package:lohaghara_carrier/features/dashboard/widgets/quick_action_section.dart';
+import 'package:lohaghara_carrier/features/dashboard/widgets/recent_records_section.dart';
 
 import 'widgets/dashboard_header.dart';
 
@@ -13,7 +18,12 @@ class Dashboard extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(AppSizes.defaultSpace),
+            padding: const EdgeInsets.only(
+              top: AppSizes.sm,
+              left: AppSizes.defaultSpace,
+              right: AppSizes.defaultSpace,
+              bottom: AppSizes.defaultSpace,
+            ),
             child: Column(
               children: [
                 /// Header
@@ -22,6 +32,27 @@ class Dashboard extends StatelessWidget {
 
                 /// Month selector
                 MonthSelector(),
+                const SizedBox(height: AppSizes.lg),
+
+                /// Monthly Billing, Total Trips, Total Factories, Total Demurrage
+                DashboardStatsSection(),
+                const SizedBox(height: AppSizes.spaceBtwSections),
+
+                /// Quick Actions
+                SectionHeading(
+                  title: AppTextStrings.quickActions,
+                  showActionButton: false,
+                ),
+                QuickActionsSection(),
+                const SizedBox(height: AppSizes.spaceBtwItems),
+
+                /// Recent Records
+                SectionHeading(
+                  title: AppTextStrings.recentRecords,
+                  showActionButton: true,
+                ),
+                const SizedBox(height: AppSizes.spaceBtwItems),
+                RecentRecordsSection(),
               ],
             ),
           ),

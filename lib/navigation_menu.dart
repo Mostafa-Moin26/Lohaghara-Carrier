@@ -21,7 +21,6 @@ class NavigationMenu extends StatelessWidget {
           data: Theme.of(context).copyWith(
             navigationBarTheme: NavigationBarThemeData(
               backgroundColor: dark ? AppColors.black : AppColors.background,
-
               indicatorColor: AppColors.primaryColor.withValues(alpha: 0.2),
             ),
           ),
