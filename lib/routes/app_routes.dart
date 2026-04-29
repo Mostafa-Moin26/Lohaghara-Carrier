@@ -11,6 +11,7 @@ abstract class AppRoutes {
   static const String passwordResetSuccessful = '/password_reset_successful';
   static const String navigationMenu = '/navigation_menu';
   static const String dashboard = '/dashboard';
+  static const String allRecords = '/all_record';
   static const String addRecord = '/add-record';
   static const String viewRecords = '/view-records';
   static const String reports = '/reports';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:lohaghara_carrier/bindings/dashboard_binding.dart';
 import 'package:lohaghara_carrier/features/dashboard/dashboard.dart';
 import 'package:lohaghara_carrier/features/record/all_records/all_record.dart';
 
@@ -84,13 +83,6 @@ class NavigationMenu extends StatelessWidget {
 
 class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-
-    DashboardBinding().dependencies();
-  }
 
   void updateIndex(int index) {
     selectedIndex.value = index;

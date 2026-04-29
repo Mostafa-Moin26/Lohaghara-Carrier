@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
 import 'package:lohaghara_carrier/core/common/widgets/containers/search_container.dart';
 import 'package:lohaghara_carrier/core/common/widgets/records/record_tile.dart';
+import 'package:lohaghara_carrier/core/constants/colors.dart';
 import 'package:lohaghara_carrier/core/constants/enums.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
@@ -20,6 +22,26 @@ class AllRecord extends StatelessWidget {
       appBar: CustomAppBar(
         showBackArrow: true,
         title: Text(AppTextStrings.allRecords),
+      ),
+
+      /// Add Record Button
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          // Navigate to Add Record screen
+        },
+
+        backgroundColor: AppColors.primaryColor,
+
+        elevation: 2,
+
+        icon: const Icon(Iconsax.add, color: Colors.white),
+
+        label: const Text(
+          AppTextStrings.addRecord,
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+        ),
       ),
 
       body: Padding(

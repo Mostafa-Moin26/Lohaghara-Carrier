@@ -5,7 +5,9 @@ import 'package:lohaghara_carrier/features/auth/password_configuration/forgot_pa
 import 'package:lohaghara_carrier/features/auth/password_configuration/password_reset_successful.dart';
 import 'package:lohaghara_carrier/features/auth/password_configuration/reset_password.dart';
 import 'package:lohaghara_carrier/features/auth/signup/signup.dart';
+import 'package:lohaghara_carrier/features/dashboard/dashboard.dart';
 import 'package:lohaghara_carrier/features/onboarding/onboarding.dart';
+import 'package:lohaghara_carrier/features/record/all_records/all_record.dart';
 import 'package:lohaghara_carrier/navigation_menu.dart';
 import '../features/splash/splash.dart';
 import 'app_routes.dart';
@@ -45,5 +47,7 @@ class AppPages {
     ),
 
     GetPage(name: AppRoutes.navigationMenu, page: () => NavigationMenu()),
+    GetPage(name: AppRoutes.dashboard, page: () => Dashboard()),
+    GetPage(name: AppRoutes.allRecords, page: () => AllRecord()),
   ];
 }

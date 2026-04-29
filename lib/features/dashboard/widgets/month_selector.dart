@@ -12,7 +12,7 @@ import 'package:month_picker_dialog/month_picker_dialog.dart';
 class MonthSelector extends StatelessWidget {
   MonthSelector({super.key});
 
-  final controller = Get.find<DashboardController>();
+  final controller = Get.put(DashboardController());
 
   Future<void> pickMonth(BuildContext context) async {
     final dark = AppHelperFunctions.isDarkMode(context);
