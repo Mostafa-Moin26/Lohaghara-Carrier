@@ -60,7 +60,15 @@ class DashboardStatCard extends StatelessWidget {
           const SizedBox(height: AppSizes.sm),
 
           /// Amount / Price
-          AmountPriceText(price: value, isLarge: true, isCurrency: isCurrency),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: AmountPriceText(
+              price: value,
+              isLarge: true,
+              isCurrency: isCurrency,
+            ),
+          ),
 
           const SizedBox(height: AppSizes.sm),
 

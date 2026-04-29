@@ -19,7 +19,7 @@ class Dashboard extends StatelessWidget {
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(
-              top: AppSizes.sm,
+              top: AppSizes.md,
               left: AppSizes.defaultSpace,
               right: AppSizes.defaultSpace,
               bottom: AppSizes.defaultSpace,

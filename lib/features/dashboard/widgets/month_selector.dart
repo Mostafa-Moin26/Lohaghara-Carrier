@@ -84,7 +84,7 @@ class MonthSelector extends StatelessWidget {
           confirmWidget: Container(
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
             decoration: BoxDecoration(
-              color: AppColors.primaryColor,
+              color: AppColors.primaryDark,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(

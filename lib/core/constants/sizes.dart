@@ -12,11 +12,11 @@ class AppSizes {
   // Icon Sizes
   static const double iconXs = 12.0;
   static const double iconSm = 16.0;
-  static const double iconMd = 24.0;
+  static const double iconMd = 22.0;
   static const double iconLg = 32.0;
 
   // Font Sizes
-  static const double fontSm = 12.0;
+  static const double fontSm = 10.0;
   static const double fontMd = 16.0;
   static const double fontLg = 18.0;
 

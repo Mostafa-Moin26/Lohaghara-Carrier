@@ -93,7 +93,7 @@ class ForgetPassword extends StatelessWidget {
             AppTextStrings.backToLogin,
             style: Theme.of(
               context,
-            ).textTheme.titleMedium!.apply(color: AppColors.primaryDark),
+            ).textTheme.bodyMedium!.apply(color: AppColors.primaryDark),
           ),
         ),
       ),

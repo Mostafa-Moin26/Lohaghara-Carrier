@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lohaghara_carrier/bindings/dashboard_binding.dart';
 import 'package:lohaghara_carrier/features/dashboard/dashboard.dart';
+import 'package:lohaghara_carrier/features/record/all_records/all_record.dart';
 
 import 'core/constants/colors.dart';
 import 'core/helpers/helper_functions.dart';
@@ -98,7 +99,7 @@ class NavigationController extends GetxController {
   final screens = [
     const Dashboard(),
     Center(child: Text('Factories')),
-    Center(child: Text('Records')),
+    const AllRecord(),
     Center(child: Text('Reports')),
     Center(child: Text('More')),
   ];

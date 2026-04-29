@@ -107,14 +107,16 @@ class AppTextStrings {
   static const String totalTrips = 'Total Trips';
   static const String totalFactories = 'Total Factories';
   static const String totalDemurrage = 'Total Demurrage';
-  static const String thisMonth = 'This Month';
   static const String active = 'Active';
   static const String summary = 'Summary';
   static const String today = 'Today';
+  static const String thisWeek = 'This Week';
+  static const String thisMonth = 'This Month';
 
   // ── Records ───────────────────────────────────────────────────
   static const String addRecord = 'Add Record';
   static const String allRecords = 'All Records';
+  static const String all = 'All';
   static const String monthlyBill = 'Monthly Bill';
   static const String viewRecords = 'View Records';
   static const String truckNumber = 'Truck Number';

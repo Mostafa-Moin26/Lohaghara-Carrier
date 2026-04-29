@@ -1,26 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:lohaghara_carrier/core/common/styles/shadows.dart';
 import 'package:lohaghara_carrier/core/common/widgets/texts/amount_price_text.dart';
 import 'package:lohaghara_carrier/core/constants/colors.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/helpers/helper_functions.dart';
 
 class RecordTile extends StatelessWidget {
-  const RecordTile({super.key});
+  const RecordTile({
+    super.key,
+    required this.truckNumber,
+    required this.companyName,
+    required this.amount,
+    required this.date,
+  });
+
+  final String truckNumber;
+  final String companyName;
+  final String amount;
+  final String date;
 
   @override
   Widget build(BuildContext context) {
     final dark = AppHelperFunctions.isDarkMode(context);
+    final screenWidth = AppHelperFunctions.screenWidth();
+
+    final double companyFontSize = screenWidth < 360 ? 11.0 : 12.0;
+
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: dark ? AppColors.darkerGrey : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
-        boxShadow: [AppShadows.horizontalProductShadow],
       ),
       child: Row(
         children: [
+          /// Leading icon
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -36,47 +50,57 @@ class RecordTile extends StatelessWidget {
 
           const SizedBox(width: AppSizes.spaceBtwItems),
 
+          /// Middle section
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// Truck No.
+                /// Truck Number
                 Text(
-                  "DM TA-18-4209",
+                  truckNumber,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: Theme.of(
                     context,
                   ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(height: AppSizes.xs),
+
+                const SizedBox(height: AppSizes.xs),
 
                 /// Company Name
                 Text(
-                  "Meghna Knit Composite Ltd.",
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodySmall!.copyWith(fontSize: 12),
+                  companyName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall!.copyWith(fontSize: companyFontSize),
                 ),
               ],
             ),
           ),
 
+          const SizedBox(width: AppSizes.sm),
+
+          /// Trailing section
           Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               /// Amount
-              AmountPriceText(
-                price: '15,500',
-                isCurrency: true,
-                color: Colors.green,
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: AmountPriceText(
+                  price: amount,
+                  isCurrency: true,
+                  color: Colors.green,
+                ),
               ),
 
-              SizedBox(height: AppSizes.xs),
+              const SizedBox(height: AppSizes.xs),
+
               Text(
-                "Today",
+                date,
                 style: Theme.of(
                   context,
                 ).textTheme.bodySmall!.copyWith(fontSize: 12),

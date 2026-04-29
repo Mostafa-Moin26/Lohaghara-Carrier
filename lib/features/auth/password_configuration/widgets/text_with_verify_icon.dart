@@ -13,11 +13,22 @@ class TextWithVerifyIcon extends StatelessWidget {
     return Row(
       children: [
         /// verify icon
-        Icon(Iconsax.verify5, color: AppColors.primaryLight),
+        Icon(
+          Iconsax.verify5,
+          size: AppSizes.iconMd,
+          color: AppColors.primaryLight,
+        ),
         const SizedBox(width: AppSizes.sm),
 
         /// Text
-        Text(text, style: Theme.of(context).textTheme.bodyLarge),
+        Expanded(
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.bodyMedium,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ),
       ],
     );
   }

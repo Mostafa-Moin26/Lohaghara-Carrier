@@ -19,38 +19,53 @@ class QuickActionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = AppHelperFunctions.isDarkMode(context);
+
     return Expanded(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-        decoration: BoxDecoration(
-          color: dark ? AppColors.darkerGrey : AppColors.white,
-          borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
-          boxShadow: [AppShadows.horizontalProductShadow],
-        ),
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(AppSizes.defaultPadding),
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
-              ),
-              child: Icon(icon, color: color, size: AppSizes.iconSm),
-            ),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final width = constraints.maxWidth;
 
-            const SizedBox(height: AppSizes.sm),
+          final iconSize = width < 85 ? 18.0 : 22.0;
+          final textSize = width < 85 ? 10.0 : 12.0;
+          final iconPadding = width < 85 ? 10.0 : 12.0;
 
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontSize: 12,
-                color: dark ? AppColors.grey : AppColors.black,
-                fontWeight: FontWeight.w500,
-              ),
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+            decoration: BoxDecoration(
+              color: dark ? AppColors.darkerGrey : AppColors.white,
+              borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
+              boxShadow: [AppShadows.horizontalProductShadow],
             ),
-          ],
-        ),
+            child: Column(
+              children: [
+                /// Icon Container
+                Container(
+                  padding: EdgeInsets.all(iconPadding),
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
+                  ),
+                  child: Icon(icon, color: color, size: iconSize),
+                ),
+
+                const SizedBox(height: AppSizes.sm),
+
+                /// Title
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: textSize,
+                    color: dark ? AppColors.grey : AppColors.black,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

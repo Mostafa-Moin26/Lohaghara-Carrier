@@ -8,50 +8,71 @@ class DashboardStatsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        childAspectRatio: 1.2,
-      ),
-      children: const [
-        DashboardStatCard(
-          title: AppTextStrings.monthlyBilling,
-          value: "16,99,500",
-          subtitle: AppTextStrings.thisMonth,
-          icon: Iconsax.wallet_money,
-          iconColor: Colors.purple,
-          isCurrency: true,
-        ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final screenWidth = constraints.maxWidth;
 
-        DashboardStatCard(
-          title: AppTextStrings.totalTrips,
-          value: "110",
-          subtitle: AppTextStrings.thisMonth,
-          icon: Iconsax.truck_fast,
-          iconColor: Colors.blue,
-        ),
+        double aspectRatio;
 
-        DashboardStatCard(
-          title: AppTextStrings.totalFactories,
-          value: "4",
-          subtitle: AppTextStrings.active,
-          icon: Iconsax.buildings,
-          iconColor: Colors.green,
-        ),
+        /// Small phones
+        if (screenWidth < 360) {
+          aspectRatio = 1.0;
+        }
+        /// Medium phones
+        else if (screenWidth < 400) {
+          aspectRatio = 1.15;
+        }
+        /// Large phones
+        else {
+          aspectRatio = 1.3;
+        }
 
-        DashboardStatCard(
-          title: AppTextStrings.totalDemurrage,
-          value: "1,05,000",
-          subtitle: AppTextStrings.thisMonth,
-          icon: Iconsax.money_recive,
-          iconColor: Colors.orange,
-          isCurrency: true,
-        ),
-      ],
+        return GridView(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: aspectRatio,
+          ),
+          children: const [
+            DashboardStatCard(
+              title: AppTextStrings.monthlyBilling,
+              value: "16,99,500",
+              subtitle: AppTextStrings.thisMonth,
+              icon: Iconsax.wallet_money,
+              iconColor: Colors.purple,
+              isCurrency: true,
+            ),
+
+            DashboardStatCard(
+              title: AppTextStrings.totalTrips,
+              value: "110",
+              subtitle: AppTextStrings.thisMonth,
+              icon: Iconsax.truck_fast,
+              iconColor: Colors.blue,
+            ),
+
+            DashboardStatCard(
+              title: AppTextStrings.totalFactories,
+              value: "4",
+              subtitle: AppTextStrings.active,
+              icon: Iconsax.buildings,
+              iconColor: Colors.green,
+            ),
+
+            DashboardStatCard(
+              title: AppTextStrings.totalDemurrage,
+              value: "1,05,000",
+              subtitle: AppTextStrings.thisMonth,
+              icon: Iconsax.money_recive,
+              iconColor: Colors.orange,
+              isCurrency: true,
+            ),
+          ],
+        );
+      },
     );
   }
 }
