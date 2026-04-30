@@ -39,7 +39,7 @@ class CreateNewPassword extends StatelessWidget {
                 const SizedBox(height: AppSizes.spaceBtwItems),
                 Text(
                   textAlign: TextAlign.center,
-                  AppTextStrings.createNewPasswordSubTitle,
+                  AppTextStrings.createNewPasswordSubtitle,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const SizedBox(height: AppSizes.spaceBtwSections),
@@ -65,17 +65,11 @@ class CreateNewPassword extends StatelessWidget {
                 const SizedBox(height: AppSizes.spaceBtwSections * 1.5),
 
                 /// Password Requirement texts
-                TextWithVerifyIcon(
-                  text: AppTextStrings.passwordRequirementText1,
-                ),
+                TextWithVerifyIcon(text: AppTextStrings.passwordRequirement1),
                 const SizedBox(height: AppSizes.spaceBtwItems),
-                TextWithVerifyIcon(
-                  text: AppTextStrings.passwordRequirementText2,
-                ),
+                TextWithVerifyIcon(text: AppTextStrings.passwordRequirement2),
                 const SizedBox(height: AppSizes.spaceBtwItems),
-                TextWithVerifyIcon(
-                  text: AppTextStrings.passwordRequirementText3,
-                ),
+                TextWithVerifyIcon(text: AppTextStrings.passwordRequirement3),
                 const SizedBox(height: AppSizes.spaceBtwSections * 2),
 
                 /// Button

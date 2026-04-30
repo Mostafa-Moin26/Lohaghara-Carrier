@@ -35,18 +35,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             children: const [
               OnBoardingPage(
                 image: AppImageStrings.onBoardingImage1,
-                title: AppTextStrings.onBoardingTitle1,
-                subTitle: AppTextStrings.onBoardingSubTitle1,
+                title: AppTextStrings.onboardingTitle1,
+                subTitle: AppTextStrings.onboardingSubtitle1,
               ),
               OnBoardingPage(
                 image: AppImageStrings.onBoardingImage2,
-                title: AppTextStrings.onBoardingTitle2,
-                subTitle: AppTextStrings.onBoardingSubTitle2,
+                title: AppTextStrings.onboardingTitle2,
+                subTitle: AppTextStrings.onboardingSubtitle2,
               ),
               OnBoardingPage(
                 image: AppImageStrings.onBoardingImage3,
-                title: AppTextStrings.onBoardingTitle3,
-                subTitle: AppTextStrings.onBoardingSubTitle3,
+                title: AppTextStrings.onboardingTitle3,
+                subTitle: AppTextStrings.onboardingSubtitle3,
               ),
             ],
           ),
@@ -80,7 +80,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               onTap: controller.finishOnboarding,
                               child: const Center(
                                 child: Text(
-                                  AppTextStrings.getstarted,
+                                  AppTextStrings.getStarted,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,

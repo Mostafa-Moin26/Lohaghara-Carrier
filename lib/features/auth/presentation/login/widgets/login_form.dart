@@ -55,7 +55,7 @@ class LoginForm extends StatelessWidget {
                 /// Forget Password
                 TextButton(
                   onPressed: () => Get.toNamed(AppRoutes.forgotPassword),
-                  child: const Text(AppTextStrings.forgetPassword),
+                  child: const Text(AppTextStrings.forgotPassword),
                 ),
               ],
             ),
@@ -78,11 +78,11 @@ class LoginForm extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(AppTextStrings.dontHaveAcc),
+                const Text(AppTextStrings.dontHaveAccount),
                 GestureDetector(
                   onTap: () => Get.toNamed(AppRoutes.signup),
                   child: const Text(
-                    AppTextStrings.signUp,
+                    ' ${AppTextStrings.signUp}',
                     style: TextStyle(
                       color: AppColors.primaryColor,
                       fontWeight: FontWeight.bold,

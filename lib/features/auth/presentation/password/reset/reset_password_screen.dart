@@ -38,13 +38,13 @@ class ResetPassword extends StatelessWidget {
 
               /// Title and SubTitle
               Text(
-                AppTextStrings.changeYourPasswordTitle,
+                AppTextStrings.changePasswordTitle,
                 style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: AppSizes.spaceBtwItems),
               Text(
-                AppTextStrings.changeYourPasswordSubTitle,
+                AppTextStrings.changePasswordSubtitle,
                 style: Theme.of(context).textTheme.labelLarge,
                 textAlign: TextAlign.center,
               ),

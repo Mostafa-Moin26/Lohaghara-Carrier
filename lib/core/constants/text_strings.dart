@@ -1,100 +1,128 @@
 class AppTextStrings {
   AppTextStrings._();
 
-  // ---- App
+  // ─────────────────────────────────────────────
+  // 🌍 APP INFO
+  // ─────────────────────────────────────────────
   static const String appName = 'Lohaghara Carrier';
   static const String appTagline = 'Smart Logistics. Smooth Deliveries';
-  // ---GLOBAL Texts
+  static const String copyrightText = '© 2026 Lohaghara Carrier';
+
+  // ─────────────────────────────────────────────
+  // 🌐 GLOBAL ACTIONS
+  // ─────────────────────────────────────────────
   static const String submit = 'Submit';
-  static const String ncontinue = 'Continue';
+  static const String continueText = 'Continue';
   static const String skip = 'Skip';
   static const String next = 'Next';
   static const String done = 'Done';
-  static const String getstarted = 'Get Started';
+  static const String getStarted = 'Get Started';
   static const String ok = 'OK';
   static const String apply = 'Apply';
 
-  // ---OnBoardig Texts
-  static const String onBoardingTitle1 = "Manage Your Deliveries";
-  static const String onBoardingTitle2 = "Generate Smart Reports";
-  static const String onBoardingTitle3 = "Secure Your Data";
+  // ─────────────────────────────────────────────
+  // 🚀 ONBOARDING
+  // ─────────────────────────────────────────────
+  static const String onboardingTitle1 = "Manage Your Deliveries";
+  static const String onboardingTitle2 = "Generate Smart Reports";
+  static const String onboardingTitle3 = "Secure Your Data";
 
-  static const String onBoardingSubTitle1 =
+  static const String onboardingSubtitle1 =
       "Track trucks, manage loads, and organize daily delivery tasks with ease.";
-  static const String onBoardingSubTitle2 =
+  static const String onboardingSubtitle2 =
       "Create detailed reports and export them as PDF anytime you need.";
-  static const String onBoardingSubTitle3 =
+  static const String onboardingSubtitle3 =
       "Protect your business data with PIN, fingerprint, and secure access.";
 
-  // -- Authentication Form Text
+  // ─────────────────────────────────────────────
+  // 🔐 AUTH - FORM FIELDS
+  // ─────────────────────────────────────────────
   static const String firstName = 'First Name';
   static const String lastName = 'Last Name';
+  static const String username = 'Username';
   static const String email = 'E-Mail';
+  static const String phoneNo = 'Phone Number';
   static const String password = 'Password';
   static const String newPassword = 'New Password';
   static const String confirmNewPassword = 'Confirm new password';
-  static const String username = 'Username';
-  static const String phoneNo = 'Phone Number';
-  static const String rememberMe = 'Remember Me';
-  static const String forgetPassword = 'Forget Password';
 
-  static const String logIn = 'Login';
+  // ─────────────────────────────────────────────
+  // 🔐 AUTH - ACTIONS
+  // ─────────────────────────────────────────────
+  static const String login = 'Login';
   static const String signIn = 'Sign In';
   static const String signUp = 'Sign Up';
-  static const String backToLogin = 'Back to login';
   static const String createAccount = 'Create Account';
+  static const String backToLogin = 'Back to login';
+  static const String rememberMe = 'Remember Me';
+  static const String forgotPassword = 'Forgot Password';
+
   static const String orSignInWith = 'or sign in with';
   static const String orSignUpWith = 'or sign up with';
-  static const String dontHaveAcc = "Don't have an account? ";
+  static const String dontHaveAccount = "Don't have an account?";
   static const String iAgreeTo = 'I agree to';
   static const String and = 'and';
-  static const String privacyPolicy = 'Privacy Plicy';
+  static const String privacyPolicy = 'Privacy Policy';
   static const String termsOfUse = 'Terms of use';
 
-  /// Password configuration texts
+  // ─────────────────────────────────────────────
+  // 🔐 AUTH - PASSWORD FLOW
+  // ─────────────────────────────────────────────
   static const String resetPassword = 'Reset Password';
-  static const String verificationCode = 'verificationCode';
+  static const String verificationCode = 'Verification Code';
   static const String resendEmail = 'Resend Email';
   static const String resendEmailIn = 'Resend email in';
   static const String sendResetLink = 'Send Reset Link';
-  static const String checkUrInbox = 'Check your inbox';
-  static const String sentResetLinkUrEmail =
-      "We will sent a reset link to your email";
-  static const String didntRecvIt = "Didn't receive it?";
+
+  static const String checkInbox = 'Check your inbox';
+  static const String sentResetLinkToEmail =
+      "We have sent a reset link to your email";
+  static const String didntReceiveIt = "Didn't receive it?";
   static const String checkSpam = "Check spam or try again";
-  static const String passwordRequirementText1 = 'Atleast 8 characters';
-  static const String passwordRequirementText2 =
+
+  static const String passwordRequirement1 = 'At least 8 characters';
+  static const String passwordRequirement2 =
       'Include a number & special character';
-  static const String passwordRequirementText3 = 'Password match';
-  static const String passwordResetTitle = 'Password Reset Successful!';
-  static const String passwordResetSubTitle =
+  static const String passwordRequirement3 = 'Passwords must match';
+
+  static const String passwordResetSuccessTitle = 'Password Reset Successful!';
+  static const String passwordResetSuccessSubtitle =
       'You can now login with your new password.';
 
-  // -- Authentication Heading Text
+  // ─────────────────────────────────────────────
+  // 🔐 AUTH - HEADINGS
+  // ─────────────────────────────────────────────
   static const String loginTitle = 'Smart Logistics. Smooth Deliveries';
-  static const String loginSubTitle = 'Smart Logistics. Smooth Deliveries';
+  static const String loginSubtitle = 'Smart Logistics. Smooth Deliveries';
   static const String signupTitle = "Let's create your account";
-  static const String copyrightText = '© 2026 Lohaghara Carrier';
-  static const String forgetPasswordTitle = 'Forgot password?';
-  static const String forgetPasswordSubTitle =
-      "Don't worry, sometimes people can forget too, enter your email and we will send you a password reset link.";
-  static const String changeYourPasswordTitle = 'Password Reset Email Sent';
-  static const String changeYourPasswordSubTitle =
-      "Your Account Security is Our Priority! We've Sent You a Secure Link to Safety Change Your Password and Keep Your Account Protected.";
-  static const String createNewPasswordTitle = 'Create New Password';
-  static const String createNewPasswordSubTitle =
-      'Your new password must be different from previous ones.';
-  static const String confirmEmail = 'Verify your email address!';
-  static const String confirmEmailSubTitle =
-      "Congratulations! Your Account Awaits: Verify Your Email to Start Shopping and Experience a World of Unrivaled Deals and Personalized Offers.";
-  static const String emailNotReceivedMessage =
-      "Didn't get the email? Check your junk/spam or resend it.";
-  static const String yourAccountCreatedTitle =
-      'Your account successfully created!';
-  static const String yourAccountCreatedSubTitle =
-      'Welcome to Your Ultimate Shopping Destination: Your Account is Created, Unleash the Joy of Seamless Online Shopping!';
 
-  // ── Dashboard ─────────────────────────────────────────────────
+  static const String forgotPasswordTitle = 'Forgot password?';
+  static const String forgotPasswordSubtitle =
+      "Enter your email and we will send you a password reset link.";
+
+  static const String changePasswordTitle = 'Password Reset Email Sent';
+  static const String changePasswordSubtitle =
+      "We've sent you a secure link to change your password.";
+
+  static const String createNewPasswordTitle = 'Create New Password';
+  static const String createNewPasswordSubtitle =
+      'Your new password must be different from previous ones.';
+
+  static const String confirmEmailTitle = 'Verify your email address!';
+  static const String confirmEmailSubtitle =
+      "Verify your email to start using the app.";
+
+  static const String emailNotReceived =
+      "Didn't get the email? Check spam or resend.";
+
+  static const String accountCreatedTitle =
+      'Your account was successfully created!';
+  static const String accountCreatedSubtitle =
+      'Welcome! Start exploring your dashboard.';
+
+  // ─────────────────────────────────────────────
+  // 📊 DASHBOARD
+  // ─────────────────────────────────────────────
   static const String dashboard = 'Dashboard';
   static const String totalDeliveries = 'Total Deliveries';
   static const String totalRevenue = 'Total Revenue';
@@ -107,43 +135,55 @@ class AppTextStrings {
   static const String totalTrips = 'Total Trips';
   static const String totalFactories = 'Total Factories';
   static const String totalDemurrage = 'Total Demurrage';
+
   static const String active = 'Active';
   static const String summary = 'Summary';
   static const String today = 'Today';
   static const String thisWeek = 'This Week';
   static const String thisMonth = 'This Month';
 
-  // ── Records ───────────────────────────────────────────────────
+  // ─────────────────────────────────────────────
+  // 📦 RECORDS
+  // ─────────────────────────────────────────────
   static const String addRecord = 'Add Record';
   static const String allRecords = 'All Records';
   static const String all = 'All';
   static const String monthlyBill = 'Monthly Bill';
   static const String viewRecords = 'View Records';
+
   static const String truckNumber = 'Truck Number';
   static const String destination = 'Destination';
   static const String goodsType = 'Goods Type';
+
   static const String fare = 'Fare (BDT)';
   static const String fuelCost = 'Fuel Cost (BDT)';
   static const String driverCost = 'Driver Cost (BDT)';
   static const String otherCost = 'Other Cost (BDT)';
+
   static const String deliveryDate = 'Delivery Date';
   static const String notes = 'Notes (Optional)';
 
-  // ── Reports ───────────────────────────────────────────────────
+  // ─────────────────────────────────────────────
+  // 📈 REPORTS
+  // ─────────────────────────────────────────────
   static const String reports = 'Reports';
   static const String generateReport = 'Generate Report';
   static const String fromDate = 'From Date';
   static const String toDate = 'To Date';
   static const String downloadPdf = 'Download PDF';
 
-  // ── Security ──────────────────────────────────────────────────
+  // ─────────────────────────────────────────────
+  // 🔒 SECURITY
+  // ─────────────────────────────────────────────
   static const String enterPin = 'Enter Your PIN';
   static const String createPin = 'Create a PIN';
   static const String confirmPin = 'Confirm PIN';
   static const String useFingerprint = 'Use Fingerprint';
   static const String pinMismatch = 'PINs do not match. Try again.';
 
-  // ── Common ────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────
+  // 🧩 COMMON
+  // ─────────────────────────────────────────────
   static const String save = 'Save';
   static const String cancel = 'Cancel';
   static const String delete = 'Delete';
@@ -158,7 +198,9 @@ class AppTextStrings {
   static const String profile = 'Profile';
   static const String logout = 'Logout';
 
-  // -- Home
-  static const String homeAppbarTitle = "Good day for shopping";
-  static const String homeAppbarSubTitle = "Mostafa Moin";
+  // ─────────────────────────────────────────────
+  // 🏠 HOME
+  // ─────────────────────────────────────────────
+  static const String homeAppbarTitle = "Good day";
+  static const String homeAppbarSubtitle = "Welcome back!";
 }

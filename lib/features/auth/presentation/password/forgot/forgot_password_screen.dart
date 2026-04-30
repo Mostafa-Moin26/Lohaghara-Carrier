@@ -33,13 +33,13 @@ class ForgetPassword extends StatelessWidget {
 
                 /// Headings
                 Text(
-                  AppTextStrings.forgetPasswordTitle,
+                  AppTextStrings.forgotPasswordTitle,
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(height: AppSizes.spaceBtwItems),
                 Text(
                   textAlign: TextAlign.center,
-                  AppTextStrings.forgetPasswordSubTitle,
+                  AppTextStrings.forgotPasswordSubtitle,
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 const SizedBox(height: AppSizes.spaceBtwSections),
@@ -66,15 +66,15 @@ class ForgetPassword extends StatelessWidget {
 
                 /// Additional text container
                 RoundedContainer(
-                  title: AppTextStrings.checkUrInbox,
+                  title: AppTextStrings.checkInbox,
                   icon: Iconsax.directbox_notif,
-                  subTitle: AppTextStrings.sentResetLinkUrEmail,
+                  subTitle: AppTextStrings.sentResetLinkToEmail,
                   showSubTitle: true,
                   showButton: false,
                 ),
                 const SizedBox(height: AppSizes.sm),
                 RoundedContainer(
-                  title: AppTextStrings.didntRecvIt,
+                  title: AppTextStrings.didntReceiveIt,
                   icon: Iconsax.message_question,
                   subTitle: AppTextStrings.checkSpam,
                   showSubTitle: true,

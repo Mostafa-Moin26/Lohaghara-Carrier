@@ -33,7 +33,7 @@ class PasswordResetSuccessful extends StatelessWidget {
 
                   /// Title
                   Text(
-                    AppTextStrings.passwordResetTitle,
+                    AppTextStrings.passwordResetSuccessSubtitle,
                     style: Theme.of(context).textTheme.headlineLarge,
                     textAlign: TextAlign.center,
                   ),
@@ -41,7 +41,7 @@ class PasswordResetSuccessful extends StatelessWidget {
 
                   /// SubTitle
                   Text(
-                    AppTextStrings.passwordResetSubTitle,
+                    AppTextStrings.passwordResetSuccessSubtitle,
                     style: Theme.of(context).textTheme.bodySmall,
                     textAlign: TextAlign.center,
                   ),
