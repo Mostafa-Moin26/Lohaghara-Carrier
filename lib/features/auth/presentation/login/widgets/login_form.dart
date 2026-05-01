@@ -4,8 +4,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:lohaghara_carrier/core/constants/colors.dart';
 import 'package:lohaghara_carrier/routes/app_routes.dart';
 
-import '../../../../core/constants/sizes.dart';
-import '../../../../core/constants/text_strings.dart';
+import '../../../../../core/constants/sizes.dart';
+import '../../../../../core/constants/text_strings.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});

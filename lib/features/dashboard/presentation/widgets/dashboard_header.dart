@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/colors.dart';
-import '../../../core/constants/image_strings.dart';
-import '../../../core/helpers/helper_functions.dart';
+import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/image_strings.dart';
+import '../../../../core/helpers/helper_functions.dart';
 
 class DashBoardHeader extends StatelessWidget {
   const DashBoardHeader({super.key});

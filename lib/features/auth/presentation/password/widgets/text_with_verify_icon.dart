@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../core/constants/colors.dart';
-import '../../../../core/constants/sizes.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/constants/sizes.dart';
 
 class TextWithVerifyIcon extends StatelessWidget {
   const TextWithVerifyIcon({super.key, required this.text});

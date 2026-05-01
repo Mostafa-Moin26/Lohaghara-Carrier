@@ -1,15 +1,16 @@
 import 'package:get/get.dart';
-import 'package:lohaghara_carrier/features/auth/login/login.dart';
-import 'package:lohaghara_carrier/features/auth/password_configuration/create_new_password.dart';
-import 'package:lohaghara_carrier/features/auth/password_configuration/forgot_password.dart';
-import 'package:lohaghara_carrier/features/auth/password_configuration/password_reset_successful.dart';
-import 'package:lohaghara_carrier/features/auth/password_configuration/reset_password.dart';
-import 'package:lohaghara_carrier/features/auth/signup/signup.dart';
-import 'package:lohaghara_carrier/features/dashboard/dashboard.dart';
-import 'package:lohaghara_carrier/features/onboarding/onboarding.dart';
-import 'package:lohaghara_carrier/features/record/all_records/all_record.dart';
+import 'package:lohaghara_carrier/features/auth/presentation/login/login_screen.dart';
+import 'package:lohaghara_carrier/features/auth/presentation/password/create/create_new_password_screen.dart';
+import 'package:lohaghara_carrier/features/auth/presentation/password/forgot/forgot_password_screen.dart';
+import 'package:lohaghara_carrier/features/auth/presentation/password/success/password_reset_successful_screen.dart';
+import 'package:lohaghara_carrier/features/auth/presentation/password/reset/reset_password_screen.dart';
+import 'package:lohaghara_carrier/features/auth/presentation/signup/signup_screen.dart';
+import 'package:lohaghara_carrier/features/dashboard/presentation/dashboard_screen.dart';
+import 'package:lohaghara_carrier/features/onboarding/onboarding_screen.dart';
+import 'package:lohaghara_carrier/features/record/presentation/add_record/add_record_screen.dart';
+import 'package:lohaghara_carrier/features/record/presentation/all_records/all_record_screen.dart';
 import 'package:lohaghara_carrier/navigation_menu.dart';
-import '../features/splash/splash.dart';
+import '../features/splash/splash_screen.dart';
 import 'app_routes.dart';
 
 class AppPages {
@@ -49,5 +50,6 @@ class AppPages {
     GetPage(name: AppRoutes.navigationMenu, page: () => NavigationMenu()),
     GetPage(name: AppRoutes.dashboard, page: () => Dashboard()),
     GetPage(name: AppRoutes.allRecords, page: () => AllRecord()),
+    GetPage(name: AppRoutes.addRecord, page: () => AddRecordScreen()),
   ];
 }

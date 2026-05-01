@@ -7,9 +7,9 @@ import 'package:lohaghara_carrier/core/constants/image_strings.dart';
 import 'package:lohaghara_carrier/core/helpers/helper_functions.dart';
 import 'package:lohaghara_carrier/routes/app_routes.dart';
 
-import '../../../core/common/widgets/containers/rounded_container.dart';
-import '../../../core/constants/sizes.dart';
-import '../../../core/constants/text_strings.dart';
+import '../../../../../core/common/widgets/containers/rounded_container.dart';
+import '../../../../../core/constants/sizes.dart';
+import '../../../../../core/constants/text_strings.dart';
 
 class ForgetPassword extends StatelessWidget {
   const ForgetPassword({super.key});

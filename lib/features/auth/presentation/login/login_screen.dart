@@ -5,7 +5,7 @@ import 'package:lohaghara_carrier/core/common/widgets/login_signup/form_divider.
 import 'package:lohaghara_carrier/core/common/widgets/login_signup/social_buttons.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
-import 'package:lohaghara_carrier/features/auth/login/widgets/login_form.dart';
+import 'package:lohaghara_carrier/features/auth/presentation/login/widgets/login_form.dart';
 
 import 'widgets/login_header.dart';
 

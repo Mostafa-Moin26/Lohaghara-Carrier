@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/colors.dart';
-import '../../../../core/constants/sizes.dart';
-import '../../../../core/constants/text_strings.dart';
-import '../../../../core/helpers/helper_functions.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/constants/sizes.dart';
+import '../../../../../core/constants/text_strings.dart';
+import '../../../../../core/helpers/helper_functions.dart';
 
 class TermsAndConditionCheckbox extends StatelessWidget {
   const TermsAndConditionCheckbox({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:lohaghara_carrier/features/dashboard/dashboard.dart';
-import 'package:lohaghara_carrier/features/record/all_records/all_record.dart';
+import 'package:lohaghara_carrier/features/dashboard/presentation/dashboard_screen.dart';
+import 'package:lohaghara_carrier/features/record/presentation/all_records/all_record_screen.dart';
 
 import 'core/constants/colors.dart';
 import 'core/helpers/helper_functions.dart';

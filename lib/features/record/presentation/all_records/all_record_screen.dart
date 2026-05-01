@@ -8,9 +8,10 @@ import 'package:lohaghara_carrier/core/constants/colors.dart';
 import 'package:lohaghara_carrier/core/constants/enums.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
-import 'package:lohaghara_carrier/features/record/all_records/controllers/all_record_controller.dart';
-import 'package:lohaghara_carrier/features/record/all_records/widgets/calendar_container.dart';
-import 'package:lohaghara_carrier/features/record/all_records/widgets/record_filter_chip.dart';
+import 'package:lohaghara_carrier/features/record/presentation/all_records/controllers/all_record_controller.dart';
+import 'package:lohaghara_carrier/features/record/presentation/all_records/widgets/calendar_container.dart';
+import 'package:lohaghara_carrier/features/record/presentation/all_records/widgets/record_filter_chip.dart';
+import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 class AllRecord extends StatelessWidget {
   const AllRecord({super.key});
@@ -29,7 +30,7 @@ class AllRecord extends StatelessWidget {
 
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // Navigate to Add Record screen
+          Get.toNamed(AppRoutes.addRecord);
         },
 
         backgroundColor: AppColors.primaryColor,
@@ -49,6 +50,8 @@ class AllRecord extends StatelessWidget {
 
         child: Column(
           children: [
+            const SizedBox(height: AppSizes.spaceBtwItems),
+
             /// Search Bar
             SearchContainer(
               text: 'Search by truck number...',

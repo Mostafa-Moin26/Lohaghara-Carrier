@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/common/widgets/texts/section_heading.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
-import 'package:lohaghara_carrier/features/dashboard/widgets/dashboard_state_section.dart';
-import 'package:lohaghara_carrier/features/dashboard/widgets/month_selector.dart';
-import 'package:lohaghara_carrier/features/dashboard/widgets/quick_action_section.dart';
-import 'package:lohaghara_carrier/features/dashboard/widgets/recent_records_section.dart';
+import 'package:lohaghara_carrier/features/dashboard/presentation/widgets/dashboard_state_section.dart';
+import 'package:lohaghara_carrier/features/dashboard/presentation/widgets/month_selector.dart';
+import 'package:lohaghara_carrier/features/dashboard/presentation/widgets/quick_action_section.dart';
+import 'package:lohaghara_carrier/features/dashboard/presentation/widgets/recent_records_section.dart';
 import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 import 'widgets/dashboard_header.dart';

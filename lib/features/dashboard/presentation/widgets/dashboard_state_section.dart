@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
-import 'package:lohaghara_carrier/features/dashboard/widgets/dashboard_card.dart';
+import 'package:lohaghara_carrier/features/dashboard/presentation/widgets/dashboard_card.dart';
 
 class DashboardStatsSection extends StatelessWidget {
   const DashboardStatsSection({super.key});

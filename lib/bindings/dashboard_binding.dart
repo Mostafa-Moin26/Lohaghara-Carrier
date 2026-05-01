@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:lohaghara_carrier/features/dashboard/controllers/dashboard_controller.dart';
+import 'package:lohaghara_carrier/features/dashboard/presentation/controllers/dashboard_controller.dart';
 
 class DashboardBinding extends Bindings {
   @override

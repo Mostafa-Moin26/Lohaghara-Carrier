@@ -5,10 +5,10 @@ import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
 import 'package:lohaghara_carrier/routes/app_routes.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../core/constants/image_strings.dart';
-import '../../../core/constants/sizes.dart';
-import '../../../core/constants/text_strings.dart';
-import '../../../core/helpers/helper_functions.dart';
+import '../../../../../core/constants/image_strings.dart';
+import '../../../../../core/constants/sizes.dart';
+import '../../../../../core/constants/text_strings.dart';
+import '../../../../../core/helpers/helper_functions.dart';
 
 class ResetPassword extends StatelessWidget {
   const ResetPassword({super.key});

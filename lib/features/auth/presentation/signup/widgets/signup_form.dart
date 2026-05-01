@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../core/constants/sizes.dart';
-import '../../../../core/constants/text_strings.dart';
+import '../../../../../core/constants/sizes.dart';
+import '../../../../../core/constants/text_strings.dart';
 import 'term_and_condition_checkbox.dart';
 
 class SignupForm extends StatelessWidget {

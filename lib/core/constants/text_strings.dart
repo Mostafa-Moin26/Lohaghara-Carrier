@@ -163,6 +163,17 @@ class AppTextStrings {
   static const String deliveryDate = 'Delivery Date';
   static const String notes = 'Notes (Optional)';
 
+  /// Add Record Form
+  static const String date = 'Date';
+  static const String factory = 'Factory';
+  static const String loadDemmurage = 'Load Demurrage (BDT)';
+  static const String unloadDemmurage = 'Unload Demurrage (BDT)';
+  static const String unloadPoint = 'Unload Point';
+  static const String item = 'Item';
+  static const String remarks = 'Remarks';
+  static const String totalAmount = 'Total Amount';
+  static const String saveRecord = 'Save Record';
+
   // ─────────────────────────────────────────────
   // 📈 REPORTS
   // ─────────────────────────────────────────────

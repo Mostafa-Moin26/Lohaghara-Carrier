@@ -6,7 +6,7 @@ import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/core/helpers/helper_functions.dart';
 import 'package:lohaghara_carrier/core/utils/date_formatter.dart';
-import 'package:lohaghara_carrier/features/dashboard/controllers/dashboard_controller.dart';
+import 'package:lohaghara_carrier/features/dashboard/presentation/controllers/dashboard_controller.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 class MonthSelector extends StatelessWidget {
