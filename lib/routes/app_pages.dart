@@ -9,6 +9,7 @@ import 'package:lohaghara_carrier/features/dashboard/presentation/dashboard_scre
 import 'package:lohaghara_carrier/features/onboarding/onboarding_screen.dart';
 import 'package:lohaghara_carrier/features/record/presentation/add_record/add_record_screen.dart';
 import 'package:lohaghara_carrier/features/record/presentation/all_records/all_record_screen.dart';
+import 'package:lohaghara_carrier/features/record/presentation/record_details/record_details_screen.dart';
 import 'package:lohaghara_carrier/navigation_menu.dart';
 import '../features/splash/splash_screen.dart';
 import 'app_routes.dart';
@@ -51,5 +52,6 @@ class AppPages {
     GetPage(name: AppRoutes.dashboard, page: () => Dashboard()),
     GetPage(name: AppRoutes.allRecords, page: () => AllRecord()),
     GetPage(name: AppRoutes.addRecord, page: () => AddRecordScreen()),
+    GetPage(name: AppRoutes.recordDetail, page: () => RecordDetailsScreen()),
   ];
 }

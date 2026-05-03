@@ -13,6 +13,7 @@ abstract class AppRoutes {
   static const String dashboard = '/dashboard';
   static const String allRecords = '/all_record';
   static const String addRecord = '/add_record';
+  static const String recordDetail = '/record_details_screen';
   static const String viewRecords = '/view_records';
   static const String reports = '/reports';
   static const String profile = '/profile';

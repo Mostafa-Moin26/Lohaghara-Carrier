@@ -129,11 +129,12 @@ class AllRecord extends StatelessWidget {
                 separatorBuilder: (_, _) =>
                     const SizedBox(height: AppSizes.spaceBtwItems),
                 itemBuilder: (context, index) {
-                  return const RecordTile(
+                  return RecordTile(
                     truckNumber: 'DM TA-18-4209',
                     companyName: 'Meghna Knit Composite Ltd.',
                     amount: '15,500',
                     date: 'Today',
+                    onTap: () => Get.toNamed(AppRoutes.recordDetail),
                   );
                 },
               ),

@@ -150,6 +150,7 @@ class AppTextStrings {
   static const String all = 'All';
   static const String monthlyBill = 'Monthly Bill';
   static const String viewRecords = 'View Records';
+  static const String recordDetails = 'Record Details';
 
   static const String truckNumber = 'Truck Number';
   static const String destination = 'Destination';

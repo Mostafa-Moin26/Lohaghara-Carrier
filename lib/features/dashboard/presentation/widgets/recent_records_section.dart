@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/common/widgets/records/record_tile.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
+import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 class RecentRecordsSection extends StatelessWidget {
   const RecentRecordsSection({super.key});
@@ -17,11 +19,12 @@ class RecentRecordsSection extends StatelessWidget {
           separatorBuilder: (_, _) =>
               const SizedBox(height: AppSizes.spaceBtwItems),
           itemBuilder: (_, index) {
-            return const RecordTile(
+            return RecordTile(
               truckNumber: "DM TA-18-4209",
               companyName: "Meghna Knit Composite Ltd.",
               amount: '15,500',
               date: "Today",
+              onTap: () => Get.toNamed(AppRoutes.recordDetail),
             );
           },
         ),
