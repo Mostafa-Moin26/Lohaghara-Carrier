@@ -15,6 +15,9 @@ abstract class AppRoutes {
   static const String addRecord = '/add_record';
   static const String recordDetail = '/record_details_screen';
   static const String viewRecords = '/view_records';
+  static const String viewFactory = '/factory_view';
+  static const String summaryScreen = '/summary_screen';
+  static const String monthlyBillScreen = '/monthlybill_screen';
   static const String reports = '/reports';
   static const String profile = '/profile';
   static const String pin = '/pin';

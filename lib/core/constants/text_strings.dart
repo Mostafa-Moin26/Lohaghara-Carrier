@@ -19,6 +19,8 @@ class AppTextStrings {
   static const String getStarted = 'Get Started';
   static const String ok = 'OK';
   static const String apply = 'Apply';
+  static const String download = 'Download';
+  static const String share = 'Share';
 
   // ─────────────────────────────────────────────
   // 🚀 ONBOARDING

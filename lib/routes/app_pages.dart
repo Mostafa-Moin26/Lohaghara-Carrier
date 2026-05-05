@@ -6,10 +6,13 @@ import 'package:lohaghara_carrier/features/auth/presentation/password/success/pa
 import 'package:lohaghara_carrier/features/auth/presentation/password/reset/reset_password_screen.dart';
 import 'package:lohaghara_carrier/features/auth/presentation/signup/signup_screen.dart';
 import 'package:lohaghara_carrier/features/dashboard/presentation/dashboard_screen.dart';
+import 'package:lohaghara_carrier/features/factory/presentation/factory_view.dart';
 import 'package:lohaghara_carrier/features/onboarding/onboarding_screen.dart';
 import 'package:lohaghara_carrier/features/record/presentation/add_record/add_record_screen.dart';
 import 'package:lohaghara_carrier/features/record/presentation/all_records/all_record_screen.dart';
 import 'package:lohaghara_carrier/features/record/presentation/record_details/record_details_screen.dart';
+import 'package:lohaghara_carrier/features/report/presentation/monthly/monthlybill_screen.dart';
+import 'package:lohaghara_carrier/features/report/presentation/summary/summary_screen.dart';
 import 'package:lohaghara_carrier/navigation_menu.dart';
 import '../features/splash/splash_screen.dart';
 import 'app_routes.dart';
@@ -53,5 +56,8 @@ class AppPages {
     GetPage(name: AppRoutes.allRecords, page: () => AllRecord()),
     GetPage(name: AppRoutes.addRecord, page: () => AddRecordScreen()),
     GetPage(name: AppRoutes.recordDetail, page: () => RecordDetailsScreen()),
+    GetPage(name: AppRoutes.viewFactory, page: () => FactoryView()),
+    GetPage(name: AppRoutes.summaryScreen, page: () => SummaryScreen()),
+    GetPage(name: AppRoutes.monthlyBillScreen, page: () => MonthlybillScreen()),
   ];
 }

@@ -31,21 +31,13 @@ class AppImageStrings {
   static const String reviewImage2 = "assets/images/reviews/image2.png";
   static const String reviewImage3 = "assets/images/reviews/image3.png";
 
-  /// Payment Methods
-  static const String applePay = "assets/icons/payment_methods/apple-pay.png";
-  static const String googlePay = "assets/icons/payment_methods/google-pay.png";
-  static const String masterCard =
-      "assets/icons/payment_methods/master_card.png";
-  static const String paypal = "assets/icons/payment_methods/paypal.png";
-  static const String visa = "assets/icons/payment_methods/visa.png";
-  static const String paytm =
-      "assets/icons/payment_methods/icons8-paytm-48.png";
-  static const String successfulPaymentIcon =
-      "assets/icons/payment_methods/payment_successful.png";
-
   /// User Avatars
   static const String userAvatar1 = "assets/images/user/user1.png";
   static const String userAvatar2 = "assets/images/user/user2.png";
   static const String userAvatar3 = "assets/images/user/user3.png";
   static const String userAvatar4 = "assets/images/user/user4.png";
+
+  /// Reports
+  static const String reportIcon = 'assets/images/icons/report.png';
+  static const String factoryIcon = 'assets/images/icons/factory.png';
 }

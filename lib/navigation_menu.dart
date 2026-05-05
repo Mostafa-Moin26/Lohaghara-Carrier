@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lohaghara_carrier/features/dashboard/presentation/dashboard_screen.dart';
-import 'package:lohaghara_carrier/features/factory/presentation/factory_vew.dart';
+import 'package:lohaghara_carrier/features/factory/presentation/factory_view.dart';
 import 'package:lohaghara_carrier/features/record/presentation/all_records/all_record_screen.dart';
 
 import 'core/constants/colors.dart';
@@ -93,7 +93,7 @@ class NavigationController extends GetxController {
     const Dashboard(),
     FactoryView(),
     const AllRecord(),
-    Center(child: Text('Reports')),
+    Center(child: Text('Report')),
     Center(child: Text('More')),
   ];
 }

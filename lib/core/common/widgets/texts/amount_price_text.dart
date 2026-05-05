@@ -6,7 +6,7 @@ import 'package:lohaghara_carrier/core/helpers/helper_functions.dart';
 class AmountPriceText extends StatelessWidget {
   const AmountPriceText({
     super.key,
-    this.currencySign = '৳ ',
+    this.currencySign = '৳',
     required this.price,
     this.maxLines = 1,
     this.isLarge = false,
