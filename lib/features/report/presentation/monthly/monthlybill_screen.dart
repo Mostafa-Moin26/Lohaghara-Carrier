@@ -50,7 +50,7 @@ class MonthlybillScreen extends StatelessWidget {
                       const SizedBox(height: AppSizes.spaceBtwItems),
 
                       SectionHeading(
-                        title: 'Trip Records',
+                        title: AppTextStrings.tripRecords,
                         onButtonPressed: () =>
                             Get.toNamed(AppRoutes.allRecords),
                       ),
@@ -76,7 +76,7 @@ class MonthlybillScreen extends StatelessWidget {
                         truckNumber: 'DM TA-18-4209',
                         companyName: 'Meghna Knit Composite Ltd.',
                         amount: '15,500',
-                        date: 'Today',
+                        date: AppTextStrings.today,
                         onTap: () => Get.toNamed(AppRoutes.recordDetail),
                       );
                     },

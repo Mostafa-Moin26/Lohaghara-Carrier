@@ -2,7 +2,7 @@ class AppImageStrings {
   AppImageStrings._();
 
   // -- App Logos
-  static const String appLogo = 'assets/images/logos/main_logo.png';
+  static const String appLogo = 'assets/images/logos/correction_logo.png';
 
   // -- Social Logos
   static const String google = 'assets/images/logos/google.png';

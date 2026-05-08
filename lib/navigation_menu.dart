@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:lohaghara_carrier/features/factory/presentation/factory_view.dart';
+import 'package:lohaghara_carrier/features/more/presentation/settings_screen.dart';
 import 'package:lohaghara_carrier/features/record/presentation/all_records/all_record_screen.dart';
+import 'package:lohaghara_carrier/features/report/presentation/history/reports_screen.dart';
 
 import 'core/constants/colors.dart';
 import 'core/helpers/helper_functions.dart';
@@ -35,7 +38,7 @@ class NavigationMenu extends StatelessWidget {
               NavigationDestination(
                 icon: Icon(Iconsax.home),
                 selectedIcon: Icon(Iconsax.home, color: AppColors.primaryDark),
-                label: 'Dashboard',
+                label: AppTextStrings.dashboard,
               ),
 
               NavigationDestination(
@@ -44,7 +47,7 @@ class NavigationMenu extends StatelessWidget {
                   Iconsax.buildings_2,
                   color: AppColors.primaryDark,
                 ),
-                label: 'Factories',
+                label: AppTextStrings.factories,
               ),
 
               NavigationDestination(
@@ -53,7 +56,7 @@ class NavigationMenu extends StatelessWidget {
                   Iconsax.document_text,
                   color: AppColors.primaryDark,
                 ),
-                label: 'Records',
+                label: AppTextStrings.records,
               ),
 
               NavigationDestination(
@@ -62,7 +65,7 @@ class NavigationMenu extends StatelessWidget {
                   Iconsax.receipt_text,
                   color: AppColors.primaryDark,
                 ),
-                label: 'Reports',
+                label: AppTextStrings.reports,
               ),
 
               NavigationDestination(
@@ -71,7 +74,7 @@ class NavigationMenu extends StatelessWidget {
                   Iconsax.setting_2,
                   color: AppColors.primaryDark,
                 ),
-                label: 'More',
+                label: AppTextStrings.more,
               ),
             ],
           ),
@@ -93,7 +96,7 @@ class NavigationController extends GetxController {
     const Dashboard(),
     FactoryView(),
     const AllRecord(),
-    Center(child: Text('Report')),
-    Center(child: Text('More')),
+    ReportsScreen(),
+    SettingsScreen(),
   ];
 }

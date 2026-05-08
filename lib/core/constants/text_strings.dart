@@ -21,6 +21,7 @@ class AppTextStrings {
   static const String apply = 'Apply';
   static const String download = 'Download';
   static const String share = 'Share';
+  static const String more = 'More';
 
   // ─────────────────────────────────────────────
   // 🚀 ONBOARDING
@@ -156,7 +157,6 @@ class AppTextStrings {
 
   static const String truckNumber = 'Truck Number';
   static const String destination = 'Destination';
-  static const String goodsType = 'Goods Type';
 
   static const String fare = 'Fare (BDT)';
   static const String fuelCost = 'Fuel Cost (BDT)';
@@ -166,16 +166,19 @@ class AppTextStrings {
   static const String deliveryDate = 'Delivery Date';
   static const String notes = 'Notes (Optional)';
 
-  /// Add Record Form
+  /// Record
   static const String date = 'Date';
   static const String factory = 'Factory';
+  static const String factories = 'Factories';
   static const String loadDemmurage = 'Load Demurrage (BDT)';
   static const String unloadDemmurage = 'Unload Demurrage (BDT)';
   static const String unloadPoint = 'Unload Point';
   static const String item = 'Item';
   static const String remarks = 'Remarks';
   static const String totalAmount = 'Total Amount';
+  static const String totalTrucks = 'Total Trucks';
   static const String saveRecord = 'Save Record';
+  static const String records = 'Records';
 
   // ─────────────────────────────────────────────
   // 📈 REPORTS
@@ -185,6 +188,12 @@ class AppTextStrings {
   static const String fromDate = 'From Date';
   static const String toDate = 'To Date';
   static const String downloadPdf = 'Download PDF';
+  static const String company = 'Company';
+  static const String billNo = 'Bill No: ';
+  static const String month = 'Month';
+  static const String tripRecords = 'Trip Records';
+  static const String from = 'From';
+  static const String to = 'To';
 
   // ─────────────────────────────────────────────
   // 🔒 SECURITY
@@ -211,6 +220,7 @@ class AppTextStrings {
   static const String confirm = 'Confirm';
   static const String profile = 'Profile';
   static const String logout = 'Logout';
+  static const String lohagara = 'Lohagara';
 
   // ─────────────────────────────────────────────
   // 🏠 HOME

@@ -54,13 +54,22 @@ dependencies:
   equatable: ^2.0.8
   url_launcher: ^6.3.2
   smooth_page_indicator: ^2.0.1
+  flutter_launcher_icons: ^0.14.4
 
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0
+  flutter_lints: ^6.0.0 
+  rename_app: ^1.6.1
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/icons/app_icon.png"
+  adaptive_icon_foreground: "assets/images/icons/app_icon_foreground.png"
+  adaptive_icon_background: "assets/images/icons/app_icon_background.png"
 
 
 flutter:

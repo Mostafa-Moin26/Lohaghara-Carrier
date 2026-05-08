@@ -3,12 +3,14 @@ import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
 import 'package:lohaghara_carrier/core/common/widgets/texts/section_heading.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
+import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/features/factory/presentation/controller/factory_controller.dart';
 import 'package:lohaghara_carrier/features/factory/presentation/widgets/factory_card.dart';
 import 'package:lohaghara_carrier/features/report/presentation/shared/widgets/stats_card.dart';
 import 'package:lohaghara_carrier/features/report/presentation/summary/widgets/report_filters_section.dart';
 import 'package:lohaghara_carrier/features/report/presentation/summary/widgets/summary_header_card.dart';
 import 'package:lohaghara_carrier/core/common/widgets/floating/report_action_buttons.dart';
+import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 class SummaryScreen extends StatelessWidget {
   const SummaryScreen({super.key});
@@ -18,7 +20,10 @@ class SummaryScreen extends StatelessWidget {
     final factoryController = Get.put(FactoryController());
 
     return Scaffold(
-      appBar: CustomAppBar(title: const Text('Summary'), showBackArrow: true),
+      appBar: CustomAppBar(
+        title: const Text(AppTextStrings.summary),
+        showBackArrow: true,
+      ),
 
       body: SafeArea(
         child: Stack(
@@ -56,7 +61,10 @@ class SummaryScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                     horizontal: AppSizes.defaultSpace,
                   ),
-                  child: const SectionHeading(title: 'Factories'),
+                  child: SectionHeading(
+                    title: 'Factories',
+                    onButtonPressed: () => Get.toNamed(AppRoutes.viewFactory),
+                  ),
                 ),
 
                 const SizedBox(height: AppSizes.sm),

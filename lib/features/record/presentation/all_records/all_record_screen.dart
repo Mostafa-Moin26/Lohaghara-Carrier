@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
+import 'package:lohaghara_carrier/core/common/widgets/chips/app_filter_chip.dart';
 import 'package:lohaghara_carrier/core/common/widgets/containers/search_container.dart';
 import 'package:lohaghara_carrier/core/common/widgets/records/record_tile.dart';
 import 'package:lohaghara_carrier/core/constants/colors.dart';
 import 'package:lohaghara_carrier/core/constants/enums.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
+import 'package:lohaghara_carrier/core/extensions/filter_type_extension.dart';
 import 'package:lohaghara_carrier/features/record/presentation/all_records/controllers/all_record_controller.dart';
-import 'package:lohaghara_carrier/features/record/presentation/all_records/widgets/calendar_container.dart';
-import 'package:lohaghara_carrier/features/record/presentation/all_records/widgets/record_filter_chip.dart';
 import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 class AllRecord extends StatelessWidget {
@@ -63,63 +63,88 @@ class AllRecord extends StatelessWidget {
             /// Filter Section
             Obx(
               () => SizedBox(
-                height: 45,
-                child: ListView(
+                height: 40,
+                child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  children: [
-                    RecordFilterChip(
-                      title: AppTextStrings.all,
-                      isSelected:
-                          controller.selectedFilter.value ==
-                          RecordFilterType.all,
-                      onTap: () {
-                        controller.updateFilter(RecordFilterType.all);
-                      },
-                    ),
-
-                    RecordFilterChip(
-                      title: AppTextStrings.today,
-                      isSelected:
-                          controller.selectedFilter.value ==
-                          RecordFilterType.today,
-                      onTap: () {
-                        controller.updateFilter(RecordFilterType.today);
-                      },
-                    ),
-
-                    RecordFilterChip(
-                      title: AppTextStrings.thisWeek,
-                      isSelected:
-                          controller.selectedFilter.value ==
-                          RecordFilterType.thisWeek,
-                      onTap: () {
-                        controller.updateFilter(RecordFilterType.thisWeek);
-                      },
-                    ),
-
-                    RecordFilterChip(
-                      title: AppTextStrings.thisMonth,
-                      isSelected:
-                          controller.selectedFilter.value ==
-                          RecordFilterType.thisMonth,
-                      onTap: () {
-                        controller.updateFilter(RecordFilterType.thisMonth);
-                      },
-                    ),
-                    const SizedBox(width: AppSizes.sm),
-                    CalendarContainer(
-                      isSelected:
-                          controller.selectedFilter.value ==
-                          RecordFilterType.customDate,
-                      onTap: () {
-                        controller.updateFilter(RecordFilterType.customDate);
-                      },
-                    ),
-                  ],
+                  child: Row(
+                    children: controller.filters.map((filter) {
+                      final selected =
+                          controller.selectedFilter.value == filter;
+                      return AppFilterChip(
+                        title: filter == RecordFilterType.customDate
+                            ? ''
+                            : filter.title,
+                        isSelected: selected,
+                        onTap: () => controller.updateFilter(filter),
+                        icon: filter == RecordFilterType.customDate
+                            ? Iconsax.calendar
+                            : null,
+                      );
+                    }).toList(),
+                  ),
                 ),
               ),
             ),
 
+            // /// Filter Section
+            // Obx(
+            //   () => SizedBox(
+            //     height: 45,
+            //     child: ListView(
+            //       scrollDirection: Axis.horizontal,
+            //       children: [
+            //         RecordFilterChip(
+            //           title: AppTextStrings.all,
+            //           isSelected:
+            //               controller.selectedFilter.value ==
+            //               RecordFilterType.all,
+            //           onTap: () {
+            //             controller.updateFilter(RecordFilterType.all);
+            //           },
+            //         ),
+
+            //         RecordFilterChip(
+            //           title: AppTextStrings.today,
+            //           isSelected:
+            //               controller.selectedFilter.value ==
+            //               RecordFilterType.today,
+            //           onTap: () {
+            //             controller.updateFilter(RecordFilterType.today);
+            //           },
+            //         ),
+
+            //         RecordFilterChip(
+            //           title: AppTextStrings.thisWeek,
+            //           isSelected:
+            //               controller.selectedFilter.value ==
+            //               RecordFilterType.thisWeek,
+            //           onTap: () {
+            //             controller.updateFilter(RecordFilterType.thisWeek);
+            //           },
+            //         ),
+
+            //         RecordFilterChip(
+            //           title: AppTextStrings.thisMonth,
+            //           isSelected:
+            //               controller.selectedFilter.value ==
+            //               RecordFilterType.thisMonth,
+            //           onTap: () {
+            //             controller.updateFilter(RecordFilterType.thisMonth);
+            //           },
+            //         ),
+            //         const SizedBox(width: AppSizes.sm),
+            //         CalendarContainer(
+            //           isSelected:
+            //               controller.selectedFilter.value ==
+            //               RecordFilterType.customDate,
+            //           onTap: () {
+            //             controller.updateFilter(RecordFilterType.customDate);
+            //           },
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             const SizedBox(height: AppSizes.lg),
 
             /// Records List

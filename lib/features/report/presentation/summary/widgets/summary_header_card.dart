@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lohaghara_carrier/core/constants/colors.dart';
 import 'package:lohaghara_carrier/core/constants/image_strings.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
+import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/core/helpers/helper_functions.dart';
 
 class SummaryHeaderCard extends StatelessWidget {
@@ -59,13 +60,13 @@ class SummaryHeaderCard extends StatelessWidget {
                       /// BILL NO
                       RichText(
                         text: TextSpan(
-                          text: "Bill No: ",
+                          text: AppTextStrings.billNo,
                           style: Theme.of(
                             context,
                           ).textTheme.bodySmall!.copyWith(color: Colors.grey),
                           children: [
                             TextSpan(
-                              text: "Lohagara-16",
+                              text: "${AppTextStrings.lohagara} 16",
                               style: TextStyle(
                                 color: dark
                                     ? AppColors.primaryLight

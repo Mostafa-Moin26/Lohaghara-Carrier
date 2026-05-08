@@ -3,6 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:lohaghara_carrier/core/common/styles/shadows.dart';
 import 'package:lohaghara_carrier/core/constants/colors.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
+import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/core/helpers/helper_functions.dart';
 
 class FiltersSection extends StatelessWidget {
@@ -23,7 +24,10 @@ class FiltersSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           /// 🔹 Company
-          Text("Company", style: Theme.of(context).textTheme.bodySmall),
+          Text(
+            AppTextStrings.company,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
           const SizedBox(height: AppSizes.sm),
 
           _selectionBox(
@@ -44,7 +48,7 @@ class FiltersSection extends StatelessWidget {
                   context,
                   icon: Iconsax.buildings_2,
                   title: "Meghna Knit Composite Ltd.",
-                  subtitle: "Factory",
+                  subtitle: AppTextStrings.factory,
                   onTap: () {},
                   showDownArrow: false,
                 ),
@@ -57,7 +61,7 @@ class FiltersSection extends StatelessWidget {
                   context,
                   icon: Iconsax.calendar,
                   title: "Mar 2026",
-                  subtitle: "Month",
+                  subtitle: AppTextStrings.month,
                   onTap: () {},
                   showDownArrow: false,
                 ),
@@ -73,7 +77,7 @@ class FiltersSection extends StatelessWidget {
             child: ElevatedButton.icon(
               onPressed: () {},
               icon: const Icon(Iconsax.chart_21),
-              label: const Text("Generate Report"),
+              label: const Text(AppTextStrings.generateReport),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 14),
                 backgroundColor: AppColors.primaryColor,
