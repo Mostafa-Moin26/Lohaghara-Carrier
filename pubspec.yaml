@@ -55,6 +55,9 @@ dependencies:
   url_launcher: ^6.3.2
   smooth_page_indicator: ^2.0.1
   flutter_launcher_icons: ^0.14.4
+  get_storage: ^2.1.1
+  connectivity_plus: ^7.1.1
+  shimmer: ^3.0.0
 
 
 

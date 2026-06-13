@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:lohaghara_carrier/core/helpers/network_manager.dart';
 
 /// App-wide dependency injection.
 /// Services registered here are available EVERYWHERE immediately.
@@ -12,5 +13,7 @@ class InitialBinding extends Bindings {
     //
     // lazyPut = only created when first accessed (memory efficient)
     // permanent = never destroyed (for app-wide services)
+
+    Get.put(NetworkManager());
   }
 }

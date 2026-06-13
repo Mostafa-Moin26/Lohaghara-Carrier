@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 class OnBoardingController extends GetxController {
@@ -31,7 +32,7 @@ class OnBoardingController extends GetxController {
 
   /// Next button
   void nextPage() {
-    if (currentPageIndex.value == totalPages - 1) {
+    if (isLastPage) {
       finishOnboarding();
     } else {
       pageController.nextPage(
@@ -55,6 +56,9 @@ class OnBoardingController extends GetxController {
 
   /// Finish onboarding
   void finishOnboarding() {
+    final storage = GetStorage();
+
+    storage.write('IsFirstTime', false);
     Get.offNamed(AppRoutes.login);
   }
 }
