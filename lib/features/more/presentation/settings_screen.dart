@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
 import 'package:lohaghara_carrier/core/constants/colors.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
+import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/features/more/presentation/controller/settings_controller.dart';
 import 'package:lohaghara_carrier/features/more/presentation/widgets/logout_button.dart';
 import 'package:lohaghara_carrier/features/more/presentation/widgets/profile_card.dart';
@@ -18,7 +19,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: const Text('Settings'), showBackArrow: true),
+      appBar: CustomAppBar(title: const Text(AppTextStrings.settings)),
 
       body: ListView(
         padding: const EdgeInsets.all(AppSizes.defaultSpace),
@@ -30,27 +31,19 @@ class SettingsScreen extends StatelessWidget {
 
           /// Account
           SettingsSection(
-            title: 'Account',
+            title: AppTextStrings.account,
             children: [
               SettingsTile(
                 icon: Iconsax.user,
-                title: 'Profile Information',
-                subtitle: 'View and edit your profile',
+                title: AppTextStrings.profileInformation,
+                subtitle: AppTextStrings.viewAndEditProfile,
                 onTap: () {},
               ),
 
               SettingsTile(
                 icon: Iconsax.security,
-                title: 'Security',
-                subtitle: 'Change password and settings',
-                onTap: () {},
-              ),
-
-              SettingsTile(
-                icon: Iconsax.wallet,
-                title: 'Billing & Subscription',
-                subtitle: 'Manage your billing',
-                showBorder: false,
+                title: AppTextStrings.security,
+                subtitle: AppTextStrings.changePasswordAndSettings,
                 onTap: () {},
               ),
             ],
@@ -60,13 +53,13 @@ class SettingsScreen extends StatelessWidget {
 
           /// Preferences
           SettingsSection(
-            title: 'Preferences',
+            title: AppTextStrings.preferences,
             children: [
               Obx(
                 () => SettingsTile(
                   icon: Iconsax.notification,
-                  title: 'Notifications',
-                  subtitle: 'Manage notification settings',
+                  title: AppTextStrings.notifications,
+                  subtitle: AppTextStrings.manageNotificationSettings,
 
                   trailing: Switch(
                     value: controller.notificationsEnabled.value,
@@ -78,8 +71,8 @@ class SettingsScreen extends StatelessWidget {
               Obx(
                 () => SettingsTile(
                   icon: Iconsax.moon,
-                  title: 'Dark Mode',
-                  subtitle: 'Choose your preferred theme',
+                  title: AppTextStrings.darkMode,
+                  subtitle: AppTextStrings.preferredTheme,
 
                   trailing: Switch(
                     value: controller.isDarkMode.value,
@@ -90,11 +83,11 @@ class SettingsScreen extends StatelessWidget {
 
               SettingsTile(
                 icon: Iconsax.language_square,
-                title: 'Language',
-                subtitle: 'Change app language',
+                title: AppTextStrings.language,
+                subtitle: AppTextStrings.changeAppLanguage,
 
                 trailing: Text(
-                  'English',
+                  AppTextStrings.english,
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: AppColors.primaryColor,
                     fontWeight: FontWeight.w600,
@@ -110,26 +103,26 @@ class SettingsScreen extends StatelessWidget {
 
           /// Support
           SettingsSection(
-            title: 'Support',
+            title: AppTextStrings.support,
             children: [
               SettingsTile(
                 icon: Iconsax.message_question,
-                title: 'Help Center',
-                subtitle: 'Get help and support',
+                title: AppTextStrings.helpCenter,
+                subtitle: AppTextStrings.getHelpAndSupport,
                 onTap: () {},
               ),
 
               SettingsTile(
                 icon: Iconsax.message,
-                title: 'Contact Support',
-                subtitle: 'Reach out to our team',
+                title: AppTextStrings.contactSupport,
+                subtitle: AppTextStrings.reachOutTeam,
                 onTap: () {},
               ),
 
               SettingsTile(
                 icon: Iconsax.info_circle,
-                title: 'About App',
-                subtitle: 'Learn more about Lohaghara Carrier',
+                title: AppTextStrings.aboutApp,
+                subtitle: AppTextStrings.learnMoreAboutApp,
                 showBorder: false,
                 onTap: () {},
               ),

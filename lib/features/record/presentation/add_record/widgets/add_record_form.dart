@@ -92,7 +92,10 @@ class AddRecordForm extends StatelessWidget {
           /// Unload Point
           TextFormField(
             controller: controller.unloadPointController,
-            decoration: _dec(label: AppTextStrings.unloadPoint),
+            decoration: _dec(
+              label: AppTextStrings.unloadPoint,
+              prefix: Iconsax.location,
+            ),
           ),
           const SizedBox(height: AppSizes.spaceBtwInputFields),
 

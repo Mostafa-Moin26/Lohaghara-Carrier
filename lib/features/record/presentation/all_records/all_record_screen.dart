@@ -14,14 +14,15 @@ import 'package:lohaghara_carrier/features/record/presentation/all_records/contr
 import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 class AllRecord extends StatelessWidget {
-  const AllRecord({super.key});
+  const AllRecord({super.key, required this.showBackArrow});
+  final bool showBackArrow;
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AllRecordController());
     return Scaffold(
       appBar: CustomAppBar(
-        showBackArrow: true,
+        showBackArrow: showBackArrow,
         title: Text(AppTextStrings.allRecords),
       ),
 

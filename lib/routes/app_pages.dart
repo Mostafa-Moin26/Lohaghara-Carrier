@@ -53,10 +53,16 @@ class AppPages {
 
     GetPage(name: AppRoutes.navigationMenu, page: () => NavigationMenu()),
     GetPage(name: AppRoutes.dashboard, page: () => Dashboard()),
-    GetPage(name: AppRoutes.allRecords, page: () => AllRecord()),
+    GetPage(
+      name: AppRoutes.allRecords,
+      page: () => AllRecord(showBackArrow: true),
+    ),
     GetPage(name: AppRoutes.addRecord, page: () => AddRecordScreen()),
     GetPage(name: AppRoutes.recordDetail, page: () => RecordDetailsScreen()),
-    GetPage(name: AppRoutes.viewFactory, page: () => FactoryView()),
+    GetPage(
+      name: AppRoutes.viewFactory,
+      page: () => FactoryView(showBackArrow: true),
+    ),
     GetPage(name: AppRoutes.summaryScreen, page: () => SummaryScreen()),
     GetPage(name: AppRoutes.monthlyBillScreen, page: () => MonthlybillScreen()),
   ];

@@ -25,72 +25,107 @@ class MonthlybillScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            /// 🔹 MAIN CONTENT
-            Column(
-              children: [
-                /// 🔹 TOP SECTION (NO Expanded here)
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSizes.defaultSpace,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const FiltersSection(),
-                      const SizedBox(height: AppSizes.spaceBtwItems),
+            /// 🔥 MAIN SCROLL
+            CustomScrollView(
+              slivers: [
+                /// =========================
+                /// TOP SECTION
+                /// =========================
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSizes.defaultSpace,
+                    ),
 
-                      const MonthlyHeaderCard(),
-                      const SizedBox(height: AppSizes.spaceBtwItems),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
 
-                      const ReportStatsCard(
-                        numOfTrucks: '131',
-                        totalAmount: '৳23,19,300',
-                      ),
+                      children: [
+                        /// Filters
+                        const FiltersSection(),
+                        const SizedBox(height: AppSizes.spaceBtwItems),
 
-                      const SizedBox(height: AppSizes.spaceBtwItems),
+                        /// Header Card
+                        const MonthlyHeaderCard(),
+                        const SizedBox(height: AppSizes.spaceBtwItems),
 
-                      SectionHeading(
-                        title: AppTextStrings.tripRecords,
-                        onButtonPressed: () =>
-                            Get.toNamed(AppRoutes.allRecords),
-                      ),
-                    ],
+                        /// Stats Card
+                        const ReportStatsCard(
+                          numOfTrucks: '131',
+                          totalAmount: '৳23,19,300',
+                        ),
+
+                        const SizedBox(height: AppSizes.spaceBtwItems),
+
+                        /// Section Heading
+                        SectionHeading(
+                          title: AppTextStrings.tripRecords,
+
+                          onButtonPressed: () {
+                            Get.toNamed(AppRoutes.allRecords);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 
-                const SizedBox(height: AppSizes.sm),
+                const SliverToBoxAdapter(child: SizedBox(height: AppSizes.sm)),
 
-                /// 🔹 LIST SECTION
-                Expanded(
-                  child: ListView.separated(
-                    padding: const EdgeInsets.only(
-                      left: AppSizes.defaultSpace,
-                      right: AppSizes.defaultSpace,
-                      bottom: 100, // 👈 avoid overlap
-                    ),
-                    itemCount: 3,
-                    separatorBuilder: (_, _) =>
-                        const SizedBox(height: AppSizes.spaceBtwItems),
-                    itemBuilder: (context, index) {
-                      return RecordTile(
-                        truckNumber: 'DM TA-18-4209',
-                        companyName: 'Meghna Knit Composite Ltd.',
-                        amount: '15,500',
-                        date: AppTextStrings.today,
-                        onTap: () => Get.toNamed(AppRoutes.recordDetail),
+                /// =========================
+                /// RECORDS LIST
+                /// =========================
+                SliverPadding(
+                  padding: const EdgeInsets.only(
+                    left: AppSizes.defaultSpace,
+                    right: AppSizes.defaultSpace,
+                    bottom: 120, // 👈 FAB overlap protection
+                  ),
+
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate((_, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: AppSizes.spaceBtwItems,
+                        ),
+
+                        child: RecordTile(
+                          truckNumber: 'DM TA-18-4209',
+
+                          companyName: 'Meghna Knit Composite Ltd.',
+
+                          amount: '15,500',
+
+                          date: AppTextStrings.today,
+
+                          onTap: () {
+                            Get.toNamed(AppRoutes.recordDetail);
+                          },
+                        ),
                       );
-                    },
+                    }, childCount: 3),
                   ),
                 ),
               ],
             ),
 
-            /// 🔥 FLOATING BUTTONS
+            /// =========================
+            /// FLOATING ACTION BUTTONS
+            /// =========================
             Positioned(
               left: AppSizes.defaultSpace,
               right: AppSizes.defaultSpace,
               bottom: 16,
-              child: ReportActionButtons(onDownload: () {}, onShare: () {}),
+
+              child: ReportActionButtons(
+                onDownload: () {
+                  // TODO: Download PDF
+                },
+
+                onShare: () {
+                  // TODO: Share Report
+                },
+              ),
             ),
           ],
         ),

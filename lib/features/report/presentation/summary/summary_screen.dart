@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
+import 'package:lohaghara_carrier/core/common/widgets/floating/report_action_buttons.dart';
 import 'package:lohaghara_carrier/core/common/widgets/texts/section_heading.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
@@ -9,7 +10,6 @@ import 'package:lohaghara_carrier/features/factory/presentation/widgets/factory_
 import 'package:lohaghara_carrier/features/report/presentation/shared/widgets/stats_card.dart';
 import 'package:lohaghara_carrier/features/report/presentation/summary/widgets/report_filters_section.dart';
 import 'package:lohaghara_carrier/features/report/presentation/summary/widgets/summary_header_card.dart';
-import 'package:lohaghara_carrier/core/common/widgets/floating/report_action_buttons.dart';
 import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 class SummaryScreen extends StatelessWidget {
@@ -28,87 +28,106 @@ class SummaryScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            /// 🔹 MAIN CONTENT
-            Column(
-              children: [
-                /// Top Section
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSizes.defaultSpace,
-                  ),
-                  child: Column(
-                    children: const [
-                      /// Filters
-                      ReportFiltersSection(),
-                      SizedBox(height: AppSizes.spaceBtwItems),
+            /// 🔥 Main Scroll
+            CustomScrollView(
+              slivers: [
+                /// =========================
+                /// TOP SECTION
+                /// =========================
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSizes.defaultSpace,
+                    ),
 
-                      /// Header
-                      SummaryHeaderCard(),
-                      SizedBox(height: AppSizes.spaceBtwItems),
+                    child: Column(
+                      children: const [
+                        /// Filters
+                        ReportFiltersSection(),
+                        SizedBox(height: AppSizes.spaceBtwItems),
 
-                      /// Stats
-                      ReportStatsCard(
-                        numOfTrucks: '131',
-                        totalAmount: '৳23,19,300',
-                      ),
-                      SizedBox(height: AppSizes.spaceBtwItems),
-                    ],
-                  ),
-                ),
+                        /// Header Card
+                        SummaryHeaderCard(),
+                        SizedBox(height: AppSizes.spaceBtwItems),
 
-                /// Factories Title
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSizes.defaultSpace,
-                  ),
-                  child: SectionHeading(
-                    title: 'Factories',
-                    onButtonPressed: () => Get.toNamed(AppRoutes.viewFactory),
+                        /// Stats Card
+                        ReportStatsCard(
+                          numOfTrucks: '131',
+                          totalAmount: '৳23,19,300',
+                        ),
+
+                        SizedBox(height: AppSizes.spaceBtwItems),
+                      ],
+                    ),
                   ),
                 ),
 
-                const SizedBox(height: AppSizes.sm),
+                /// =========================
+                /// FACTORIES TITLE
+                /// =========================
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSizes.defaultSpace,
+                    ),
 
-                /// Factory List
-                Expanded(
-                  child: Obx(
-                    () => ListView.builder(
-                      padding: const EdgeInsets.only(
-                        left: AppSizes.defaultSpace,
-                        right: AppSizes.defaultSpace,
-                        bottom: 100, // 👈 prevents overlap
-                      ),
-                      itemCount: factoryController.factories.length,
-                      itemBuilder: (_, index) {
-                        final factory =
-                            factoryController.factories[index]; // ✅ fixed
+                    child: SectionHeading(
+                      title: 'Factories',
+
+                      onButtonPressed: () {
+                        Get.toNamed(AppRoutes.viewFactory);
+                      },
+                    ),
+                  ),
+                ),
+
+                const SliverToBoxAdapter(child: SizedBox(height: AppSizes.sm)),
+
+                /// =========================
+                /// FACTORIES LIST
+                /// =========================
+                Obx(
+                  () => SliverPadding(
+                    padding: const EdgeInsets.only(
+                      left: AppSizes.defaultSpace,
+                      right: AppSizes.defaultSpace,
+                      bottom: 120, // 👈 prevents FAB overlap
+                    ),
+
+                    sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate((_, index) {
+                        final factory = factoryController.factories[index];
 
                         return FactoryCard(
                           name: factory["name"] as String,
                           trips: factory["trips"] as int,
                           amount: factory["amount"] as int,
                           onTap: () {
-                            // TODO: navigate later
+                            // TODO: Navigate later
                           },
                         );
-                      },
+                      }, childCount: factoryController.factories.length),
                     ),
                   ),
                 ),
               ],
             ),
 
-            /// 🔥 FLOATING ACTION BUTTONS (Perfect Alignment)
+            /// =========================
+            /// FLOATING ACTION BUTTONS
+            /// =========================
             Positioned(
               left: AppSizes.defaultSpace,
               right: AppSizes.defaultSpace,
               bottom: 16,
+
               child: ReportActionButtons(
                 onDownload: () {
                   // TODO: Download PDF
                 },
+
                 onShare: () {
-                  // TODO: Share report
+                  // TODO: Share Report
                 },
               ),
             ),

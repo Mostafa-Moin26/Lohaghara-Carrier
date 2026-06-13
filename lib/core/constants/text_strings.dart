@@ -204,6 +204,60 @@ class AppTextStrings {
   static const String useFingerprint = 'Use Fingerprint';
   static const String pinMismatch = 'PINs do not match. Try again.';
 
+  /// =========================
+  /// SETTINGS
+  /// =========================
+
+  static const String settings = 'Settings';
+
+  /// Sections
+  static const String account = 'Account';
+  static const String preferences = 'Preferences';
+  static const String support = 'Support';
+
+  /// Account Tiles
+  static const String profileInformation = 'Profile Information';
+
+  static const String viewAndEditProfile = 'View and edit your profile';
+
+  static const String security = 'Security';
+
+  static const String changePasswordAndSettings =
+      'Change password and settings';
+
+  static const String billingSubscription = 'Billing & Subscription';
+
+  static const String manageBilling = 'Manage your billing';
+
+  /// Preferences Tiles
+  static const String notifications = 'Notifications';
+
+  static const String manageNotificationSettings =
+      'Manage notification settings';
+
+  static const String darkMode = 'Dark Mode';
+
+  static const String preferredTheme = 'Choose your preferred theme';
+
+  static const String language = 'Language';
+
+  static const String changeAppLanguage = 'Change app language';
+
+  static const String english = 'English';
+
+  /// Support Tiles
+  static const String helpCenter = 'Help Center';
+
+  static const String getHelpAndSupport = 'Get help and support';
+
+  static const String contactSupport = 'Contact Support';
+
+  static const String reachOutTeam = 'Reach out to our team';
+
+  static const String aboutApp = 'About App';
+
+  static const String learnMoreAboutApp = 'Learn more about Lohagara Carrier';
+
   // ─────────────────────────────────────────────
   // 🧩 COMMON
   // ─────────────────────────────────────────────

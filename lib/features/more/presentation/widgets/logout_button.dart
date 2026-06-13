@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
+import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({super.key});
@@ -23,7 +24,7 @@ class LogoutButton extends StatelessWidget {
           const SizedBox(width: AppSizes.sm),
 
           Text(
-            'Log Out',
+            AppTextStrings.logout,
             style: Theme.of(context).textTheme.titleMedium!.copyWith(
               color: Colors.red,
               fontWeight: FontWeight.w600,

@@ -7,14 +7,18 @@ import 'package:lohaghara_carrier/features/factory/presentation/controller/facto
 import 'package:lohaghara_carrier/features/factory/presentation/widgets/factory_card.dart';
 
 class FactoryView extends StatelessWidget {
-  FactoryView({super.key});
+  FactoryView({super.key, required this.showBackArrow});
 
   final controller = Get.put(FactoryController());
+  final bool showBackArrow;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: const Text('Factories'), showBackArrow: true),
+      appBar: CustomAppBar(
+        title: const Text('Factories'),
+        showBackArrow: showBackArrow,
+      ),
 
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),

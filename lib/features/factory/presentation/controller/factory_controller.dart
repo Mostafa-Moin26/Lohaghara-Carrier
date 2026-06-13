@@ -5,6 +5,9 @@ class FactoryController extends GetxController {
     {"name": "Meghna Knit Composite Ltd.", "trips": 47, "amount": 716500},
     {"name": "Sublime Greentex Ltd.", "trips": 25, "amount": 418500},
     {"name": "Executive Greentex Ltd.", "trips": 18, "amount": 260500},
+    {"name": "Meghna Knit Composite Ltd.", "trips": 47, "amount": 716500},
+    {"name": "Sublime Greentex Ltd.", "trips": 25, "amount": 418500},
+    {"name": "Executive Greentex Ltd.", "trips": 18, "amount": 260500},
   ].obs;
 
   /// (Optional) search later
