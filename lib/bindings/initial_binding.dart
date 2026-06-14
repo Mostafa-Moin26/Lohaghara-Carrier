@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/helpers/network_manager.dart';
+import 'package:lohaghara_carrier/features/auth/data/repositories/authentication_repository.dart';
 
 /// App-wide dependency injection.
 /// Services registered here are available EVERYWHERE immediately.
@@ -15,5 +16,6 @@ class InitialBinding extends Bindings {
     // permanent = never destroyed (for app-wide services)
 
     Get.put(NetworkManager());
+    Get.put(AuthenticationRepository());
   }
 }

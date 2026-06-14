@@ -14,7 +14,7 @@ class FullScreenLoader {
         child: Container(
           color: AppHelperFunctions.isDarkMode(Get.context!)
               ? AppColors.dark
-              : AppColors.white,
+              : AppColors.primaryBackground,
           width: double.infinity,
           height: double.infinity,
           child: Column(

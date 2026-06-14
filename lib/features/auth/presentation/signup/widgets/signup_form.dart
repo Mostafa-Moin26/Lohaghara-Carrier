@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:lohaghara_carrier/routes/app_routes.dart';
+import 'package:lohaghara_carrier/core/validators/validators.dart';
+import 'package:lohaghara_carrier/features/auth/presentation/signup/controller/signup_controller.dart';
 
 import '../../../../../core/constants/sizes.dart';
 import '../../../../../core/constants/text_strings.dart';
@@ -12,7 +13,9 @@ class SignupForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SignupController());
     return Form(
+      key: controller.signupFormKey,
       child: Column(
         children: [
           Row(
@@ -21,6 +24,9 @@ class SignupForm extends StatelessWidget {
               Expanded(
                 child: TextFormField(
                   expands: false,
+                  controller: controller.firstName,
+                  validator: (value) =>
+                      AppValidator.validateEmptyText('First Name', value),
                   decoration: InputDecoration(
                     labelText: AppTextStrings.firstName,
                     prefixIcon: Icon(Iconsax.user),
@@ -34,6 +40,9 @@ class SignupForm extends StatelessWidget {
               Expanded(
                 child: TextFormField(
                   expands: false,
+                  controller: controller.lastName,
+                  validator: (value) =>
+                      AppValidator.validateEmptyText('Last Name', value),
                   decoration: InputDecoration(
                     labelText: AppTextStrings.lastName,
                     prefixIcon: Icon(Iconsax.user),
@@ -51,6 +60,9 @@ class SignupForm extends StatelessWidget {
               labelText: AppTextStrings.username,
               prefixIcon: Icon(Iconsax.user_edit),
             ),
+            controller: controller.username,
+            validator: (value) =>
+                AppValidator.validateEmptyText('Username', value),
           ),
 
           const SizedBox(height: AppSizes.spaceBtwInputFields),
@@ -61,6 +73,8 @@ class SignupForm extends StatelessWidget {
               labelText: AppTextStrings.email,
               prefixIcon: Icon(Iconsax.direct),
             ),
+            controller: controller.email,
+            validator: (value) => AppValidator.validateEmail(value),
           ),
 
           const SizedBox(height: AppSizes.spaceBtwInputFields),
@@ -71,17 +85,30 @@ class SignupForm extends StatelessWidget {
               labelText: AppTextStrings.phoneNo,
               prefixIcon: Icon(Iconsax.call),
             ),
+            controller: controller.phoneNumber,
+            validator: (value) => AppValidator.validatePhoneNumber(value),
           ),
 
           const SizedBox(height: AppSizes.spaceBtwInputFields),
 
           /// Password
-          TextFormField(
-            obscureText: true,
-            decoration: InputDecoration(
-              labelText: AppTextStrings.password,
-              prefixIcon: Icon(Iconsax.password_check),
-              suffixIcon: Icon(Iconsax.eye_slash),
+          Obx(
+            () => TextFormField(
+              controller: controller.password,
+              validator: (value) => AppValidator.validatePassword(value),
+              obscureText: controller.hidePassword.value,
+              decoration: InputDecoration(
+                labelText: AppTextStrings.password,
+                prefixIcon: Icon(Iconsax.password_check),
+                suffixIcon: IconButton(
+                  onPressed: () => controller.hidePassword.toggle(),
+                  icon: Icon(
+                    controller.hidePassword.value
+                        ? Iconsax.eye_slash
+                        : Iconsax.eye,
+                  ),
+                ),
+              ),
             ),
           ),
 
@@ -96,7 +123,7 @@ class SignupForm extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () => Get.toNamed(AppRoutes.verifyEmail),
+              onPressed: () => controller.signup(),
               child: Text(AppTextStrings.createAccount),
             ),
           ),

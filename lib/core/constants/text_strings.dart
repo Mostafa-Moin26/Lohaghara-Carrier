@@ -119,10 +119,10 @@ class AppTextStrings {
   static const String emailNotReceived =
       "Didn't get the email? Check spam or resend.";
 
-  static const String accountCreatedTitle =
-      'Your account was successfully created!';
-  static const String accountCreatedSubtitle =
-      'Welcome! Start exploring your dashboard.';
+  static const String yourAccountCreatedTitle =
+      "Your account has been created!";
+  static const String yourAccountCreatedSubTitle =
+      "Welcome to Lohaghara Carrier. Manage transport records, generate smart billing reports, and track your business easily.";
 
   // ─────────────────────────────────────────────
   // 📊 DASHBOARD
