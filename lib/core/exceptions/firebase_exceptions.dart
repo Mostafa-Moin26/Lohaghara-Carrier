@@ -1,10 +1,10 @@
 /// Custom exception class to handle Firebase-related errors.
-class NubifyFirebaseException implements Exception {
+class LFirebaseException implements Exception {
   /// The associated Firebase error code.
   final String code;
 
   /// Constructor
-  NubifyFirebaseException(this.code);
+  LFirebaseException(this.code);
 
   /// Get corresponding human-readable message.
   String get message {

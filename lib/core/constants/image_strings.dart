@@ -18,6 +18,7 @@ class AppImageStrings {
   static const String emailSuccessfullySent =
       'assets/animations/email_successfully_sent.json';
   static const String success = 'assets/animations/success.json';
+  static const String docerAnimation = 'assets/animations/docer_animation.json';
 
   // ---- Authentication
   static const String forgotPassIcon = 'assets/images/icons/forgotPassIcon.png';
@@ -25,6 +26,8 @@ class AppImageStrings {
       'assets/images/icons/create_new_pass.png';
   static const String passwordResetSuccessful =
       'assets/images/icons/reset_successful.png';
+  static const String verifyEmailIllustration =
+      'assets/images/icons/verify_email.png';
 
   /// Review Images
   static const String reviewImage1 = "assets/images/reviews/image1.png";

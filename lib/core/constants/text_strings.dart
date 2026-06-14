@@ -22,6 +22,7 @@ class AppTextStrings {
   static const String download = 'Download';
   static const String share = 'Share';
   static const String more = 'More';
+  static const String lcontinue = 'Continue';
 
   // ─────────────────────────────────────────────
   // 🚀 ONBOARDING
@@ -112,7 +113,7 @@ class AppTextStrings {
       'Your new password must be different from previous ones.';
 
   static const String confirmEmailTitle = 'Verify your email address!';
-  static const String confirmEmailSubtitle =
+  static const String confirmEmailSubTitle =
       "Verify your email to start using the app.";
 
   static const String emailNotReceived =

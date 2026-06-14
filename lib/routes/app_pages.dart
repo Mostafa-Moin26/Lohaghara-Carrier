@@ -5,6 +5,7 @@ import 'package:lohaghara_carrier/features/auth/presentation/password/forgot/for
 import 'package:lohaghara_carrier/features/auth/presentation/password/success/password_reset_successful_screen.dart';
 import 'package:lohaghara_carrier/features/auth/presentation/password/reset/reset_password_screen.dart';
 import 'package:lohaghara_carrier/features/auth/presentation/signup/signup_screen.dart';
+import 'package:lohaghara_carrier/features/auth/presentation/signup/verify_email_screen.dart';
 import 'package:lohaghara_carrier/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:lohaghara_carrier/features/factory/presentation/factory_view.dart';
 import 'package:lohaghara_carrier/features/onboarding/onboarding_screen.dart';
@@ -35,6 +36,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.signup,
       page: () => SignupScreen(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: AppRoutes.verifyEmail,
+      page: () => const VerifyEmailScreen(),
       transition: Transition.rightToLeft,
     ),
     GetPage(

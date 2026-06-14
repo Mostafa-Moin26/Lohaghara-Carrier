@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 import '../../../../../core/constants/sizes.dart';
 import '../../../../../core/constants/text_strings.dart';
@@ -94,8 +96,7 @@ class SignupForm extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              // onPressed: () => Get.to(() => const VerifyEmailScreen()),
-              onPressed: () {},
+              onPressed: () => Get.toNamed(AppRoutes.verifyEmail),
               child: Text(AppTextStrings.createAccount),
             ),
           ),

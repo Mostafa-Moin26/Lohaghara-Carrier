@@ -1,10 +1,10 @@
 /// Exception class for handling various platform-related errors.
-class NubifyPlatformException implements Exception {
+class LPlatformException implements Exception {
   /// Error code
   final String code;
 
   /// Constructor
-  NubifyPlatformException(this.code);
+  LPlatformException(this.code);
 
   /// Get corresponding human-readable message
   String get message {
