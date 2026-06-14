@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/constants/image_strings.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/core/helpers/helper_functions.dart';
+import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
   const VerifyEmailScreen({super.key, this.email});
@@ -16,7 +18,10 @@ class VerifyEmailScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(CupertinoIcons.clear)),
+          IconButton(
+            onPressed: () => Get.offAllNamed(AppRoutes.login),
+            icon: Icon(CupertinoIcons.clear),
+          ),
         ],
       ),
       body: SingleChildScrollView(
