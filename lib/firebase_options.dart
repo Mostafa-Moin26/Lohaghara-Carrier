@@ -63,13 +63,14 @@ class DefaultFirebaseOptions {
     projectId: 'attendance-91ada',
     storageBucket: 'attendance-91ada.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDK48j6TUE2SvZATm2SR8Hmzy5iYojXkJk',
     appId: '1:933911069012:ios:9b92d191dc3429cb8148c1',
     messagingSenderId: '933911069012',
     projectId: 'attendance-91ada',
     storageBucket: 'attendance-91ada.firebasestorage.app',
+    androidClientId: '933911069012-2je4st5t94548qev20agcudqma9j5fvm.apps.googleusercontent.com',
+    iosClientId: '933911069012-0bst62js4sc86ro0m87rq6o36sfjono1.apps.googleusercontent.com',
     iosBundleId: 'com.example.lohagharaCarrier',
   );
 }

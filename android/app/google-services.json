@@ -12,7 +12,12 @@
           "package_name": "com.example.attendance"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "933911069012-fvel6v5umttbr80bplp48l316mqec87e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBjfn9-aG_KDwVoYbolacGXMYpZZZuqFr8"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933911069012-fvel6v5umttbr80bplp48l316mqec87e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "933911069012-0bst62js4sc86ro0m87rq6o36sfjono1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.lohagharaCarrier"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +48,20 @@
           "package_name": "com.example.lohaghara_carrier"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "933911069012-2je4st5t94548qev20agcudqma9j5fvm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lohaghara_carrier",
+            "certificate_hash": "6f26e32c5a2b2992de1baf190eb0afa2b6cb943c"
+          }
+        },
+        {
+          "client_id": "933911069012-fvel6v5umttbr80bplp48l316mqec87e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBjfn9-aG_KDwVoYbolacGXMYpZZZuqFr8"
@@ -39,7 +69,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933911069012-fvel6v5umttbr80bplp48l316mqec87e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "933911069012-0bst62js4sc86ro0m87rq6o36sfjono1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.lohagharaCarrier"
+              }
+            }
+          ]
         }
       }
     }
