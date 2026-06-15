@@ -7,7 +7,6 @@ import 'package:lohaghara_carrier/core/exceptions/firebase_exceptions.dart';
 import 'package:lohaghara_carrier/core/exceptions/format_exceptions.dart';
 import 'package:lohaghara_carrier/core/exceptions/platform_exceptions.dart';
 import 'package:lohaghara_carrier/features/auth/presentation/signup/verify_email_screen.dart';
-import 'package:lohaghara_carrier/navigation_menu.dart';
 import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 class AuthenticationRepository extends GetxController {
@@ -21,30 +20,53 @@ class AuthenticationRepository extends GetxController {
   User? get authUser => _auth.currentUser;
 
   /// Called from main.dart on app launch
-  @override
-  void onReady() {
-    screenRedirect();
-    super.onReady();
-  }
+  // @override
+  // void onReady() {
+  //   screenRedirect();
+  //   super.onReady();
+  // }
 
   /// Function to show relevant screen
   Future<void> screenRedirect() async {
     final user = _auth.currentUser;
     if (user != null) {
       if (user.emailVerified) {
-        Get.offAll(() => NavigationMenu());
+        Get.offAllNamed(AppRoutes.navigationMenu);
       } else {
         Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
       }
     } else {
       deviceStorage.writeIfNull('IsFirstTime', true);
       deviceStorage.read('IsFirstTime') != true
-          ? Get.offAll(AppRoutes.login)
-          : Get.offAll(AppRoutes.onboarding);
+          ? Get.offAllNamed(AppRoutes.login)
+          : Get.offAllNamed(AppRoutes.onboarding);
     }
   }
 
   /*----------------------------Email & Password Sign-in-------------------- */
+
+  /// [EmailAuthentication] - LOGIN
+  Future<UserCredential> loginWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
+    try {
+      return await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      throw LFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw LFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const LFormatException();
+    } on PlatformException catch (e) {
+      throw LFirebaseAuthException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
 
   /// [EmailAuthentication] - Register
   Future<UserCredential> registerWithEmailAndPassword(

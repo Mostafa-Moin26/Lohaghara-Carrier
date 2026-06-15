@@ -114,7 +114,9 @@ class AppTextStrings {
 
   static const String confirmEmailTitle = 'Verify your email address!';
   static const String confirmEmailSubTitle =
-      "Verify your email to start using the app.";
+      "Verify your email to start using the app.\n\n"
+      "Please check your Inbox, Spam, or Promotions folder.\n"
+      "Didn't receive the email? Tap \"Resend Email\".";
 
   static const String emailNotReceived =
       "Didn't get the email? Check spam or resend.";
