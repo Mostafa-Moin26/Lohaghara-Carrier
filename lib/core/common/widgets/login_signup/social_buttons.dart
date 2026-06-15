@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/helpers/helper_functions.dart';
+import 'package:lohaghara_carrier/features/auth/presentation/login/controller/login_controller.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/image_strings.dart';
@@ -11,6 +13,7 @@ class SocialButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool dark = AppHelperFunctions.isDarkMode(context);
+    final controller = Get.put(LoginController());
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -24,7 +27,7 @@ class SocialButtons extends StatelessWidget {
             color: dark ? AppColors.darkerGrey : AppColors.white,
           ),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () => controller.googleSignIn(),
             icon: const Image(
               height: AppSizes.iconLg,
               width: AppSizes.iconLg,

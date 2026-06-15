@@ -5,6 +5,7 @@ import 'package:lohaghara_carrier/core/exceptions/firebase_exceptions.dart';
 import 'package:lohaghara_carrier/core/exceptions/format_exceptions.dart';
 import 'package:lohaghara_carrier/core/exceptions/platform_exceptions.dart';
 import 'package:lohaghara_carrier/features/auth/data/models/user_model.dart';
+import 'package:lohaghara_carrier/features/auth/data/repositories/authentication_repository.dart';
 
 /// Repository class for user-related operations.
 class UserRepository extends GetxController {
@@ -16,6 +17,30 @@ class UserRepository extends GetxController {
   Future<void> saveUserRecord(UserModel user) async {
     try {
       await _db.collection("Users").doc(user.id).set(user.toJson());
+    } on FirebaseException catch (e) {
+      throw LFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const LFormatException();
+    } on PlatformException catch (e) {
+      throw LPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  /// Function to fetch user details based on user ID.
+  Future<UserModel> fetchUserDetails() async {
+    try {
+      final documentSnapshot = await _db
+          .collection("Users")
+          .doc(AuthenticationRepository.instance.authUser?.uid)
+          .get();
+
+      if (documentSnapshot.exists) {
+        return UserModel.fromSnapshot(documentSnapshot);
+      } else {
+        return UserModel.empty();
+      }
     } on FirebaseException catch (e) {
       throw LFirebaseException(e.code).message;
     } on FormatException catch (_) {

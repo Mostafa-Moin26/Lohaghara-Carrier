@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:lohaghara_carrier/core/constants/image_strings.dart';
 import 'package:lohaghara_carrier/core/helpers/network_manager.dart';
 import 'package:lohaghara_carrier/core/popups/full_screen_loader.dart';
 import 'package:lohaghara_carrier/core/popups/loaders.dart';
 import 'package:lohaghara_carrier/features/auth/data/repositories/authentication_repository.dart';
+import 'package:lohaghara_carrier/features/more/presentation/controller/user_controller.dart';
 
 class LoginController extends GetxController {
   // Variables
@@ -15,7 +16,7 @@ class LoginController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  // final userController = Get.put(UserController());
+  final userController = Get.put(UserController());
 
   @override
   void onInit() {
@@ -71,6 +72,45 @@ class LoginController extends GetxController {
     } catch (e) {
       FullScreenLoader.stopLoading();
 
+      AppLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+    }
+  }
+
+  /// -- Google Sign In Authentication
+  Future<void> googleSignIn() async {
+    try {
+      /// Start Loading
+      FullScreenLoader.openLoadingDialog(
+        'Logging you in...',
+        AppImageStrings.docerAnimation,
+      );
+
+      /// Check Internet Connectivity
+      final isConnected = await NetworkManager.instance.isConnected();
+
+      if (!isConnected) {
+        FullScreenLoader.stopLoading();
+
+        return;
+      }
+
+      /// Google Authentication
+      final userCredentials = await AuthenticationRepository.instance
+          .signInWithGoogle();
+
+      /// Save user record
+      await userController.saveUserRecord(userCredentials);
+
+      /// Remove Loader
+      FullScreenLoader.stopLoading();
+
+      /// Redirect
+      AuthenticationRepository.instance.screenRedirect();
+    } catch (e) {
+      /// Remove Loader
+      FullScreenLoader.stopLoading();
+
+      /// Show Error To User
       AppLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }
   }
