@@ -20,7 +20,7 @@ class AppImageStrings {
   static const String success = 'assets/animations/success.json';
   static const String docerAnimation = 'assets/animations/docer_animation.json';
   static const String successfullyRegisterAnimation =
-      'assets/images/animations/check_register.json';
+      'assets/animations/check_register.json';
 
   // ---- Authentication
   static const String forgotPassIcon = 'assets/images/icons/forgotPassIcon.png';

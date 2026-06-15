@@ -5,7 +5,8 @@ import 'package:lohaghara_carrier/core/constants/image_strings.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/core/helpers/helper_functions.dart';
-import 'package:lohaghara_carrier/routes/app_routes.dart';
+import 'package:lohaghara_carrier/features/auth/data/repositories/authentication_repository.dart';
+import 'package:lohaghara_carrier/features/auth/presentation/signup/controller/verify_email_controller.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
   const VerifyEmailScreen({super.key, this.email});
@@ -14,12 +15,13 @@ class VerifyEmailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(VerifyEmailController());
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            onPressed: () => Get.offAllNamed(AppRoutes.login),
+            onPressed: () => AuthenticationRepository.instance.logout(),
             icon: Icon(CupertinoIcons.clear),
           ),
         ],
@@ -60,7 +62,7 @@ class VerifyEmailScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => controller.checkEmailVerificationStatus,
                   child: Text(AppTextStrings.lcontinue),
                 ),
               ),
@@ -68,7 +70,7 @@ class VerifyEmailScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () => controller.checkEmailVerificationStatus(),
                   child: Text(AppTextStrings.resendEmail),
                 ),
               ),
