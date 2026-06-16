@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/popups/loaders.dart';
-import 'package:lohaghara_carrier/features/auth/data/models/user_model.dart';
-import 'package:lohaghara_carrier/features/auth/data/repositories/user_repository.dart';
+import 'package:lohaghara_carrier/features/profile/data/models/user_model.dart';
+import 'package:lohaghara_carrier/features/profile/data/repositories/user_repositories.dart';
 
 class UserController extends GetxController {
   static UserController get instance => Get.find();

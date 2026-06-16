@@ -9,6 +9,7 @@ import 'package:lohaghara_carrier/features/auth/presentation/signup/verify_email
 import 'package:lohaghara_carrier/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:lohaghara_carrier/features/factory/presentation/factory_view.dart';
 import 'package:lohaghara_carrier/features/onboarding/onboarding_screen.dart';
+import 'package:lohaghara_carrier/features/profile/presentation/profile_details_screen.dart';
 import 'package:lohaghara_carrier/features/record/presentation/add_record/add_record_screen.dart';
 import 'package:lohaghara_carrier/features/record/presentation/all_records/all_record_screen.dart';
 import 'package:lohaghara_carrier/features/record/presentation/record_details/record_details_screen.dart';
@@ -71,5 +72,7 @@ class AppPages {
     ),
     GetPage(name: AppRoutes.summaryScreen, page: () => SummaryScreen()),
     GetPage(name: AppRoutes.monthlyBillScreen, page: () => MonthlybillScreen()),
+
+    GetPage(name: AppRoutes.profileDetails, page: () => ProfileDetailsScreen()),
   ];
 }

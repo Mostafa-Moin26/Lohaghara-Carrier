@@ -20,6 +20,6 @@ abstract class AppRoutes {
   static const String summaryScreen = '/summary_screen';
   static const String monthlyBillScreen = '/monthlybill_screen';
   static const String reports = '/reports';
-  static const String profile = '/profile';
+  static const String profileDetails = '/profile_details_screen';
   static const String pin = '/pin';
 }

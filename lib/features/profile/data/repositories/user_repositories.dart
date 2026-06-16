@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lohaghara_carrier/core/exceptions/firebase_exceptions.dart';
 import 'package:lohaghara_carrier/core/exceptions/format_exceptions.dart';
 import 'package:lohaghara_carrier/core/exceptions/platform_exceptions.dart';
-import 'package:lohaghara_carrier/features/auth/data/models/user_model.dart';
 import 'package:lohaghara_carrier/features/auth/data/repositories/authentication_repository.dart';
+import 'package:lohaghara_carrier/features/profile/data/models/user_model.dart';
 
 /// Repository class for user-related operations.
 class UserRepository extends GetxController {

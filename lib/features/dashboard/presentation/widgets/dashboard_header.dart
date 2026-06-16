@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lohaghara_carrier/core/common/widgets/images/circular_image.dart';
+import 'package:lohaghara_carrier/core/popups/shimmer/shimmer.dart';
+import 'package:lohaghara_carrier/features/profile/presentation/controller/user_controller.dart';
+import 'package:lohaghara_carrier/routes/app_routes.dart';
 
-import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/image_strings.dart';
 import '../../../../core/helpers/helper_functions.dart';
 
@@ -9,7 +13,8 @@ class DashBoardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = AppHelperFunctions.isDarkMode(context);
+    AppHelperFunctions.isDarkMode(context);
+    final controller = Get.put(UserController());
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -26,25 +31,22 @@ class DashBoardHeader extends StatelessWidget {
         ),
 
         /// User Avatar
-        Container(
-          width: AppHelperFunctions.screenWidth() * 0.12,
-          height: AppHelperFunctions.screenWidth() * 0.12,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: dark ? AppColors.white : AppColors.primaryDark,
-              width: 1.5,
-            ),
-            shape: BoxShape.circle,
-          ),
-          child: ClipOval(
-            child: Image(
-              width: double.infinity,
-              height: double.infinity,
-              image: AssetImage(AppImageStrings.userAvatar3),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
+        Obx(() {
+          final networkImage = controller.user.value.profilePicture;
+          final image = networkImage.isNotEmpty
+              ? networkImage
+              : AppImageStrings.userAvatar2;
+
+          return controller.imageUploading.value
+              ? ShimmerEffect(width: 65, height: 65, radius: 65)
+              : CircularImage(
+                  image: image,
+                  width: 65,
+                  height: 65,
+                  isNetworkImage: networkImage.isNotEmpty,
+                  onTap: () => Get.toNamed(AppRoutes.profileDetails),
+                );
+        }),
       ],
     );
   }

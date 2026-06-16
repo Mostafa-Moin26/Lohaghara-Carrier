@@ -6,7 +6,7 @@ import 'package:lohaghara_carrier/core/helpers/network_manager.dart';
 import 'package:lohaghara_carrier/core/popups/full_screen_loader.dart';
 import 'package:lohaghara_carrier/core/popups/loaders.dart';
 import 'package:lohaghara_carrier/features/auth/data/repositories/authentication_repository.dart';
-import 'package:lohaghara_carrier/features/more/presentation/controller/user_controller.dart';
+import 'package:lohaghara_carrier/features/profile/presentation/controller/user_controller.dart';
 
 class LoginController extends GetxController {
   // Variables

@@ -4,10 +4,10 @@ import 'package:lohaghara_carrier/core/constants/image_strings.dart';
 import 'package:lohaghara_carrier/core/helpers/network_manager.dart';
 import 'package:lohaghara_carrier/core/popups/full_screen_loader.dart';
 import 'package:lohaghara_carrier/core/popups/loaders.dart';
-import 'package:lohaghara_carrier/features/auth/data/models/user_model.dart';
 import 'package:lohaghara_carrier/features/auth/data/repositories/authentication_repository.dart';
-import 'package:lohaghara_carrier/features/auth/data/repositories/user_repository.dart';
 import 'package:lohaghara_carrier/features/auth/presentation/signup/verify_email_screen.dart';
+import 'package:lohaghara_carrier/features/profile/data/models/user_model.dart';
+import 'package:lohaghara_carrier/features/profile/data/repositories/user_repositories.dart';
 
 class SignupController extends GetxController {
   static SignupController get instance => Get.find();
