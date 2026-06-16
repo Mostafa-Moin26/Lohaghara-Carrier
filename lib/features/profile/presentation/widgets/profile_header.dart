@@ -1,40 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/common/widgets/images/circular_image.dart';
 import 'package:lohaghara_carrier/core/constants/colors.dart';
 import 'package:lohaghara_carrier/core/constants/image_strings.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
+import 'package:lohaghara_carrier/core/popups/shimmer/shimmer.dart';
+import 'package:lohaghara_carrier/features/profile/presentation/controller/user_controller.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = UserController.instance;
     return Center(
       child: Column(
         children: [
           Stack(
             children: [
               /// Profile picture
-              CircularImage(
-                image: AppImageStrings.userAvatar3,
-                width: 130,
-                height: 130,
-              ),
+              // CircularImage(
+              //   image: AppImageStrings.userAvatar3,
+              //   width: 130,
+              //   height: 130,
+              // ),
+              Obx(() {
+                final networkImage = controller.user.value.profilePicture;
+                final image = networkImage.isNotEmpty
+                    ? networkImage
+                    : AppImageStrings.userAvatar2;
+
+                return controller.imageUploading.value
+                    ? ShimmerEffect(width: 130, height: 130, radius: 130)
+                    : CircularImage(
+                        image: image,
+                        width: 130,
+                        height: 130,
+                        isNetworkImage: networkImage.isNotEmpty,
+                      );
+              }),
 
               /// Edit icon
               Positioned(
                 bottom: 0,
                 right: 0,
                 child: Container(
-                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: AppColors.primaryColor,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
-                    Icons.camera_alt_outlined,
-                    size: AppSizes.iconMd,
-                    color: Colors.white,
+                  child: IconButton(
+                    iconSize: 10,
+                    onPressed: () => controller.uploadUserProfilePicture(),
+                    icon: Icon(
+                      Icons.camera_alt_outlined,
+                      size: AppSizes.iconMd,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),

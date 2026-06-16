@@ -8,7 +8,6 @@ abstract class AppRoutes {
   static const String verifyEmail = '/verify_email';
   static const String forgotPassword = '/forgot_password';
   static const String resetPassword = '/reset_password';
-  static const String createNewPassword = '/create_new_password';
   static const String passwordResetSuccessful = '/password_reset_successful';
   static const String navigationMenu = '/navigation_menu';
   static const String dashboard = '/dashboard';

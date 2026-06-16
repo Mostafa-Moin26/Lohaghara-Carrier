@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:lohaghara_carrier/features/auth/presentation/login/login_screen.dart';
-import 'package:lohaghara_carrier/features/auth/presentation/password/create/create_new_password_screen.dart';
 import 'package:lohaghara_carrier/features/auth/presentation/password/forgot/forgot_password_screen.dart';
 import 'package:lohaghara_carrier/features/auth/presentation/password/success/password_reset_successful_screen.dart';
 import 'package:lohaghara_carrier/features/auth/presentation/password/reset/reset_password_screen.dart';
@@ -50,8 +49,6 @@ class AppPages {
       transition: Transition.rightToLeft,
     ),
     GetPage(name: AppRoutes.resetPassword, page: () => ResetPassword()),
-
-    GetPage(name: AppRoutes.createNewPassword, page: () => CreateNewPassword()),
 
     GetPage(
       name: AppRoutes.passwordResetSuccessful,

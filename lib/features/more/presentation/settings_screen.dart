@@ -10,6 +10,7 @@ import 'package:lohaghara_carrier/features/more/presentation/widgets/logout_butt
 import 'package:lohaghara_carrier/features/more/presentation/widgets/profile_card.dart';
 import 'package:lohaghara_carrier/features/more/presentation/widgets/settings_section.dart';
 import 'package:lohaghara_carrier/features/more/presentation/widgets/settings_tile.dart';
+import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({super.key});
@@ -37,7 +38,7 @@ class SettingsScreen extends StatelessWidget {
                 icon: Iconsax.user,
                 title: AppTextStrings.profileInformation,
                 subtitle: AppTextStrings.viewAndEditProfile,
-                onTap: () {},
+                onTap: () => Get.toNamed(AppRoutes.profileDetails),
               ),
 
               SettingsTile(
