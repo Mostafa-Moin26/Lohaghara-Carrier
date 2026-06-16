@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
+import 'package:lohaghara_carrier/features/profile/presentation/controller/user_controller.dart';
 import 'package:lohaghara_carrier/features/profile/presentation/widgets/delete_button.dart';
 import 'package:lohaghara_carrier/features/profile/presentation/widgets/profile_info.dart';
 import 'package:lohaghara_carrier/features/profile/presentation/widgets/profile_header.dart';
@@ -38,22 +39,22 @@ class ProfileDetailsScreen extends StatelessWidget {
                     ProfileTile(
                       icon: Iconsax.user,
                       title: 'Full Name',
-                      value: 'Mostafa Al Moin',
+                      value: UserController.instance.user.value.fullName,
                     ),
                     ProfileTile(
                       icon: Iconsax.user,
                       title: 'Username',
-                      value: 'moin26',
+                      value: UserController.instance.user.value.username,
                     ),
                     ProfileTile(
                       icon: Icons.email,
                       title: 'Email',
-                      value: 'mostafa.al.moin@example.com',
+                      value: UserController.instance.user.value.email,
                     ),
                     ProfileTile(
                       icon: Iconsax.mobile,
                       title: 'Phone',
-                      value: '01845664426',
+                      value: UserController.instance.user.value.phoneNumber,
                     ),
                     ProfileTile(
                       icon: Iconsax.briefcase,

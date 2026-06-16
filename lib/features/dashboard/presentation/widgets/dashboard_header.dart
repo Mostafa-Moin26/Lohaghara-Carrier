@@ -22,10 +22,17 @@ class DashBoardHeader extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Hello, Mostafa Moin 👋',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
+            Obx(() {
+              if (controller.profileLoading.value) {
+                return ShimmerEffect(width: 100, height: 15);
+              } else {
+                return Text(
+                  controller.user.value.fullName,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                );
+              }
+            }),
+
             Text('Good Morning', style: Theme.of(context).textTheme.bodyMedium),
           ],
         ),
