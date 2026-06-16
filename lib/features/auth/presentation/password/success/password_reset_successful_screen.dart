@@ -51,7 +51,7 @@ class PasswordResetSuccessful extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () => Get.offNamed(AppRoutes.login),
+                      onPressed: () => Get.offAllNamed(AppRoutes.login),
                       child: Text(AppTextStrings.backToLogin),
                     ),
                   ),

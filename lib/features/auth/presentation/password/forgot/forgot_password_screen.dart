@@ -5,7 +5,8 @@ import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
 import 'package:lohaghara_carrier/core/constants/colors.dart';
 import 'package:lohaghara_carrier/core/constants/image_strings.dart';
 import 'package:lohaghara_carrier/core/helpers/helper_functions.dart';
-import 'package:lohaghara_carrier/routes/app_routes.dart';
+import 'package:lohaghara_carrier/core/validators/validators.dart';
+import 'package:lohaghara_carrier/features/auth/presentation/password/controller/forget_password_controller.dart';
 
 import '../../../../../core/common/widgets/containers/rounded_container.dart';
 import '../../../../../core/constants/sizes.dart';
@@ -16,6 +17,7 @@ class ForgetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ForgetPasswordController());
     return Scaffold(
       appBar: CustomAppBar(showBackArrow: true),
       body: SafeArea(
@@ -45,10 +47,15 @@ class ForgetPassword extends StatelessWidget {
                 const SizedBox(height: AppSizes.spaceBtwSections),
 
                 /// Text field
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: AppTextStrings.email,
-                    prefixIcon: const Icon(Iconsax.direct_right),
+                Form(
+                  key: controller.forgetPasswordFormKey,
+                  child: TextFormField(
+                    controller: controller.email,
+                    validator: AppValidator.validateEmail,
+                    decoration: InputDecoration(
+                      labelText: AppTextStrings.email,
+                      prefixIcon: const Icon(Iconsax.direct_right),
+                    ),
                   ),
                 ),
                 const SizedBox(height: AppSizes.spaceBtwSections),
@@ -57,7 +64,7 @@ class ForgetPassword extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () => Get.offNamed(AppRoutes.resetPassword),
+                    onPressed: () => controller.sendPasswordResetEmail(),
                     child: const Text(AppTextStrings.sendResetLink),
                   ),
                 ),
