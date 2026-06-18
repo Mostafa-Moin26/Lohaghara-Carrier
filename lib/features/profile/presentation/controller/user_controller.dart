@@ -2,9 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lohaghara_carrier/core/constants/image_strings.dart';
+import 'package:lohaghara_carrier/core/constants/sizes.dart';
+import 'package:lohaghara_carrier/core/helpers/network_manager.dart';
+import 'package:lohaghara_carrier/core/popups/full_screen_loader.dart';
 import 'package:lohaghara_carrier/core/popups/loaders.dart';
+import 'package:lohaghara_carrier/features/auth/data/repositories/authentication_repository.dart';
 import 'package:lohaghara_carrier/features/profile/data/models/user_model.dart';
 import 'package:lohaghara_carrier/features/profile/data/repositories/user_repositories.dart';
+import 'package:lohaghara_carrier/features/profile/presentation/widgets/re_auth_user_login_form.dart';
+import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 class UserController extends GetxController {
   static UserController get instance => Get.find();
@@ -79,6 +86,116 @@ class UserController extends GetxController {
             'Something went wrong while saving your information. '
             'You can re-save your data in your Profile.',
       );
+    }
+  }
+
+  /// Delete Account Warning
+  void deleteAccountWarningPopup() {
+    Get.defaultDialog(
+      contentPadding: const EdgeInsets.all(AppSizes.md),
+      title: 'Delete Account',
+      middleText:
+          'Are you sure you want to delete your account permanently? '
+          'This action is not reversible and all of your data will be removed permanently.',
+      confirm: ElevatedButton(
+        onPressed: () async => deleteUserAccount(),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.red,
+          side: const BorderSide(color: Colors.red),
+        ),
+        child: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppSizes.lg),
+          child: Text('Delete'),
+        ),
+      ),
+      cancel: OutlinedButton(
+        child: const Text('Cancel'),
+        onPressed: () => Navigator.of(Get.overlayContext!).pop(),
+      ),
+    );
+  }
+
+  /// Delete User Account
+  void deleteUserAccount() async {
+    try {
+      FullScreenLoader.openLoadingDialog(
+        'Processing',
+        AppImageStrings.docerAnimation,
+      );
+
+      /// First re-authenticate user
+      final auth = AuthenticationRepository.instance;
+
+      final provider = auth.authUser!.providerData
+          .map((e) => e.providerId)
+          .first;
+
+      if (provider.isNotEmpty) {
+        /// Re Verify Auth Email
+        if (provider == 'google.com') {
+          await auth.signInWithGoogle();
+
+          await auth.deleteAccount();
+
+          FullScreenLoader.stopLoading();
+
+          Get.offAllNamed(AppRoutes.login);
+        } else if (provider == 'password') {
+          FullScreenLoader.stopLoading();
+
+          Get.to(() => const ReAuthLoginForm());
+        }
+      }
+    } catch (e) {
+      FullScreenLoader.stopLoading();
+
+      AppLoaders.warningSnackBar(title: 'Oh Snap!', message: e.toString());
+    }
+  }
+
+  /// -- RE-AUTHENTICATE before deleting
+  Future<void> reAuthenticateEmailAndPasswordUser() async {
+    try {
+      FullScreenLoader.openLoadingDialog(
+        'Processing',
+        AppImageStrings.docerAnimation,
+      );
+
+      /// Check Internet
+      final isConnected = await NetworkManager.instance.isConnected();
+
+      if (!isConnected) {
+        FullScreenLoader.stopLoading();
+
+        return;
+      }
+
+      /// Form Validation
+      if (!reAuthFormKey.currentState!.validate()) {
+        FullScreenLoader.stopLoading();
+
+        return;
+      }
+
+      /// Re-Authenticate User
+      await AuthenticationRepository.instance
+          .reAuthenticateWithEmailAndPassword(
+            verifyEmail.text.trim(),
+            verifyPassword.text.trim(),
+          );
+
+      /// Delete Account
+      await AuthenticationRepository.instance.deleteAccount();
+
+      /// Remove Loader
+      FullScreenLoader.stopLoading();
+
+      /// Redirect
+      Get.offAllNamed(AppRoutes.login);
+    } catch (e) {
+      FullScreenLoader.stopLoading();
+
+      AppLoaders.warningSnackBar(title: 'Oh Snap!', message: e.toString());
     }
   }
 

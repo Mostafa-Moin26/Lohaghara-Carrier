@@ -74,6 +74,21 @@ class UserRepository extends GetxController {
     }
   }
 
+  /// Function to remove user data from Firestore.
+  Future<void> removeUserRecord(String userId) async {
+    try {
+      await _db.collection("Users").doc(userId).delete();
+    } on FirebaseException catch (e) {
+      throw LFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const LFormatException();
+    } on PlatformException catch (e) {
+      throw LPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
   /// Upload any Image
   Future<String> uploadImage(String path, XFile image) async {
     try {

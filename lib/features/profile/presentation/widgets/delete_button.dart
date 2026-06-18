@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
+import 'package:lohaghara_carrier/features/profile/presentation/controller/user_controller.dart';
 
 class DeleteAccountButton extends StatelessWidget {
   const DeleteAccountButton({super.key});
@@ -16,7 +17,7 @@ class DeleteAccountButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppSizes.cardRadiusMd),
           ),
         ),
-        onPressed: () {},
+        onPressed: () => UserController.instance.deleteAccountWarningPopup(),
         icon: const Icon(Iconsax.trash, color: Colors.red),
         label: const Text(
           "Delete Account",

@@ -6,6 +6,7 @@ import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/features/profile/presentation/controller/update_name_controller.dart';
 import 'package:lohaghara_carrier/features/profile/presentation/controller/user_controller.dart';
 import 'package:lohaghara_carrier/features/profile/presentation/widgets/change_name.dart';
+import 'package:lohaghara_carrier/features/profile/presentation/widgets/change_phone.dart';
 import 'package:lohaghara_carrier/features/profile/presentation/widgets/delete_button.dart';
 import 'package:lohaghara_carrier/features/profile/presentation/widgets/profile_info.dart';
 import 'package:lohaghara_carrier/features/profile/presentation/widgets/profile_header.dart';
@@ -58,10 +59,13 @@ class ProfileDetailsScreen extends StatelessWidget {
                       title: 'Email',
                       value: UserController.instance.user.value.email,
                     ),
-                    ProfileTile(
-                      icon: Iconsax.mobile,
-                      title: 'Phone',
-                      value: UserController.instance.user.value.phoneNumber,
+                    Obx(
+                      () => ProfileTile(
+                        icon: Iconsax.mobile,
+                        title: 'Phone',
+                        value: UserController.instance.user.value.phoneNumber,
+                        onTap: () => Get.to(() => ChangePhone()),
+                      ),
                     ),
                     ProfileTile(
                       icon: Iconsax.briefcase,

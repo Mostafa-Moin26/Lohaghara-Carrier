@@ -13,6 +13,7 @@ class AddRecordController extends GetxController {
   final unloadPointController = TextEditingController();
   final itemController = TextEditingController();
   final remarksController = TextEditingController();
+  final companyController = TextEditingController();
 
   /// State
   DateTime? selectedDate;
@@ -20,6 +21,13 @@ class AddRecordController extends GetxController {
   /// Item options
   final List<String> itemOptions = ["Box", "Hanger", "-"];
   RxString selectedItem = ''.obs;
+
+  /// Companies options
+  final List<String> companies = [
+    "Meghna Executive Holding",
+    "Company B",
+    "Company C",
+  ];
 
   /// Total
   RxDouble totalAmount = 0.0.obs;

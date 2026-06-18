@@ -9,6 +9,7 @@ import 'package:lohaghara_carrier/core/exceptions/firebase_exceptions.dart';
 import 'package:lohaghara_carrier/core/exceptions/format_exceptions.dart';
 import 'package:lohaghara_carrier/core/exceptions/platform_exceptions.dart';
 import 'package:lohaghara_carrier/features/auth/presentation/signup/verify_email_screen.dart';
+import 'package:lohaghara_carrier/features/profile/data/repositories/user_repositories.dart';
 import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 class AuthenticationRepository extends GetxController {
@@ -127,6 +128,33 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
+  /// [ReAuthenticate] - RE AUTHENTICATE USER
+  Future<void> reAuthenticateWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
+    try {
+      /// Create a credential
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: email,
+        password: password,
+      );
+
+      /// ReAuthenticate
+      await _auth.currentUser!.reauthenticateWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      throw LFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw LFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const LFormatException();
+    } on PlatformException catch (e) {
+      throw LPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
   /* ---------------- Federated identity & Social Sign-in ---------------- */
 
   /// [GoogleAuthentication] - GOOGLE
@@ -170,6 +198,25 @@ class AuthenticationRepository extends GetxController {
       await FirebaseAuth.instance.signOut();
 
       Get.offAllNamed(AppRoutes.login);
+    } on FirebaseAuthException catch (e) {
+      throw LFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw LFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const LFormatException();
+    } on PlatformException catch (e) {
+      throw LPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  /// DELETE USER - Remove user Auth and Firestore Account.
+  Future<void> deleteAccount() async {
+    try {
+      await UserRepository.instance.removeUserRecord(_auth.currentUser!.uid);
+
+      await _auth.currentUser?.delete();
     } on FirebaseAuthException catch (e) {
       throw LFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {

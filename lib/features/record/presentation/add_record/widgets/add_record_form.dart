@@ -5,6 +5,7 @@ import 'package:lohaghara_carrier/core/common/widgets/texts/amount_price_text.da
 import 'package:lohaghara_carrier/core/constants/colors.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
+import 'package:lohaghara_carrier/features/record/presentation/add_record/widgets/company_field.dart';
 import 'package:lohaghara_carrier/features/record/presentation/add_record/widgets/item_bottom_sheet.dart';
 import '../controller/add_record_controller.dart';
 
@@ -36,6 +37,13 @@ class AddRecordForm extends StatelessWidget {
               label: AppTextStrings.date,
               prefix: Iconsax.calendar,
             ),
+          ),
+          const SizedBox(height: AppSizes.spaceBtwInputFields),
+
+          /// Company
+          CompanyField(
+            controller: controller.companyController,
+            companies: controller.companies,
           ),
           const SizedBox(height: AppSizes.spaceBtwInputFields),
 
