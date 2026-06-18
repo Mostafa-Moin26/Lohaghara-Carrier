@@ -42,7 +42,7 @@ class DashBoardHeader extends StatelessWidget {
           final networkImage = controller.user.value.profilePicture;
           final image = networkImage.isNotEmpty
               ? networkImage
-              : AppImageStrings.userAvatar2;
+              : AppImageStrings.emptyProfilePicture;
 
           return controller.imageUploading.value
               ? ShimmerEffect(width: 65, height: 65, radius: 65)

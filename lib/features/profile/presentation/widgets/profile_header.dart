@@ -18,17 +18,11 @@ class ProfileHeader extends StatelessWidget {
         children: [
           Stack(
             children: [
-              /// Profile picture
-              // CircularImage(
-              //   image: AppImageStrings.userAvatar3,
-              //   width: 130,
-              //   height: 130,
-              // ),
               Obx(() {
                 final networkImage = controller.user.value.profilePicture;
                 final image = networkImage.isNotEmpty
                     ? networkImage
-                    : AppImageStrings.userAvatar2;
+                    : AppImageStrings.emptyProfilePicture;
 
                 return controller.imageUploading.value
                     ? ShimmerEffect(width: 130, height: 130, radius: 130)
@@ -65,17 +59,19 @@ class ProfileHeader extends StatelessWidget {
           const SizedBox(height: AppSizes.spaceBtwItems),
 
           /// Name
-          Text(
-            'Mostafa Al Moin',
-            style: Theme.of(
-              context,
-            ).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w600),
+          Obx(
+            () => Text(
+              controller.user.value.fullName,
+              style: Theme.of(
+                context,
+              ).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w600),
+            ),
           ),
           const SizedBox(height: 4),
 
           /// Email
           Text(
-            'mostafaalmoin@example.com',
+            controller.user.value.email,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
 

@@ -10,11 +10,13 @@ class ProfileTile extends StatelessWidget {
     required this.title,
     required this.value,
     this.showArrow = true,
+    this.onTap,
   });
   final IconData icon;
   final String title;
   final String value;
   final bool showArrow;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     final dark = AppHelperFunctions.isDarkMode(context);
@@ -58,10 +60,13 @@ class ProfileTile extends StatelessWidget {
             ),
           ),
           if (showArrow)
-            Icon(
-              Icons.arrow_forward_ios,
-              size: AppSizes.iconSm,
-              color: dark ? AppColors.white : AppColors.black,
+            IconButton(
+              onPressed: onTap,
+              icon: Icon(
+                Icons.arrow_forward_ios,
+                size: AppSizes.iconSm,
+                color: dark ? AppColors.white : AppColors.black,
+              ),
             ),
         ],
       ),

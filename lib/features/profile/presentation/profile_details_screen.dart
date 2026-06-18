@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
+import 'package:lohaghara_carrier/features/profile/presentation/controller/update_name_controller.dart';
 import 'package:lohaghara_carrier/features/profile/presentation/controller/user_controller.dart';
+import 'package:lohaghara_carrier/features/profile/presentation/widgets/change_name.dart';
 import 'package:lohaghara_carrier/features/profile/presentation/widgets/delete_button.dart';
 import 'package:lohaghara_carrier/features/profile/presentation/widgets/profile_info.dart';
 import 'package:lohaghara_carrier/features/profile/presentation/widgets/profile_header.dart';
@@ -13,6 +16,7 @@ class ProfileDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(UpdateNameController());
     return Scaffold(
       appBar: CustomAppBar(
         showBackArrow: true,
@@ -36,10 +40,13 @@ class ProfileDetailsScreen extends StatelessWidget {
                 ProfileInfoSection(
                   title: 'Personal Information',
                   children: [
-                    ProfileTile(
-                      icon: Iconsax.user,
-                      title: 'Full Name',
-                      value: UserController.instance.user.value.fullName,
+                    Obx(
+                      () => ProfileTile(
+                        icon: Iconsax.user,
+                        title: 'Full Name',
+                        value: UserController.instance.user.value.fullName,
+                        onTap: () => Get.to(() => ChangeName()),
+                      ),
                     ),
                     ProfileTile(
                       icon: Iconsax.user,
@@ -68,6 +75,8 @@ class ProfileDetailsScreen extends StatelessWidget {
 
                 /// Delete Account
                 DeleteAccountButton(),
+
+                const SizedBox(height: AppSizes.spaceBtwSections),
               ],
             ),
           ),

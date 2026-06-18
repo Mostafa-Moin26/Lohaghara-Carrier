@@ -37,6 +37,8 @@ class AppImageStrings {
   static const String reviewImage3 = "assets/images/reviews/image3.png";
 
   /// User Avatars
+  static const String emptyProfilePicture =
+      'assets/images/user/empty_profile.png';
   static const String userAvatar1 = "assets/images/user/user1.png";
   static const String userAvatar2 = "assets/images/user/user2.png";
   static const String userAvatar3 = "assets/images/user/user3.png";
