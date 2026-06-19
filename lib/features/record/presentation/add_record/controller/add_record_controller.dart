@@ -9,6 +9,8 @@ import 'package:lohaghara_carrier/core/popups/loaders.dart';
 
 import 'package:lohaghara_carrier/features/record/data/models/record_model.dart';
 import 'package:lohaghara_carrier/features/record/data/repositories/record_repository.dart';
+import 'package:lohaghara_carrier/features/record/presentation/all_records/controllers/all_record_controller.dart';
+import 'package:lohaghara_carrier/features/record/presentation/record_details/controller/record_details_controller.dart';
 
 class AddRecordController extends GetxController {
   static AddRecordController get instance => Get.find();
@@ -180,7 +182,16 @@ class AddRecordController extends GetxController {
         updatedAt: DateTime.now(),
       );
 
-      await recordRepository.addRecord(record);
+      final savedRecord = await recordRepository.addRecord(record);
+
+      if (Get.isRegistered<AllRecordController>()) {
+        final controller = AllRecordController.instance;
+
+        // insert new record on the beginning on the local records
+        controller.records.insert(0, savedRecord);
+
+        controller.applyFilters();
+      }
 
       FullScreenLoader.stopLoading();
 
@@ -247,9 +258,30 @@ class AddRecordController extends GetxController {
 
       await recordRepository.updateRecord(updatedRecord);
 
+      /// Update the record in the RecordDetailController
+      if (Get.isRegistered<RecordDetailController>()) {
+        RecordDetailController.instance.record(updatedRecord);
+      }
+
+      if (Get.isRegistered<AllRecordController>()) {
+        final controller = AllRecordController.instance;
+
+        final index = controller.records.indexWhere(
+          (item) => item.id == updatedRecord.id,
+        );
+
+        if (index != -1) {
+          controller.records[index] = updatedRecord;
+
+          controller.records.refresh();
+
+          controller.applyFilters();
+        }
+      }
+
       FullScreenLoader.stopLoading();
 
-      Get.back();
+      Get.back(result: updatedRecord);
 
       AppLoaders.successSnackBar(
         title: 'Success',

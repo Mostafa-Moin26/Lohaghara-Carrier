@@ -15,7 +15,7 @@ class RecordRepository extends GetxController {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   /// Create Record
-  Future<void> addRecord(RecordModel record) async {
+  Future<RecordModel> addRecord(RecordModel record) async {
     try {
       final document = _db.collection('Records').doc();
 
@@ -27,6 +27,8 @@ class RecordRepository extends GetxController {
       );
 
       await document.set(recordWithMetadata.toJson());
+
+      return recordWithMetadata;
     } on FirebaseException catch (e) {
       throw LFirebaseException(e.code).message;
     } on FormatException catch (_) {
