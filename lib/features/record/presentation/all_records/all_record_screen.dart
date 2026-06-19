@@ -128,7 +128,7 @@ class AllRecord extends StatelessWidget {
                       return RecordTile(
                         truckNumber: record.truckNumber,
 
-                        companyName: record.companyName,
+                        companyName: record.factoryName,
 
                         amount: record.totalAmount.toStringAsFixed(0),
 

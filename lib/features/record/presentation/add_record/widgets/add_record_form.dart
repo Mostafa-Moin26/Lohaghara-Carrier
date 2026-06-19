@@ -13,7 +13,7 @@ import '../controller/add_record_controller.dart';
 class AddRecordForm extends StatelessWidget {
   AddRecordForm({super.key});
 
-  final controller = Get.put(AddRecordController());
+  final controller = AddRecordController.instance;
 
   InputDecoration _dec({required String label, IconData? prefix}) {
     return InputDecoration(
@@ -184,8 +184,12 @@ class AddRecordForm extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () => controller.saveRecord(),
-              child: Text(AppTextStrings.saveRecord),
+              onPressed: () => controller.saveOrUpdateRecord(),
+              child: Text(
+                controller.isEditMode
+                    ? 'Update Record'
+                    : AppTextStrings.saveRecord,
+              ),
             ),
           ),
         ],

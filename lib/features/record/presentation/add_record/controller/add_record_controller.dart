@@ -40,7 +40,11 @@ class AddRecordController extends GetxController {
   DateTime? selectedDate;
 
   /// Total Amount
-  RxDouble totalAmount = 0.0.obs;
+  final RxDouble totalAmount = 0.0.obs;
+
+  /// Edit Mode
+  bool isEditMode = false;
+  RecordModel? editingRecord;
 
   /// Items
   final List<String> itemOptions = ['Box', 'Hanger', '-'];
@@ -49,9 +53,43 @@ class AddRecordController extends GetxController {
   void onInit() {
     super.onInit();
 
+    checkEditMode();
+
     fareController.addListener(calculateTotal);
     loadController.addListener(calculateTotal);
     unloadController.addListener(calculateTotal);
+  }
+
+  /// Check Edit Mode
+  void checkEditMode() {
+    if (Get.arguments != null && Get.arguments is RecordModel) {
+      isEditMode = true;
+
+      editingRecord = Get.arguments as RecordModel;
+
+      loadRecordData(editingRecord!);
+    }
+  }
+
+  /// Prefill Data
+  void loadRecordData(RecordModel record) {
+    selectedDate = record.date;
+
+    dateController.text = DateFormat('dd MMM yyyy').format(record.date);
+
+    companyController.text = record.companyName;
+    factoryController.text = record.factoryName;
+    truckController.text = record.truckNumber;
+
+    fareController.text = record.fare.toString();
+    loadController.text = record.loadDemurrage.toString();
+    unloadController.text = record.unloadDemurrage.toString();
+
+    unloadPointController.text = record.unloadPoint;
+    itemController.text = record.item;
+    remarksController.text = record.remarks;
+
+    totalAmount.value = record.totalAmount;
   }
 
   /// Pick Date
@@ -65,6 +103,7 @@ class AddRecordController extends GetxController {
 
     if (picked != null) {
       selectedDate = picked;
+
       dateController.text = DateFormat('dd MMM yyyy').format(picked);
     }
   }
@@ -80,16 +119,23 @@ class AddRecordController extends GetxController {
     totalAmount.value = fare + load + unload;
   }
 
+  /// Create or Update
+  Future<void> saveOrUpdateRecord() async {
+    if (isEditMode) {
+      await updateRecord();
+    } else {
+      await saveRecord();
+    }
+  }
+
   /// Save Record
   Future<void> saveRecord() async {
     try {
-      /// Loader
       FullScreenLoader.openLoadingDialog(
         'Saving Record...',
         AppImageStrings.docerAnimation,
       );
 
-      /// Internet Check
       final isConnected = await NetworkManager.instance.isConnected();
 
       if (!isConnected) {
@@ -97,13 +143,11 @@ class AddRecordController extends GetxController {
         return;
       }
 
-      /// Validation
       if (!addRecordFormKey.currentState!.validate()) {
         FullScreenLoader.stopLoading();
         return;
       }
 
-      /// Create Record
       final record = RecordModel(
         id: '',
         date: selectedDate ?? DateTime.now(),
@@ -136,22 +180,80 @@ class AddRecordController extends GetxController {
         updatedAt: DateTime.now(),
       );
 
-      /// Save
       await recordRepository.addRecord(record);
 
-      /// Remove Loader
       FullScreenLoader.stopLoading();
 
-      /// Back
       Get.back();
 
-      /// Clear Form
       clearForm();
 
-      /// Success
       AppLoaders.successSnackBar(
         title: 'Success',
         message: 'Record added successfully.',
+      );
+    } catch (e) {
+      FullScreenLoader.stopLoading();
+
+      AppLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+    }
+  }
+
+  /// Update Record
+  Future<void> updateRecord() async {
+    try {
+      FullScreenLoader.openLoadingDialog(
+        'Updating Record...',
+        AppImageStrings.docerAnimation,
+      );
+
+      final isConnected = await NetworkManager.instance.isConnected();
+
+      if (!isConnected) {
+        FullScreenLoader.stopLoading();
+        return;
+      }
+
+      if (!addRecordFormKey.currentState!.validate()) {
+        FullScreenLoader.stopLoading();
+        return;
+      }
+
+      final updatedRecord = editingRecord!.copyWith(
+        date: selectedDate ?? editingRecord!.date,
+
+        companyName: companyController.text.trim(),
+
+        factoryName: factoryController.text.trim(),
+
+        truckNumber: truckController.text.trim(),
+
+        fare: double.tryParse(fareController.text.trim()) ?? 0,
+
+        loadDemurrage: double.tryParse(loadController.text.trim()) ?? 0,
+
+        unloadDemurrage: double.tryParse(unloadController.text.trim()) ?? 0,
+
+        totalAmount: totalAmount.value,
+
+        unloadPoint: unloadPointController.text.trim(),
+
+        item: itemController.text.trim(),
+
+        remarks: remarksController.text.trim(),
+
+        updatedAt: DateTime.now(),
+      );
+
+      await recordRepository.updateRecord(updatedRecord);
+
+      FullScreenLoader.stopLoading();
+
+      Get.back();
+
+      AppLoaders.successSnackBar(
+        title: 'Success',
+        message: 'Record updated successfully.',
       );
     } catch (e) {
       FullScreenLoader.stopLoading();
@@ -177,6 +279,9 @@ class AddRecordController extends GetxController {
 
     selectedDate = null;
     totalAmount.value = 0;
+
+    isEditMode = false;
+    editingRecord = null;
   }
 
   @override

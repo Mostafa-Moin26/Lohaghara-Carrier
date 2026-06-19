@@ -10,6 +10,7 @@ import 'package:lohaghara_carrier/features/record/presentation/record_details/wi
 import 'package:lohaghara_carrier/features/record/presentation/record_details/widgets/row_item.dart';
 import 'package:lohaghara_carrier/features/record/presentation/record_details/widgets/section_card.dart';
 import 'package:lohaghara_carrier/features/record/presentation/record_details/widgets/total_card.dart';
+import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 class RecordDetailsScreen extends StatelessWidget {
   RecordDetailsScreen({super.key});
@@ -92,7 +93,10 @@ class RecordDetailsScreen extends StatelessWidget {
             const SizedBox(height: AppSizes.spaceBtwSections),
 
             /// ACTION BUTTONS
-            ActionButtons(onDelete: () {}, onEdit: () {}),
+            ActionButtons(
+              onDelete: () {},
+              onEdit: () => Get.toNamed(AppRoutes.addRecord, arguments: record),
+            ),
             const SizedBox(height: AppSizes.spaceBtwSections),
           ],
         ),

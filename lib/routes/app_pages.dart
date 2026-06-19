@@ -10,6 +10,7 @@ import 'package:lohaghara_carrier/features/factory/presentation/factory_view.dar
 import 'package:lohaghara_carrier/features/onboarding/onboarding_screen.dart';
 import 'package:lohaghara_carrier/features/profile/presentation/profile_details_screen.dart';
 import 'package:lohaghara_carrier/features/record/presentation/add_record/add_record_screen.dart';
+import 'package:lohaghara_carrier/features/record/presentation/add_record/controller/add_record_controller.dart';
 import 'package:lohaghara_carrier/features/record/presentation/all_records/all_record_screen.dart';
 import 'package:lohaghara_carrier/features/record/presentation/record_details/record_details_screen.dart';
 import 'package:lohaghara_carrier/features/report/presentation/monthly/monthlybill_screen.dart';
@@ -61,7 +62,13 @@ class AppPages {
       name: AppRoutes.allRecords,
       page: () => AllRecord(showBackArrow: true),
     ),
-    GetPage(name: AppRoutes.addRecord, page: () => AddRecordScreen()),
+    GetPage(
+      name: AppRoutes.addRecord,
+      page: () => AddRecordScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<AddRecordController>(() => AddRecordController());
+      }),
+    ),
     GetPage(name: AppRoutes.recordDetail, page: () => RecordDetailsScreen()),
     GetPage(
       name: AppRoutes.viewFactory,

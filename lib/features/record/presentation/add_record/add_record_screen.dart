@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lohaghara_carrier/core/common/styles/spacing_styles.dart';
 import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
+import 'package:lohaghara_carrier/features/record/presentation/add_record/controller/add_record_controller.dart';
 import 'package:lohaghara_carrier/features/record/presentation/add_record/widgets/add_record_form.dart';
 
 class AddRecordScreen extends StatelessWidget {
@@ -10,7 +11,14 @@ class AddRecordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(showBackArrow: true, title: Text('Add Record')),
+      appBar: CustomAppBar(
+        showBackArrow: true,
+        title: Text(
+          AddRecordController.instance.isEditMode
+              ? 'Edit Record'
+              : 'Add Record',
+        ),
+      ),
 
       body: SafeArea(
         child: Padding(
