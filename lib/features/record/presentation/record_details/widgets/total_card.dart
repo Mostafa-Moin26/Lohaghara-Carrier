@@ -6,7 +6,7 @@ import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 
 class TotalCard extends StatelessWidget {
-  final int total;
+  final String total;
 
   const TotalCard(this.total, {super.key});
 
@@ -29,7 +29,7 @@ class TotalCard extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: AppSizes.sm),
-              AmountPriceText(price: '17,000', isCurrency: true, isLarge: true),
+              AmountPriceText(price: total, isCurrency: true, isLarge: true),
             ],
           ),
           const Icon(Iconsax.receipt_item),
