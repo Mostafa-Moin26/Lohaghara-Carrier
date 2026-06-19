@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:lohaghara_carrier/core/validators/validators.dart';
 
 class CompanyField extends StatelessWidget {
   const CompanyField({
@@ -15,7 +16,7 @@ class CompanyField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-
+      validator: (value) => AppValidator.validateEmptyText('Company', value),
       decoration: InputDecoration(
         hintText: 'Company',
 

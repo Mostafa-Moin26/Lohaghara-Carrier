@@ -5,6 +5,7 @@ import 'package:lohaghara_carrier/core/common/widgets/texts/amount_price_text.da
 import 'package:lohaghara_carrier/core/constants/colors.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
+import 'package:lohaghara_carrier/core/validators/validators.dart';
 import 'package:lohaghara_carrier/features/record/presentation/add_record/widgets/company_field.dart';
 import 'package:lohaghara_carrier/features/record/presentation/add_record/widgets/item_bottom_sheet.dart';
 import '../controller/add_record_controller.dart';
@@ -12,7 +13,6 @@ import '../controller/add_record_controller.dart';
 class AddRecordForm extends StatelessWidget {
   AddRecordForm({super.key});
 
-  final _formKey = GlobalKey<FormState>();
   final controller = Get.put(AddRecordController());
 
   InputDecoration _dec({required String label, IconData? prefix}) {
@@ -25,12 +25,13 @@ class AddRecordForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
+      key: controller.addRecordFormKey,
       child: Column(
         children: [
           /// Date
           TextFormField(
             controller: controller.dateController,
+            validator: (value) => AppValidator.validateEmptyText('Date', value),
             readOnly: true,
             onTap: () => controller.pickDate(context),
             decoration: _dec(
@@ -43,13 +44,15 @@ class AddRecordForm extends StatelessWidget {
           /// Company
           CompanyField(
             controller: controller.companyController,
-            companies: controller.companies,
+            companies: ['Meghna Executive Holding'],
           ),
           const SizedBox(height: AppSizes.spaceBtwInputFields),
 
           /// Factory
           TextFormField(
             controller: controller.factoryController,
+            validator: (value) =>
+                AppValidator.validateEmptyText('Factory', value),
             decoration: _dec(
               label: AppTextStrings.factory,
               prefix: Iconsax.building_3,
@@ -60,6 +63,8 @@ class AddRecordForm extends StatelessWidget {
           /// Truck
           TextFormField(
             controller: controller.truckController,
+            validator: (value) =>
+                AppValidator.validateEmptyText('Truck', value),
             decoration: _dec(
               label: AppTextStrings.truckNumber,
               prefix: Iconsax.truck,
@@ -70,6 +75,7 @@ class AddRecordForm extends StatelessWidget {
           /// Fare
           TextFormField(
             controller: controller.fareController,
+            validator: (value) => AppValidator.validateEmptyText('Fare', value),
             keyboardType: TextInputType.number,
             decoration: _dec(label: AppTextStrings.fare, prefix: Iconsax.money),
           ),
@@ -81,6 +87,8 @@ class AddRecordForm extends StatelessWidget {
               Expanded(
                 child: TextFormField(
                   controller: controller.loadController,
+                  validator: (value) =>
+                      AppValidator.validateEmptyText('Load Demmurage', value),
                   keyboardType: TextInputType.number,
                   decoration: _dec(label: AppTextStrings.loadDemmurage),
                 ),
@@ -89,6 +97,10 @@ class AddRecordForm extends StatelessWidget {
               Expanded(
                 child: TextFormField(
                   controller: controller.unloadController,
+                  validator: (value) => AppValidator.validateEmptyText(
+                    'Unload Demmuarage',
+                    value,
+                  ),
                   keyboardType: TextInputType.number,
                   decoration: _dec(label: AppTextStrings.unloadDemmurage),
                 ),
@@ -100,6 +112,8 @@ class AddRecordForm extends StatelessWidget {
           /// Unload Point
           TextFormField(
             controller: controller.unloadPointController,
+            validator: (value) =>
+                AppValidator.validateEmptyText('Unload Point', value),
             decoration: _dec(
               label: AppTextStrings.unloadPoint,
               prefix: Iconsax.location,
@@ -110,6 +124,7 @@ class AddRecordForm extends StatelessWidget {
           /// Item Dropdown
           TextFormField(
             controller: controller.itemController,
+            validator: (value) => AppValidator.validateEmptyText('Item', value),
             decoration: InputDecoration(
               labelText: AppTextStrings.item,
               prefixIcon: const Icon(Iconsax.box),
@@ -131,6 +146,7 @@ class AddRecordForm extends StatelessWidget {
           /// Remarks
           TextFormField(
             controller: controller.remarksController,
+
             maxLines: 3,
             decoration: _dec(label: AppTextStrings.remarks),
           ),
@@ -168,11 +184,7 @@ class AddRecordForm extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  controller.saveRecord();
-                }
-              },
+              onPressed: () => controller.saveRecord(),
               child: Text(AppTextStrings.saveRecord),
             ),
           ),

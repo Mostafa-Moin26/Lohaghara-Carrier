@@ -47,7 +47,7 @@ class RecordModel {
     required this.updatedAt,
   });
 
-  /// Empty Record
+  /// Empty Model
   static RecordModel empty() => RecordModel(
     id: '',
     date: DateTime.now(),
@@ -68,7 +68,48 @@ class RecordModel {
     updatedAt: DateTime.now(),
   );
 
-  /// Convert model to Firestore JSON
+  /// Copy With
+  RecordModel copyWith({
+    String? id,
+    DateTime? date,
+    String? companyId,
+    String? companyName,
+    String? factoryId,
+    String? factoryName,
+    String? truckNumber,
+    double? fare,
+    double? loadDemurrage,
+    double? unloadDemurrage,
+    double? totalAmount,
+    String? unloadPoint,
+    String? item,
+    String? remarks,
+    String? createdBy,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return RecordModel(
+      id: id ?? this.id,
+      date: date ?? this.date,
+      companyId: companyId ?? this.companyId,
+      companyName: companyName ?? this.companyName,
+      factoryId: factoryId ?? this.factoryId,
+      factoryName: factoryName ?? this.factoryName,
+      truckNumber: truckNumber ?? this.truckNumber,
+      fare: fare ?? this.fare,
+      loadDemurrage: loadDemurrage ?? this.loadDemurrage,
+      unloadDemurrage: unloadDemurrage ?? this.unloadDemurrage,
+      totalAmount: totalAmount ?? this.totalAmount,
+      unloadPoint: unloadPoint ?? this.unloadPoint,
+      item: item ?? this.item,
+      remarks: remarks ?? this.remarks,
+      createdBy: createdBy ?? this.createdBy,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  /// Convert Model to Json
   Map<String, dynamic> toJson() {
     return {
       'Date': Timestamp.fromDate(date),
@@ -96,7 +137,7 @@ class RecordModel {
     };
   }
 
-  /// Create Record from Firestore Snapshot
+  /// Create Model From Firestore Snapshot
   factory RecordModel.fromSnapshot(
     DocumentSnapshot<Map<String, dynamic>> document,
   ) {
