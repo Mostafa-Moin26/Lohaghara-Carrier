@@ -40,37 +40,13 @@ class ReportFiltersSection extends StatelessWidget {
 
           const SizedBox(height: AppSizes.spaceBtwItems),
 
-          /// 🔹 From - To
-          Row(
-            children: [
-              Expanded(
-                child: _selectionBox(
-                  context,
-                  icon: Iconsax.calendar,
-                  title: "Jan 2026",
-                  subtitle: AppTextStrings.from,
-                  onTap: () {},
-                  showDownArrow: false,
-                ),
-              ),
-
-              const SizedBox(width: 10),
-
-              const Icon(Icons.arrow_forward, size: 18),
-
-              const SizedBox(width: 10),
-
-              Expanded(
-                child: _selectionBox(
-                  context,
-                  icon: Iconsax.calendar,
-                  title: "Mar 2026",
-                  subtitle: AppTextStrings.to,
-                  onTap: () {},
-                  showDownArrow: false,
-                ),
-              ),
-            ],
+          /// Date
+          _selectionBox(
+            context,
+            icon: Iconsax.calendar,
+            title: 'Jan 2026',
+            onTap: () {},
+            showDownArrow: true,
           ),
 
           const SizedBox(height: AppSizes.spaceBtwItems),

@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lohaghara_carrier/core/validators/validators.dart';
 
-class CompanyField extends StatelessWidget {
-  const CompanyField({
+class FactoryField extends StatelessWidget {
+  const FactoryField({
     super.key,
     required this.controller,
-    required this.companies,
+    required this.factories,
     this.onSelected,
   });
 
   final TextEditingController controller;
-  final List<String> companies;
+  final List<String> factories;
   final Function(String)? onSelected;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      validator: (value) => AppValidator.validateEmptyText('Company', value),
+      validator: (value) => AppValidator.validateEmptyText('Factory', value),
       decoration: InputDecoration(
-        hintText: 'Company',
+        hintText: 'Factory',
 
-        prefixIcon: const Icon(Iconsax.building),
+        prefixIcon: const Icon(Iconsax.building_3),
 
         suffixIcon: PopupMenuButton<String>(
           icon: const Icon(Icons.arrow_drop_down),
@@ -36,7 +36,7 @@ class CompanyField extends StatelessWidget {
           },
 
           itemBuilder: (context) {
-            return companies.map((company) {
+            return factories.map((company) {
               return PopupMenuItem(value: company, child: Text(company));
             }).toList();
           },

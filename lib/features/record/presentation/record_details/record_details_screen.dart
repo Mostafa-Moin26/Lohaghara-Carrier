@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
-import 'package:lohaghara_carrier/features/record/data/models/record_model.dart';
 import 'package:lohaghara_carrier/features/record/presentation/record_details/controller/record_details_controller.dart';
 import 'package:lohaghara_carrier/features/record/presentation/record_details/widgets/action_buttons.dart';
 import 'package:lohaghara_carrier/features/record/presentation/record_details/widgets/row_item.dart';

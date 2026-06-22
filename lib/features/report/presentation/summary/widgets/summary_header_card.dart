@@ -36,7 +36,7 @@ class SummaryHeaderCard extends StatelessWidget {
                     children: [
                       /// SUMMARY TEXT
                       Text(
-                        "Summary: Jan 2026 - Mar 2026",
+                        "Summary: Jan 2026",
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           color: dark
                               ? AppColors.primaryLight

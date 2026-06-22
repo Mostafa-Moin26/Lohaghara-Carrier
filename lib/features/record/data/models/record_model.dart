@@ -4,6 +4,7 @@ class RecordModel {
   final String id;
 
   final DateTime date;
+  final String monthKey;
 
   final String companyId;
   final String companyName;
@@ -30,6 +31,7 @@ class RecordModel {
   const RecordModel({
     required this.id,
     required this.date,
+    required this.monthKey,
     required this.companyId,
     required this.companyName,
     required this.factoryId,
@@ -51,6 +53,7 @@ class RecordModel {
   static RecordModel empty() => RecordModel(
     id: '',
     date: DateTime.now(),
+    monthKey: '',
     companyId: '',
     companyName: '',
     factoryId: '',
@@ -72,6 +75,7 @@ class RecordModel {
   RecordModel copyWith({
     String? id,
     DateTime? date,
+    String? monthKey,
     String? companyId,
     String? companyName,
     String? factoryId,
@@ -91,6 +95,7 @@ class RecordModel {
     return RecordModel(
       id: id ?? this.id,
       date: date ?? this.date,
+      monthKey: monthKey ?? this.monthKey,
       companyId: companyId ?? this.companyId,
       companyName: companyName ?? this.companyName,
       factoryId: factoryId ?? this.factoryId,
@@ -113,6 +118,7 @@ class RecordModel {
   Map<String, dynamic> toJson() {
     return {
       'Date': Timestamp.fromDate(date),
+      'MonthKey': monthKey,
 
       'CompanyId': companyId,
       'CompanyName': companyName,
@@ -148,6 +154,7 @@ class RecordModel {
         id: document.id,
 
         date: (data['Date'] as Timestamp).toDate(),
+        monthKey: data['MonthKey'] ?? '',
 
         companyId: data['CompanyId'] ?? '',
         companyName: data['CompanyName'] ?? '',

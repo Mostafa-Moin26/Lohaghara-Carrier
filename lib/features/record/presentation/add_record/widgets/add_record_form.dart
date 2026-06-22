@@ -7,6 +7,7 @@ import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/core/validators/validators.dart';
 import 'package:lohaghara_carrier/features/record/presentation/add_record/widgets/company_field.dart';
+import 'package:lohaghara_carrier/features/record/presentation/add_record/widgets/factory_field.dart';
 import 'package:lohaghara_carrier/features/record/presentation/add_record/widgets/item_bottom_sheet.dart';
 import '../controller/add_record_controller.dart';
 
@@ -42,20 +43,22 @@ class AddRecordForm extends StatelessWidget {
           const SizedBox(height: AppSizes.spaceBtwInputFields),
 
           /// Company
-          CompanyField(
-            controller: controller.companyController,
-            companies: ['Meghna Executive Holding'],
+          Obx(
+            () => CompanyField(
+              controller: controller.companyController,
+
+              companies: controller.companies.map((e) => e.name).toList(),
+
+              onSelected: controller.onCompanySelected,
+            ),
           ),
           const SizedBox(height: AppSizes.spaceBtwInputFields),
 
           /// Factory
-          TextFormField(
-            controller: controller.factoryController,
-            validator: (value) =>
-                AppValidator.validateEmptyText('Factory', value),
-            decoration: _dec(
-              label: AppTextStrings.factory,
-              prefix: Iconsax.building_3,
+          Obx(
+            () => FactoryField(
+              controller: controller.factoryController,
+              factories: controller.factories.map((e) => e.name).toList(),
             ),
           ),
           const SizedBox(height: AppSizes.spaceBtwInputFields),

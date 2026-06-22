@@ -6,6 +6,10 @@ import 'package:lohaghara_carrier/core/constants/image_strings.dart';
 import 'package:lohaghara_carrier/core/helpers/network_manager.dart';
 import 'package:lohaghara_carrier/core/popups/full_screen_loader.dart';
 import 'package:lohaghara_carrier/core/popups/loaders.dart';
+import 'package:lohaghara_carrier/features/factory/data/models/company_model.dart';
+import 'package:lohaghara_carrier/features/factory/data/models/factory_model.dart';
+import 'package:lohaghara_carrier/features/factory/data/repositories/company_repository.dart';
+import 'package:lohaghara_carrier/features/factory/data/repositories/factory_repository.dart';
 
 import 'package:lohaghara_carrier/features/record/data/models/record_model.dart';
 import 'package:lohaghara_carrier/features/record/data/repositories/record_repository.dart';
@@ -17,6 +21,9 @@ class AddRecordController extends GetxController {
 
   /// Repository
   final recordRepository = Get.put(RecordRepository());
+  final companyRepository = Get.put(CompanyRepository());
+
+  final factoryRepository = Get.put(FactoryRepository());
 
   /// Form Key
   final addRecordFormKey = GlobalKey<FormState>();
@@ -44,6 +51,10 @@ class AddRecordController extends GetxController {
   /// Total Amount
   final RxDouble totalAmount = 0.0.obs;
 
+  /// Companies & Factories
+  final companies = <CompanyModel>[].obs;
+  final factories = <FactoryModel>[].obs;
+
   /// Edit Mode
   bool isEditMode = false;
   RecordModel? editingRecord;
@@ -56,6 +67,8 @@ class AddRecordController extends GetxController {
     super.onInit();
 
     checkEditMode();
+
+    loadCompanies();
 
     fareController.addListener(calculateTotal);
     loadController.addListener(calculateTotal);
@@ -71,6 +84,32 @@ class AddRecordController extends GetxController {
 
       loadRecordData(editingRecord!);
     }
+  }
+
+  /// Load companies
+  Future<void> loadCompanies() async {
+    final result = await companyRepository.fetchAllCompanies();
+
+    companies.assignAll(result);
+  }
+
+  Future<void> onCompanySelected(String companyName) async {
+    print('Company Selected => $companyName');
+
+    final company = await companyRepository.getCompanyByName(companyName);
+
+    if (company == null) {
+      print('Company Not Found');
+      return;
+    }
+
+    print('Company Id => ${company.id}');
+
+    final result = await factoryRepository.fetchFactoriesByCompany(company.id);
+
+    print('Factories Found => ${result.length}');
+
+    factories.assignAll(result);
   }
 
   /// Prefill Data
@@ -150,15 +189,36 @@ class AddRecordController extends GetxController {
         return;
       }
 
+      /// Generate Month Key
+      final monthKey = DateFormat(
+        'yyyy-MM',
+      ).format(selectedDate ?? DateTime.now());
+
+      /// Get Or Create Company
+      final company = await companyRepository.getOrCreateCompany(
+        companyController.text.trim(),
+      );
+
+      /// Get Or Create Factory
+      final factory = await factoryRepository.getOrCreateFactory(
+        companyId: company.id,
+        companyName: company.name,
+        factoryName: factoryController.text.trim(),
+      );
+
+      /// Create Record
       final record = RecordModel(
         id: '',
+
         date: selectedDate ?? DateTime.now(),
 
-        companyId: '',
-        companyName: companyController.text.trim(),
+        monthKey: monthKey,
 
-        factoryId: '',
-        factoryName: factoryController.text.trim(),
+        companyId: company.id,
+        companyName: company.name,
+
+        factoryId: factory.id,
+        factoryName: factory.name,
 
         truckNumber: truckController.text.trim(),
 
