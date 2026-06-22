@@ -6,11 +6,10 @@ import 'package:lohaghara_carrier/core/constants/image_strings.dart';
 import 'package:lohaghara_carrier/core/helpers/network_manager.dart';
 import 'package:lohaghara_carrier/core/popups/full_screen_loader.dart';
 import 'package:lohaghara_carrier/core/popups/loaders.dart';
-import 'package:lohaghara_carrier/features/factory/data/models/company_model.dart';
+import 'package:lohaghara_carrier/features/company/data/models/company_model.dart';
+import 'package:lohaghara_carrier/features/company/data/repositories/company_repository.dart';
 import 'package:lohaghara_carrier/features/factory/data/models/factory_model.dart';
-import 'package:lohaghara_carrier/features/factory/data/repositories/company_repository.dart';
 import 'package:lohaghara_carrier/features/factory/data/repositories/factory_repository.dart';
-
 import 'package:lohaghara_carrier/features/record/data/models/record_model.dart';
 import 'package:lohaghara_carrier/features/record/data/repositories/record_repository.dart';
 import 'package:lohaghara_carrier/features/record/presentation/all_records/controllers/all_record_controller.dart';
@@ -94,20 +93,13 @@ class AddRecordController extends GetxController {
   }
 
   Future<void> onCompanySelected(String companyName) async {
-    print('Company Selected => $companyName');
-
     final company = await companyRepository.getCompanyByName(companyName);
 
     if (company == null) {
-      print('Company Not Found');
       return;
     }
 
-    print('Company Id => ${company.id}');
-
     final result = await factoryRepository.fetchFactoriesByCompany(company.id);
-
-    print('Factories Found => ${result.length}');
 
     factories.assignAll(result);
   }
