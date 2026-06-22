@@ -282,8 +282,11 @@ class AddRecordController extends GetxController {
         return;
       }
 
+      final updatedDate = selectedDate ?? editingRecord!.date;
+
       final updatedRecord = editingRecord!.copyWith(
         date: selectedDate ?? editingRecord!.date,
+        monthKey: DateFormat('yyyy-MM').format(updatedDate),
 
         companyName: companyController.text.trim(),
 
