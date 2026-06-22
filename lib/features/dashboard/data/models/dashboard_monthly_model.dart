@@ -31,6 +31,24 @@ class DashboardMonthlyModel {
     updatedAt: DateTime.now(),
   );
 
+  DashboardMonthlyModel copyWith({
+    String? monthKey,
+    double? totalBilling,
+    int? totalTrips,
+    double? totalDemurrage,
+    int? activeFactoryCount,
+    DateTime? updatedAt,
+  }) {
+    return DashboardMonthlyModel(
+      monthKey: monthKey ?? this.monthKey,
+      totalBilling: totalBilling ?? this.totalBilling,
+      totalTrips: totalTrips ?? this.totalTrips,
+      totalDemurrage: totalDemurrage ?? this.totalDemurrage,
+      activeFactoryCount: activeFactoryCount ?? this.activeFactoryCount,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'MonthKey': monthKey,
