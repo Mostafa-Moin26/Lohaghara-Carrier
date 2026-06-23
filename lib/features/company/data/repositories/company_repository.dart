@@ -33,15 +33,19 @@ class CompanyRepository extends GetxController {
   }
 
   /// Get Company By Name
-  Future<CompanyModel?> getCompanyByName(String companyName) async {
+  Future<CompanyModel?> getCompanyByName({required String companyName}) async {
     try {
+      final searchName = companyName.trim().toLowerCase();
+
       final snapshot = await _db
           .collection('Companies')
-          .where('Name', isEqualTo: companyName)
+          .where('SearchName', isEqualTo: searchName)
           .limit(1)
           .get();
 
-      if (snapshot.docs.isEmpty) return null;
+      if (snapshot.docs.isEmpty) {
+        return null;
+      }
 
       return CompanyModel.fromSnapshot(snapshot.docs.first);
     } on FirebaseException catch (e) {
@@ -56,13 +60,16 @@ class CompanyRepository extends GetxController {
   }
 
   /// Create Company
-  Future<CompanyModel> createCompany(String companyName) async {
+  Future<CompanyModel> createCompany({required String companyName}) async {
     try {
       final document = _db.collection('Companies').doc();
 
+      final cleanName = companyName.trim();
+
       final company = CompanyModel(
         id: document.id,
-        name: companyName,
+        name: cleanName,
+        searchName: cleanName.toLowerCase(),
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       );
@@ -82,13 +89,13 @@ class CompanyRepository extends GetxController {
   }
 
   /// Get Or Create Company
-  Future<CompanyModel> getOrCreateCompany(String companyName) async {
-    final existingCompany = await getCompanyByName(companyName);
+  Future<CompanyModel> getOrCreateCompany({required String companyName}) async {
+    final existingCompany = await getCompanyByName(companyName: companyName);
 
     if (existingCompany != null) {
       return existingCompany;
     }
 
-    return await createCompany(companyName);
+    return await createCompany(companyName: companyName);
   }
 }

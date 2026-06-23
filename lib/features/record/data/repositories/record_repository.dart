@@ -159,6 +159,10 @@ class RecordRepository extends GetxController {
       final recordRef = _db.collection('Records').doc(updatedRecord.id);
 
       await _db.runTransaction((transaction) async {
+        /// -------------------------
+        /// READ EVERYTHING FIRST
+        /// -------------------------
+
         final recordSnapshot = await transaction.get(recordRef);
 
         if (!recordSnapshot.exists) {
@@ -167,35 +171,48 @@ class RecordRepository extends GetxController {
 
         final oldRecord = RecordModel.fromSnapshot(recordSnapshot);
 
-        /// Same Bucket
+        final oldDashboardRef = _getDashboardRef(oldRecord.monthKey);
+
+        final newDashboardRef = _getDashboardRef(updatedRecord.monthKey);
+
+        final oldFactoryRef = _getFactoryMonthlyRef(
+          oldRecord.monthKey,
+          oldRecord.factoryId,
+        );
+
+        final newFactoryRef = _getFactoryMonthlyRef(
+          updatedRecord.monthKey,
+          updatedRecord.factoryId,
+        );
+
+        final oldFactorySnapshot = await transaction.get(oldFactoryRef);
+
+        final newFactorySnapshot = await transaction.get(newFactoryRef);
+
+        final newDashboardSnapshot = await transaction.get(newDashboardRef);
+
+        /// -------------------------
+        /// SAME BUCKET
+        /// -------------------------
+
         if (_sameAggregateBucket(oldRecord, updatedRecord)) {
-          final dashboardRef = _getDashboardRef(oldRecord.monthKey);
-
-          final factoryRef = _getFactoryMonthlyRef(
-            oldRecord.monthKey,
-            oldRecord.factoryId,
-          );
-
           final amountDelta = updatedRecord.totalAmount - oldRecord.totalAmount;
 
           final demurrageDelta =
               _getDemurrage(updatedRecord) - _getDemurrage(oldRecord);
 
-          /// Update Record
           transaction.update(
             recordRef,
             updatedRecord.copyWith(updatedAt: DateTime.now()).toJson(),
           );
 
-          /// Dashboard
-          transaction.update(dashboardRef, {
+          transaction.update(oldDashboardRef, {
             'TotalBilling': FieldValue.increment(amountDelta),
             'TotalDemurrage': FieldValue.increment(demurrageDelta),
             'UpdatedAt': Timestamp.now(),
           });
 
-          /// Factory Monthly
-          transaction.update(factoryRef, {
+          transaction.update(oldFactoryRef, {
             'TotalAmount': FieldValue.increment(amountDelta),
             'UpdatedAt': Timestamp.now(),
           });
@@ -203,65 +220,72 @@ class RecordRepository extends GetxController {
           return;
         }
 
-        /// --------- Complex Update Section ---------- ///
-        final newDashboardRef = _getDashboardRef(updatedRecord.monthKey);
+        /// =========================
+        /// REMOVE OLD EFFECT
+        /// =========================
 
-        final newDashboardSnapshot = await transaction.get(newDashboardRef);
-
-        final newFactoryRef = _getFactoryMonthlyRef(
-          updatedRecord.monthKey,
-          updatedRecord.factoryId,
-        );
-
-        final newFactorySnapshot = await transaction.get(newFactoryRef);
-        final oldFactoryRef = _getFactoryMonthlyRef(
-          oldRecord.monthKey,
-          oldRecord.factoryId,
-        );
-
-        final oldFactorySnapshot = await transaction.get(oldFactoryRef);
-
-        /// Remove Old Dashboard
-        transaction.update(_getDashboardRef(oldRecord.monthKey), {
+        transaction.update(oldDashboardRef, {
           'TotalBilling': FieldValue.increment(-oldRecord.totalAmount),
           'TotalTrips': FieldValue.increment(-1),
           'TotalDemurrage': FieldValue.increment(-_getDemurrage(oldRecord)),
           'UpdatedAt': Timestamp.now(),
         });
 
-        /// Remove Old Factory
         final oldTrips = oldFactorySnapshot.get('TotalTrips');
 
         if (oldTrips <= 1) {
           transaction.delete(oldFactoryRef);
 
-          transaction.update(_getDashboardRef(oldRecord.monthKey), {
+          transaction.update(oldDashboardRef, {
             'ActiveFactoryCount': FieldValue.increment(-1),
           });
         } else {
           transaction.update(oldFactoryRef, {
             'TotalTrips': FieldValue.increment(-1),
-
             'TotalAmount': FieldValue.increment(-oldRecord.totalAmount),
-
             'UpdatedAt': Timestamp.now(),
           });
         }
 
-        /// Add New Dashboard
-        transaction.set(newDashboardRef, {
-          'MonthKey': updatedRecord.monthKey,
+        /// =========================
+        /// ADD NEW EFFECT
+        /// =========================
 
-          'TotalBilling': FieldValue.increment(updatedRecord.totalAmount),
+        if (!newDashboardSnapshot.exists) {
+          transaction.set(newDashboardRef, {
+            'MonthKey': updatedRecord.monthKey,
 
-          'TotalTrips': FieldValue.increment(1),
+            'TotalBilling': updatedRecord.totalAmount,
 
-          'TotalDemurrage': FieldValue.increment(_getDemurrage(updatedRecord)),
+            'TotalTrips': 1,
 
-          'UpdatedAt': Timestamp.now(),
-        }, SetOptions(merge: true));
+            'TotalDemurrage': _getDemurrage(updatedRecord),
 
-        /// Add New Factory
+            'ActiveFactoryCount': newFactorySnapshot.exists ? 0 : 1,
+
+            'UpdatedAt': Timestamp.now(),
+          });
+        } else {
+          transaction.update(newDashboardRef, {
+            'TotalBilling': FieldValue.increment(updatedRecord.totalAmount),
+            'TotalTrips': FieldValue.increment(1),
+            'TotalDemurrage': FieldValue.increment(
+              _getDemurrage(updatedRecord),
+            ),
+            'UpdatedAt': Timestamp.now(),
+          });
+
+          if (!newFactorySnapshot.exists) {
+            transaction.update(newDashboardRef, {
+              'ActiveFactoryCount': FieldValue.increment(1),
+            });
+          }
+        }
+
+        /// =========================
+        /// FACTORY MONTHLY
+        /// =========================
+
         if (!newFactorySnapshot.exists) {
           transaction.set(
             newFactoryRef,
@@ -276,40 +300,22 @@ class RecordRepository extends GetxController {
               updatedAt: DateTime.now(),
             ).toJson(),
           );
-          if (!newDashboardSnapshot.exists) {
-            transaction.set(newDashboardRef, {
-              'MonthKey': updatedRecord.monthKey,
-
-              'ActiveFactoryCount': 1,
-
-              'TotalBilling': 0,
-              'TotalTrips': 0,
-              'TotalDemurrage': 0,
-
-              'UpdatedAt': Timestamp.now(),
-            }, SetOptions(merge: true));
-          } else {
-            transaction.update(newDashboardRef, {
-              'ActiveFactoryCount': FieldValue.increment(1),
-            });
-          }
         } else {
           transaction.update(newFactoryRef, {
             'TotalTrips': FieldValue.increment(1),
-
             'TotalAmount': FieldValue.increment(updatedRecord.totalAmount),
-
             'UpdatedAt': Timestamp.now(),
           });
         }
 
-        /// Update Record
+        /// =========================
+        /// UPDATE RECORD
+        /// =========================
+
         transaction.update(
           recordRef,
           updatedRecord.copyWith(updatedAt: DateTime.now()).toJson(),
         );
-
-        return;
       });
     } on FirebaseException catch (e) {
       throw LFirebaseException(e.code).message;

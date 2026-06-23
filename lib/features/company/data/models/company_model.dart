@@ -4,6 +4,7 @@ class CompanyModel {
   final String id;
 
   final String name;
+  final String searchName;
 
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -11,6 +12,7 @@ class CompanyModel {
   const CompanyModel({
     required this.id,
     required this.name,
+    required this.searchName,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -19,6 +21,7 @@ class CompanyModel {
   static CompanyModel empty() => CompanyModel(
     id: '',
     name: '',
+    searchName: '',
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
   );
@@ -27,12 +30,14 @@ class CompanyModel {
   CompanyModel copyWith({
     String? id,
     String? name,
+    String? searchName,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
     return CompanyModel(
       id: id ?? this.id,
       name: name ?? this.name,
+      searchName: searchName ?? this.searchName,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -42,6 +47,7 @@ class CompanyModel {
   Map<String, dynamic> toJson() {
     return {
       'Name': name,
+      'SearchName': searchName,
       'CreatedAt': Timestamp.fromDate(createdAt),
       'UpdatedAt': Timestamp.fromDate(updatedAt),
     };
@@ -57,6 +63,7 @@ class CompanyModel {
       return CompanyModel(
         id: document.id,
         name: data['Name'] ?? '',
+        searchName: data['SearchName'] ?? '',
         createdAt: (data['CreatedAt'] as Timestamp).toDate(),
         updatedAt: (data['UpdatedAt'] as Timestamp).toDate(),
       );

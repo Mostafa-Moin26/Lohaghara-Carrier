@@ -93,9 +93,12 @@ class AddRecordController extends GetxController {
   }
 
   Future<void> onCompanySelected(String companyName) async {
-    final company = await companyRepository.getCompanyByName(companyName);
+    final company = await companyRepository.getCompanyByName(
+      companyName: companyName,
+    );
 
     if (company == null) {
+      factories.clear();
       return;
     }
 
@@ -112,6 +115,7 @@ class AddRecordController extends GetxController {
 
     companyController.text = record.companyName;
     factoryController.text = record.factoryName;
+
     truckController.text = record.truckNumber;
 
     fareController.text = record.fare.toString();
@@ -123,6 +127,9 @@ class AddRecordController extends GetxController {
     remarksController.text = record.remarks;
 
     totalAmount.value = record.totalAmount;
+
+    /// IMPORTANT
+    onCompanySelected(record.companyName);
   }
 
   /// Pick Date
@@ -188,7 +195,7 @@ class AddRecordController extends GetxController {
 
       /// Get Or Create Company
       final company = await companyRepository.getOrCreateCompany(
-        companyController.text.trim(),
+        companyName: companyController.text.trim(),
       );
 
       /// Get Or Create Factory
@@ -282,15 +289,37 @@ class AddRecordController extends GetxController {
         return;
       }
 
+      /// Updated Date
       final updatedDate = selectedDate ?? editingRecord!.date;
 
+      /// Normalize Input
+      final companyName = companyController.text.trim();
+
+      final factoryName = factoryController.text.trim();
+
+      /// Get Or Create Company
+      final company = await companyRepository.getOrCreateCompany(
+        companyName: companyName,
+      );
+
+      /// Get Or Create Factory
+      final factory = await factoryRepository.getOrCreateFactory(
+        companyId: company.id,
+        companyName: company.name,
+        factoryName: factoryName,
+      );
+
+      /// Create Updated Record
       final updatedRecord = editingRecord!.copyWith(
-        date: selectedDate ?? editingRecord!.date,
+        date: updatedDate,
+
         monthKey: DateFormat('yyyy-MM').format(updatedDate),
 
-        companyName: companyController.text.trim(),
+        companyId: company.id,
+        companyName: company.name,
 
-        factoryName: factoryController.text.trim(),
+        factoryId: factory.id,
+        factoryName: factory.name,
 
         truckNumber: truckController.text.trim(),
 
@@ -311,13 +340,15 @@ class AddRecordController extends GetxController {
         updatedAt: DateTime.now(),
       );
 
+      /// Repository Update
       await recordRepository.updateRecord(updatedRecord);
 
-      /// Update the record in the RecordDetailController
+      /// Record Details Screen Update
       if (Get.isRegistered<RecordDetailController>()) {
         RecordDetailController.instance.record(updatedRecord);
       }
 
+      /// All Records Screen Update
       if (Get.isRegistered<AllRecordController>()) {
         final controller = AllRecordController.instance;
 

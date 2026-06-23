@@ -16,32 +16,50 @@ class CompanyField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      validator: (value) => AppValidator.validateEmptyText('Company', value),
-      decoration: InputDecoration(
-        hintText: 'Company',
+    return Autocomplete<String>(
+      optionsBuilder: (TextEditingValue textEditingValue) {
+        if (textEditingValue.text.isEmpty) {
+          return companies;
+        }
 
-        prefixIcon: const Icon(Iconsax.building),
+        return companies.where(
+          (company) => company.toLowerCase().contains(
+            textEditingValue.text.toLowerCase(),
+          ),
+        );
+      },
 
-        suffixIcon: PopupMenuButton<String>(
-          icon: const Icon(Icons.arrow_drop_down),
+      onSelected: (value) {
+        controller.text = value;
 
-          onSelected: (value) {
-            controller.text = value;
+        if (onSelected != null) {
+          onSelected!(value);
+        }
+      },
 
-            if (onSelected != null) {
-              onSelected!(value);
-            }
+      fieldViewBuilder:
+          (context, textEditingController, focusNode, onFieldSubmitted) {
+            textEditingController.text = controller.text;
+
+            textEditingController.selection = TextSelection.fromPosition(
+              TextPosition(offset: textEditingController.text.length),
+            );
+
+            textEditingController.addListener(() {
+              controller.text = textEditingController.text;
+            });
+
+            return TextFormField(
+              controller: textEditingController,
+              focusNode: focusNode,
+              validator: (value) =>
+                  AppValidator.validateEmptyText('Company', value),
+              decoration: const InputDecoration(
+                hintText: 'Company',
+                prefixIcon: Icon(Iconsax.building),
+              ),
+            );
           },
-
-          itemBuilder: (context) {
-            return companies.map((company) {
-              return PopupMenuItem(value: company, child: Text(company));
-            }).toList();
-          },
-        ),
-      ),
     );
   }
 }

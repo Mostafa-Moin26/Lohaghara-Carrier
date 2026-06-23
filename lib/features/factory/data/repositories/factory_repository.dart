@@ -37,19 +37,23 @@ class FactoryRepository extends GetxController {
   }
 
   /// Get Factory By Name
-  Future<FactoryModel?> getFactoryByName(
-    String companyId,
-    String factoryName,
-  ) async {
+  Future<FactoryModel?> getFactoryByName({
+    required String companyId,
+    required String factoryName,
+  }) async {
     try {
+      final searchName = factoryName.trim().toLowerCase();
+
       final snapshot = await _db
           .collection('Factories')
           .where('CompanyId', isEqualTo: companyId)
-          .where('Name', isEqualTo: factoryName)
+          .where('SearchName', isEqualTo: searchName)
           .limit(1)
           .get();
 
-      if (snapshot.docs.isEmpty) return null;
+      if (snapshot.docs.isEmpty) {
+        return null;
+      }
 
       return FactoryModel.fromSnapshot(snapshot.docs.first);
     } on FirebaseException catch (e) {
@@ -72,11 +76,14 @@ class FactoryRepository extends GetxController {
     try {
       final document = _db.collection('Factories').doc();
 
+      final cleanName = factoryName.trim();
+
       final factory = FactoryModel(
         id: document.id,
         companyId: companyId,
         companyName: companyName,
-        name: factoryName,
+        name: cleanName,
+        searchName: cleanName.toLowerCase(),
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       );
@@ -101,7 +108,10 @@ class FactoryRepository extends GetxController {
     required String companyName,
     required String factoryName,
   }) async {
-    final existingFactory = await getFactoryByName(companyId, factoryName);
+    final existingFactory = await getFactoryByName(
+      companyId: companyId,
+      factoryName: factoryName,
+    );
 
     if (existingFactory != null) {
       return existingFactory;

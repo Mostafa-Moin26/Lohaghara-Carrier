@@ -7,6 +7,7 @@ class FactoryModel {
   final String companyName;
 
   final String name;
+  final String searchName;
 
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -16,6 +17,7 @@ class FactoryModel {
     required this.companyId,
     required this.companyName,
     required this.name,
+    required this.searchName,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -26,6 +28,7 @@ class FactoryModel {
     companyId: '',
     companyName: '',
     name: '',
+    searchName: '',
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
   );
@@ -36,6 +39,7 @@ class FactoryModel {
     String? companyId,
     String? companyName,
     String? name,
+    String? searchName,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -44,6 +48,7 @@ class FactoryModel {
       companyId: companyId ?? this.companyId,
       companyName: companyName ?? this.companyName,
       name: name ?? this.name,
+      searchName: searchName ?? this.searchName,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -56,6 +61,7 @@ class FactoryModel {
       'CompanyName': companyName,
 
       'Name': name,
+      'SearchName': searchName,
 
       'CreatedAt': Timestamp.fromDate(createdAt),
       'UpdatedAt': Timestamp.fromDate(updatedAt),
@@ -76,6 +82,7 @@ class FactoryModel {
         companyName: data['CompanyName'] ?? '',
 
         name: data['Name'] ?? '',
+        searchName: data['SearchName'] ?? '',
 
         createdAt: (data['CreatedAt'] as Timestamp).toDate(),
         updatedAt: (data['UpdatedAt'] as Timestamp).toDate(),
