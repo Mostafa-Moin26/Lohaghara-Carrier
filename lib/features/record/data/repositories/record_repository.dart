@@ -331,7 +331,61 @@ class RecordRepository extends GetxController {
   /// Delete Record
   Future<void> deleteRecord(String recordId) async {
     try {
-      await _db.collection('Records').doc(recordId).delete();
+      final recordRef = _db.collection('Records').doc(recordId);
+
+      await _db.runTransaction((transaction) async {
+        final recordSnapshot = await transaction.get(recordRef);
+
+        if (!recordSnapshot.exists) {
+          throw 'Record not found';
+        }
+
+        final record = RecordModel.fromSnapshot(recordSnapshot);
+
+        final dashboardRef = _getDashboardRef(record.monthKey);
+
+        final factoryRef = _getFactoryMonthlyRef(
+          record.monthKey,
+          record.factoryId,
+        );
+
+        final factorySnapshot = await transaction.get(factoryRef);
+
+        /// Dashboard
+        transaction.update(dashboardRef, {
+          'TotalBilling': FieldValue.increment(-record.totalAmount),
+
+          'TotalTrips': FieldValue.increment(-1),
+
+          'TotalDemurrage': FieldValue.increment(-_getDemurrage(record)),
+
+          'UpdatedAt': Timestamp.now(),
+        });
+
+        /// Factory Monthly
+        if (factorySnapshot.exists) {
+          final totalTrips = factorySnapshot.get('TotalTrips') as int;
+
+          if (totalTrips <= 1) {
+            transaction.delete(factoryRef);
+
+            transaction.update(dashboardRef, {
+              'ActiveFactoryCount': FieldValue.increment(-1),
+            });
+          } else {
+            transaction.update(factoryRef, {
+              'TotalTrips': FieldValue.increment(-1),
+
+              'TotalAmount': FieldValue.increment(-record.totalAmount),
+
+              'UpdatedAt': Timestamp.now(),
+            });
+          }
+        }
+
+        /// Delete Record
+        transaction.delete(recordRef);
+      });
     } on FirebaseException catch (e) {
       throw LFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -339,7 +393,7 @@ class RecordRepository extends GetxController {
     } on PlatformException catch (e) {
       throw LPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw e.toString();
     }
   }
 
