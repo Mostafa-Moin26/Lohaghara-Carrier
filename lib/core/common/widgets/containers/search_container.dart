@@ -8,57 +8,59 @@ import 'package:lohaghara_carrier/core/helpers/helper_functions.dart';
 class SearchContainer extends StatelessWidget {
   const SearchContainer({
     super.key,
-    required this.text,
-    this.icon = Iconsax.search_normal,
-    this.showBackground = true,
-    this.showBorder = true,
-    this.onTap,
-    this.padding = const EdgeInsets.symmetric(
-      horizontal: AppSizes.defaultSpace,
-    ),
+    required this.controller,
+    this.hintText = 'Search...',
+    this.onChanged,
   });
 
-  final String text;
-  final IconData? icon;
-  final bool showBackground, showBorder;
-  final VoidCallback? onTap;
-  final EdgeInsetsGeometry padding;
+  final TextEditingController controller;
+  final String hintText;
+  final ValueChanged<String>? onChanged;
 
   @override
   Widget build(BuildContext context) {
     final dark = AppHelperFunctions.isDarkMode(context);
 
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: padding,
-        child: Container(
-          width: DeviceUtils.getScreenWidth(context),
-          padding: const EdgeInsets.all(AppSizes.md),
-          decoration: BoxDecoration(
-            color: showBackground
-                ? dark
-                      ? AppColors.dark
-                      : AppColors.white
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(AppSizes.cardRadiusLg),
-            border: showBorder ? Border.all(color: AppColors.grey) : null,
-          ),
-          child: Row(
-            children: [
-              Icon(icon, color: AppColors.darkerGrey),
-              const SizedBox(width: AppSizes.spaceBtwItems),
-              Expanded(
-                child: Text(
-                  text,
-                  style: Theme.of(context).textTheme.bodySmall,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
+    return Container(
+      width: DeviceUtils.getScreenWidth(context),
+      decoration: BoxDecoration(
+        color: dark ? AppColors.dark : AppColors.white,
+        borderRadius: BorderRadius.circular(AppSizes.cardRadiusLg),
+        border: Border.all(color: AppColors.grey.withValues(alpha: .3)),
+      ),
+      child: ValueListenableBuilder(
+        valueListenable: controller,
+        builder: (_, _, _) {
+          return TextField(
+            controller: controller,
+            onChanged: onChanged,
+            textInputAction: TextInputAction.search,
+
+            decoration: InputDecoration(
+              border: InputBorder.none,
+
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: AppSizes.md,
+                vertical: AppSizes.md,
               ),
-            ],
-          ),
-        ),
+
+              prefixIcon: const Icon(Iconsax.search_normal),
+
+              hintText: hintText,
+
+              suffixIcon: controller.text.isEmpty
+                  ? null
+                  : IconButton(
+                      onPressed: () {
+                        controller.clear();
+
+                        onChanged?.call('');
+                      },
+                      icon: const Icon(Icons.close_rounded),
+                    ),
+            ),
+          );
+        },
       ),
     );
   }

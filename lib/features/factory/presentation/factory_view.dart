@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
-import 'package:lohaghara_carrier/core/common/widgets/containers/search_container.dart';
+import 'package:lohaghara_carrier/core/common/widgets/containers/temporary_search.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/features/factory/presentation/controller/factory_controller.dart';
 import 'package:lohaghara_carrier/features/factory/presentation/widgets/factory_card.dart';
@@ -27,7 +27,7 @@ class FactoryView extends StatelessWidget {
             const SizedBox(height: AppSizes.sm),
 
             /// Search
-            SearchContainer(
+            TSearchContainer(
               text: 'Search factory name...',
               padding: EdgeInsets.zero,
             ),

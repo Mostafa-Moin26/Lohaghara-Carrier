@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
 import 'package:lohaghara_carrier/core/common/widgets/chips/app_filter_chip.dart';
-import 'package:lohaghara_carrier/core/common/widgets/containers/search_container.dart';
+import 'package:lohaghara_carrier/core/common/widgets/containers/temporary_search.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/core/extensions/filter_type_extension.dart';
@@ -27,7 +27,7 @@ class ReportsScreen extends StatelessWidget {
         child: Column(
           children: [
             /// 🔍 Search
-            SearchContainer(
+            TSearchContainer(
               text: 'Search reports....',
               padding: EdgeInsets.only(bottom: AppSizes.md),
               // onTap: controller.updateSearch,

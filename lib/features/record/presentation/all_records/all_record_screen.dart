@@ -8,7 +8,6 @@ import 'package:lohaghara_carrier/core/common/widgets/chips/app_filter_chip.dart
 import 'package:lohaghara_carrier/core/common/widgets/containers/search_container.dart';
 import 'package:lohaghara_carrier/core/common/widgets/records/record_tile.dart';
 import 'package:lohaghara_carrier/core/constants/colors.dart';
-import 'package:lohaghara_carrier/core/constants/enums.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/core/extensions/filter_type_extension.dart';
@@ -56,11 +55,11 @@ class AllRecord extends StatelessWidget {
 
             /// Search Placeholder
             SearchContainer(
-              text: 'Search records...',
-              padding: const EdgeInsets.all(0),
-              onTap: () {
-                /// TODO:
-                /// Search screen later
+              controller: controller.searchController,
+              hintText: 'Search rcords...',
+              onChanged: (value) {
+                controller.searchQuery.value = value;
+                controller.applyFilters();
               },
             ),
 
@@ -70,29 +69,45 @@ class AllRecord extends StatelessWidget {
             Obx(
               () => SizedBox(
                 height: 40,
-
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-
                   child: Row(
-                    children: controller.filters.map((filter) {
-                      final selected =
-                          controller.selectedFilter.value == filter;
+                    children: [
+                      ...controller.filters.map((filter) {
+                        final selected =
+                            controller.selectedFilter.value == filter;
 
-                      return AppFilterChip(
-                        title: filter == RecordFilterType.customDate
-                            ? ''
-                            : filter.title,
+                        return AppFilterChip(
+                          title: filter.title,
+                          isSelected: selected,
+                          onTap: () => controller.updateFilter(filter),
+                        );
+                      }),
 
-                        isSelected: selected,
+                      const SizedBox(width: AppSizes.sm),
 
-                        onTap: () => controller.updateFilter(filter),
-
-                        icon: filter == RecordFilterType.customDate
-                            ? Iconsax.calendar
-                            : null,
-                      );
-                    }).toList(),
+                      /// Calendar / Selected Date
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 250),
+                        child: controller.selectedDate.value == null
+                            ? AppFilterChip(
+                                key: const ValueKey('calendar'),
+                                title: '',
+                                icon: Iconsax.calendar_1,
+                                isSelected: false,
+                                onTap: () => controller.pickCustomDate(context),
+                              )
+                            : AppFilterChip(
+                                key: const ValueKey('selected_date'),
+                                title: DateFormat(
+                                  'dd MMM',
+                                ).format(controller.selectedDate.value!),
+                                isSelected: true,
+                                onTap: controller.clearCustomDate,
+                                trailingIcon: Icons.clear,
+                              ),
+                      ),
+                    ],
                   ),
                 ),
               ),

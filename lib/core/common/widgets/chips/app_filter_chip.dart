@@ -10,12 +10,14 @@ class AppFilterChip extends StatelessWidget {
     required this.isSelected,
     required this.onTap,
     this.icon,
+    this.trailingIcon,
   });
 
   final String title;
   final bool isSelected;
   final VoidCallback onTap;
   final IconData? icon;
+  final IconData? trailingIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +72,10 @@ class AppFilterChip extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 /// Optional Icon
-                if (icon != null) ...[Icon(icon, size: 18, color: textColor)],
+                if (icon != null) ...[
+                  Icon(icon, size: 18, color: textColor),
+                  const SizedBox(width: AppSizes.xs),
+                ],
 
                 /// Title
                 Text(
@@ -83,6 +88,11 @@ class AppFilterChip extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+
+                if (trailingIcon != null) ...[
+                  const SizedBox(width: AppSizes.xs),
+                  Icon(trailingIcon, size: 16, color: textColor),
+                ],
               ],
             ),
           ),
