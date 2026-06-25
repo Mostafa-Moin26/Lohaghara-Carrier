@@ -130,14 +130,26 @@ class AllRecord extends StatelessWidget {
                   onRefresh: controller.refreshRecords,
 
                   child: ListView.separated(
+                    controller: controller.scrollController,
+
                     physics: const AlwaysScrollableScrollPhysics(),
 
-                    itemCount: controller.filteredRecords.length,
+                    itemCount:
+                        controller.filteredRecords.length +
+                        (controller.isLoadingMore.value ? 1 : 0),
 
                     separatorBuilder: (_, _) =>
                         const SizedBox(height: AppSizes.spaceBtwItems),
 
                     itemBuilder: (context, index) {
+                      /// Bottom Loader
+                      if (index == controller.filteredRecords.length) {
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          child: Center(child: CircularProgressIndicator()),
+                        );
+                      }
+
                       final record = controller.filteredRecords[index];
 
                       return RecordTile(

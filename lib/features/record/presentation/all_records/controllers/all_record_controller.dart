@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/constants/enums.dart';
@@ -6,6 +7,22 @@ import 'package:lohaghara_carrier/features/record/data/repositories/record_repos
 
 class AllRecordController extends GetxController {
   static AllRecordController get instance => Get.find();
+
+  /// Pagination
+  static const int pageSize = 10;
+  final ScrollController scrollController = ScrollController();
+
+  /// Last Loaded Firestore Document
+  DocumentSnapshot? lastDocument;
+
+  /// Loading
+  final isLoading = false.obs;
+
+  /// Is Loading More
+  final isLoadingMore = false.obs;
+
+  /// More Data Available?
+  final hasMore = true.obs;
 
   /// Search
   final searchQuery = ''.obs;
@@ -19,9 +36,6 @@ class AllRecordController extends GetxController {
 
   /// Repository
   final recordRepository = Get.put(RecordRepository());
-
-  /// Loading
-  final isLoading = false.obs;
 
   /// Filters
   final selectedFilter = RecordFilterType.all.obs;
@@ -53,29 +67,79 @@ class AllRecordController extends GetxController {
   @override
   void onClose() {
     searchController.dispose();
+    scrollController.dispose();
     super.onClose();
   }
 
   @override
   void onInit() {
     super.onInit();
+
     fetchRecords();
+
+    scrollController.addListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    if (!scrollController.hasClients) return;
+
+    if (isLoadingMore.value) return;
+
+    if (!hasMore.value) return;
+
+    if (scrollController.position.pixels >=
+        scrollController.position.maxScrollExtent - 200) {
+      fetchRecords(loadMore: true);
+    }
   }
 
   /// Fetch Records
-  Future<void> fetchRecords() async {
+  Future<void> fetchRecords({bool loadMore = false}) async {
     try {
-      isLoading.value = true;
+      if (loadMore) {
+        if (!hasMore.value || isLoadingMore.value) return;
 
-      final fetchedRecords = await recordRepository.fetchAllRecords();
+        isLoadingMore.value = true;
+      } else {
+        isLoading.value = true;
 
-      records.assignAll(fetchedRecords);
+        lastDocument = null;
+        hasMore.value = true;
+      }
+
+      final snapshot = await recordRepository.fetchRecords(
+        lastDocument: loadMore ? lastDocument : null,
+        pageSize: pageSize,
+      );
+
+      final fetchedRecords = snapshot.docs
+          .map((doc) => RecordModel.fromSnapshot(doc))
+          .toList();
+
+      if (loadMore) {
+        records.addAll(fetchedRecords);
+      } else {
+        records.assignAll(fetchedRecords);
+      }
+
+      if (snapshot.docs.isNotEmpty) {
+        lastDocument = snapshot.docs.last;
+      }
+
+      hasMore.value = snapshot.docs.length == pageSize;
+
+      print('Load More: $loadMore');
+
+      print('Fetched: ${snapshot.docs.length}');
+
+      print('Has More: ${hasMore.value}');
 
       applyFilters();
     } catch (e) {
       Get.snackbar('Oh Snap!', e.toString());
     } finally {
       isLoading.value = false;
+      isLoadingMore.value = false;
     }
   }
 
@@ -202,6 +266,14 @@ class AllRecordController extends GetxController {
 
   /// Refresh Records
   Future<void> refreshRecords() async {
+    lastDocument = null;
+
+    hasMore.value = true;
+
+    records.clear();
+
+    filteredRecords.clear();
+
     await fetchRecords();
   }
 }

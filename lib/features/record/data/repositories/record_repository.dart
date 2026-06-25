@@ -14,6 +14,9 @@ import 'package:lohaghara_carrier/features/record/data/models/record_model.dart'
 class RecordRepository extends GetxController {
   static RecordRepository get instance => Get.find();
 
+  /// Pagination limit
+  static const int pageSize = 10;
+
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   /// ------------ Private Methods ------------- ///
@@ -131,24 +134,29 @@ class RecordRepository extends GetxController {
     }
   }
 
-  /// Get All Records
-  Future<List<RecordModel>> fetchAllRecords() async {
+  /// Fetch Records (Pagination)
+  Future<QuerySnapshot<Map<String, dynamic>>> fetchRecords({
+    DocumentSnapshot? lastDocument,
+    int pageSize = 10,
+  }) async {
     try {
-      final snapshot = await _db
+      Query<Map<String, dynamic>> query = _db
           .collection('Records')
           .orderBy('Date', descending: true)
-          .get();
+          .limit(pageSize);
 
-      return snapshot.docs
-          .map((document) => RecordModel.fromSnapshot(document))
-          .toList();
+      if (lastDocument != null) {
+        query = query.startAfterDocument(lastDocument);
+      }
+
+      return await query.get();
     } on FirebaseException catch (e) {
       throw LFirebaseException(e.code).message;
     } on FormatException catch (_) {
       throw const LFormatException();
     } on PlatformException catch (e) {
       throw LPlatformException(e.code).message;
-    } catch (e) {
+    } catch (_) {
       throw 'Something went wrong. Please try again';
     }
   }
