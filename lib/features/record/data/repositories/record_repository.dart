@@ -134,22 +134,23 @@ class RecordRepository extends GetxController {
     }
   }
 
-  /// Fetch Records (Pagination)
+  /// Fetch Records (Generic Pagination)
   Future<QuerySnapshot<Map<String, dynamic>>> fetchRecords({
+    Query<Map<String, dynamic>>? query,
     DocumentSnapshot? lastDocument,
     int pageSize = 10,
   }) async {
     try {
-      Query<Map<String, dynamic>> query = _db
-          .collection('Records')
-          .orderBy('Date', descending: true)
-          .limit(pageSize);
+      Query<Map<String, dynamic>> recordQuery =
+          query ?? _db.collection('Records').orderBy('Date', descending: true);
+
+      recordQuery = recordQuery.limit(pageSize);
 
       if (lastDocument != null) {
-        query = query.startAfterDocument(lastDocument);
+        recordQuery = recordQuery.startAfterDocument(lastDocument);
       }
 
-      return await query.get();
+      return await recordQuery.get();
     } on FirebaseException catch (e) {
       throw LFirebaseException(e.code).message;
     } on FormatException catch (_) {

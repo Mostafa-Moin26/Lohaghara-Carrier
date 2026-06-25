@@ -15,6 +15,9 @@ class AllRecordController extends GetxController {
   /// Last Loaded Firestore Document
   DocumentSnapshot? lastDocument;
 
+  /// Current Firestore Query
+  Query<Map<String, dynamic>>? currentQuery;
+
   /// Loading
   final isLoading = false.obs;
 
@@ -89,12 +92,15 @@ class AllRecordController extends GetxController {
 
     if (scrollController.position.pixels >=
         scrollController.position.maxScrollExtent - 200) {
-      fetchRecords(loadMore: true);
+      fetchRecords(query: currentQuery, loadMore: true);
     }
   }
 
   /// Fetch Records
-  Future<void> fetchRecords({bool loadMore = false}) async {
+  Future<void> fetchRecords({
+    Query<Map<String, dynamic>>? query,
+    bool loadMore = false,
+  }) async {
     try {
       if (loadMore) {
         if (!hasMore.value || isLoadingMore.value) return;
@@ -103,11 +109,17 @@ class AllRecordController extends GetxController {
       } else {
         isLoading.value = true;
 
+        records.clear();
+        filteredRecords.clear();
+
         lastDocument = null;
         hasMore.value = true;
+
+        currentQuery = query;
       }
 
       final snapshot = await recordRepository.fetchRecords(
+        query: currentQuery,
         lastDocument: loadMore ? lastDocument : null,
         pageSize: pageSize,
       );
@@ -127,12 +139,6 @@ class AllRecordController extends GetxController {
       }
 
       hasMore.value = snapshot.docs.length == pageSize;
-
-      print('Load More: $loadMore');
-
-      print('Fetched: ${snapshot.docs.length}');
-
-      print('Has More: ${hasMore.value}');
 
       applyFilters();
     } catch (e) {
@@ -266,14 +272,6 @@ class AllRecordController extends GetxController {
 
   /// Refresh Records
   Future<void> refreshRecords() async {
-    lastDocument = null;
-
-    hasMore.value = true;
-
-    records.clear();
-
-    filteredRecords.clear();
-
-    await fetchRecords();
+    await fetchRecords(query: currentQuery);
   }
 }
