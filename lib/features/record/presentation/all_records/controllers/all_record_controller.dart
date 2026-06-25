@@ -96,6 +96,21 @@ class AllRecordController extends GetxController {
     }
   }
 
+  /// -------- Firestore Queries -------- ///
+  Query<Map<String, dynamic>> _todayQuery() {
+    final now = DateTime.now();
+
+    final startOfDay = DateTime(now.year, now.month, now.day);
+
+    final endOfDay = startOfDay.add(const Duration(days: 1));
+
+    return FirebaseFirestore.instance
+        .collection('Records')
+        .where('Date', isGreaterThanOrEqualTo: Timestamp.fromDate(startOfDay))
+        .where('Date', isLessThan: Timestamp.fromDate(endOfDay))
+        .orderBy('Date', descending: true);
+  }
+
   /// Fetch Records
   Future<void> fetchRecords({
     Query<Map<String, dynamic>>? query,
@@ -140,6 +155,12 @@ class AllRecordController extends GetxController {
 
       hasMore.value = snapshot.docs.length == pageSize;
 
+      print('Load More: $loadMore');
+
+      print('Fetched: ${snapshot.docs.length}');
+
+      print('Has More: ${hasMore.value}');
+
       applyFilters();
     } catch (e) {
       Get.snackbar('Oh Snap!', e.toString());
@@ -157,10 +178,25 @@ class AllRecordController extends GetxController {
   }
 
   /// Update Filter
-  void updateFilter(RecordFilterType value) {
-    selectedFilter.value = value;
+  Future<void> updateFilter(RecordFilterType filter) async {
+    selectedFilter.value = filter;
 
-    applyFilters();
+    switch (filter) {
+      case RecordFilterType.all:
+        await fetchRecords(query: null);
+        break;
+
+      case RecordFilterType.today:
+        await fetchRecords(query: _todayQuery());
+        break;
+
+      case RecordFilterType.thisWeek:
+      case RecordFilterType.thisMonth:
+      case RecordFilterType.customDate:
+        // Temporary
+        applyFilters();
+        break;
+    }
   }
 
   Future<void> selectCustomDate(DateTime date) async {
