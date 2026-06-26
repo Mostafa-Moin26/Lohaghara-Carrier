@@ -43,7 +43,7 @@ class DashboardStatsSection extends StatelessWidget {
               DashboardStatCard(
                 title: AppTextStrings.monthlyBilling,
                 value: dashboard.totalBilling.toStringAsFixed(0),
-                subtitle: AppTextStrings.thisMonth,
+                subtitle: controller.selectedMonthText,
                 icon: Iconsax.wallet_money,
                 iconColor: Colors.purple,
                 isCurrency: true,
@@ -52,7 +52,7 @@ class DashboardStatsSection extends StatelessWidget {
               DashboardStatCard(
                 title: AppTextStrings.totalTrips,
                 value: dashboard.totalTrips.toString(),
-                subtitle: AppTextStrings.thisMonth,
+                subtitle: controller.selectedMonthText,
                 icon: Iconsax.truck_fast,
                 iconColor: Colors.blue,
               ),
@@ -68,7 +68,7 @@ class DashboardStatsSection extends StatelessWidget {
               DashboardStatCard(
                 title: AppTextStrings.totalDemurrage,
                 value: dashboard.totalDemurrage.toStringAsFixed(0),
-                subtitle: AppTextStrings.thisMonth,
+                subtitle: controller.selectedMonthText,
                 icon: Iconsax.money_recive,
                 iconColor: Colors.orange,
                 isCurrency: true,

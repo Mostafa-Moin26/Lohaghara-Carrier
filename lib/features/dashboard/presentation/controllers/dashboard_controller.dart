@@ -36,15 +36,24 @@ class DashboardController extends GetxController {
     fetchDashboard();
   }
 
+  String get selectedMonthText {
+    return DateFormat('MMMM yyyy').format(selectedMonth.value);
+  }
+
   Future<void> fetchDashboard() async {
     try {
       isLoading.value = true;
 
       final monthKey = DateFormat('yyyy-MM').format(selectedMonth.value);
 
-      dashboard.value = await repository.fetchDashboardMonthly(monthKey);
+      final results = await Future.wait([
+        repository.fetchDashboardMonthly(monthKey),
+        repository.fetchRecentRecords(monthKey: monthKey),
+      ]);
 
-      recentRecords.assignAll(await repository.fetchRecentRecords());
+      dashboard.value = results[0] as DashboardMonthlyModel;
+
+      recentRecords.assignAll(results[1] as List<RecordModel>);
     } catch (e) {
       Get.snackbar('Oh Snap!', e.toString());
     } finally {

@@ -17,47 +17,52 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(DashboardController());
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(
-              top: AppSizes.md,
-              left: AppSizes.defaultSpace,
-              right: AppSizes.defaultSpace,
-              bottom: AppSizes.defaultSpace,
-            ),
-            child: Column(
-              children: [
-                /// Header
-                DashBoardHeader(),
-                const SizedBox(height: AppSizes.spaceBtwSections),
+        child: RefreshIndicator(
+          onRefresh: controller.refreshDashboard,
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: AppSizes.md,
+                left: AppSizes.defaultSpace,
+                right: AppSizes.defaultSpace,
+                bottom: AppSizes.defaultSpace,
+              ),
+              child: Column(
+                children: [
+                  /// Header
+                  DashBoardHeader(),
+                  const SizedBox(height: AppSizes.spaceBtwSections),
 
-                /// Month selector
-                MonthSelector(),
-                const SizedBox(height: AppSizes.lg),
+                  /// Month selector
+                  MonthSelector(),
+                  const SizedBox(height: AppSizes.lg),
 
-                /// Monthly Billing, Total Trips, Total Factories, Total Demurrage
-                DashboardStatsSection(),
-                const SizedBox(height: AppSizes.spaceBtwSections),
+                  /// Monthly Billing, Total Trips, Total Factories, Total Demurrage
+                  DashboardStatsSection(),
+                  const SizedBox(height: AppSizes.spaceBtwSections),
 
-                /// Quick Actions
-                SectionHeading(
-                  title: AppTextStrings.quickActions,
-                  showActionButton: false,
-                ),
-                QuickActionsSection(),
-                const SizedBox(height: AppSizes.spaceBtwItems),
+                  /// Quick Actions
+                  SectionHeading(
+                    title: AppTextStrings.quickActions,
+                    showActionButton: false,
+                  ),
+                  QuickActionsSection(),
+                  const SizedBox(height: AppSizes.spaceBtwItems),
 
-                /// Recent Records
-                SectionHeading(
-                  title: AppTextStrings.recentRecords,
-                  showActionButton: true,
-                  onButtonPressed: () => Get.toNamed(AppRoutes.allRecords),
-                ),
-                const SizedBox(height: AppSizes.spaceBtwItems),
-                RecentRecordsSection(),
-              ],
+                  /// Recent Records
+                  SectionHeading(
+                    title: AppTextStrings.recentRecords,
+                    showActionButton: true,
+                    onButtonPressed: () => Get.toNamed(AppRoutes.allRecords),
+                  ),
+                  const SizedBox(height: AppSizes.spaceBtwItems),
+                  RecentRecordsSection(),
+                ],
+              ),
             ),
           ),
         ),

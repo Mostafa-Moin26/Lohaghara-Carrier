@@ -45,10 +45,14 @@ class DashboardRepository extends GetxController {
   // Recent Records
   //══════════════════════════════════════════════════════
 
-  Future<List<RecordModel>> fetchRecentRecords({int limit = 5}) async {
+  Future<List<RecordModel>> fetchRecentRecords({
+    required String monthKey,
+    int limit = 5,
+  }) async {
     try {
       final snapshot = await _db
           .collection('Records')
+          .where('MonthKey', isEqualTo: monthKey)
           .orderBy('Date', descending: true)
           .limit(limit)
           .get();
