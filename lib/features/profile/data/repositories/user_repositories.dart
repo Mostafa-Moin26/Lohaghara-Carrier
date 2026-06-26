@@ -109,4 +109,27 @@ class UserRepository extends GetxController {
       throw 'Something went wrong. Please try again';
     }
   }
+
+  Future<String> uploadProfileImage(String uid, XFile image) async {
+    try {
+      final ref = FirebaseStorage.instance.ref('users/$uid/profile.jpg');
+
+      final metadata = SettableMetadata(
+        contentType: 'image/jpeg',
+        cacheControl: 'no-cache',
+      );
+
+      await ref.putFile(File(image.path), metadata);
+
+      return await ref.getDownloadURL();
+    } on FirebaseException catch (e) {
+      throw LFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const LFormatException();
+    } on PlatformException catch (e) {
+      throw LPlatformException(e.code).message;
+    } catch (_) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
 }

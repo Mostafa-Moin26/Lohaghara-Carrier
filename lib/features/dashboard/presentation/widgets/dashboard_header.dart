@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/common/widgets/images/circular_image.dart';
+import 'package:lohaghara_carrier/core/helpers/greeting_helper.dart';
 import 'package:lohaghara_carrier/core/popups/shimmer/shimmer.dart';
 import 'package:lohaghara_carrier/features/profile/presentation/controller/user_controller.dart';
 import 'package:lohaghara_carrier/routes/app_routes.dart';
@@ -22,6 +23,10 @@ class DashBoardHeader extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(
+              '${GreetingHelper.getGreeting()},',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
             Obx(() {
               if (controller.profileLoading.value) {
                 return ShimmerEffect(width: 100, height: 15);
@@ -32,8 +37,6 @@ class DashBoardHeader extends StatelessWidget {
                 );
               }
             }),
-
-            Text('Good Morning', style: Theme.of(context).textTheme.bodyMedium),
           ],
         ),
 

@@ -318,12 +318,6 @@ class AllRecordController extends GetxController {
 
       hasMore.value = snapshot.docs.length == pageSize;
 
-      print('Load More: $loadMore');
-
-      print('Fetched: ${snapshot.docs.length}');
-
-      print('Has More: ${hasMore.value}');
-
       applyFilters();
     } catch (e) {
       Get.snackbar('Oh Snap!', e.toString());

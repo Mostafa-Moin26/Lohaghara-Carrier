@@ -209,32 +209,33 @@ class UserController extends GetxController {
         maxWidth: 512,
       );
 
-      if (image != null) {
-        imageUploading.value = true;
+      if (image == null) return;
 
-        /// Upload Image
-        final imageUrl = await userRepository.uploadImage(
-          'Users/Images/Profile/',
-          image,
-        );
+      imageUploading.value = true;
 
-        /// Update User Image Record
-        Map<String, dynamic> json = {'ProfilePicture': imageUrl};
+      /// Current User ID
+      final uid = user.value.id;
 
-        await userRepository.updateSingleField(json);
+      /// Upload Profile Image (Overwrite)
+      final imageUrl = await userRepository.uploadProfileImage(uid, image);
 
-        user.value.profilePicture = imageUrl;
+      /// Update Firestore
+      await userRepository.updateSingleField({
+        'ProfilePicture':
+            '$imageUrl?v=${DateTime.now().millisecondsSinceEpoch}',
+      });
 
-        AppLoaders.successSnackBar(
-          title: 'Congratulations',
-          message: 'Your Profile Image has been updated!',
-        );
-      }
-    } catch (e) {
-      AppLoaders.errorSnackBar(
-        title: 'Oh Snap!',
-        message: 'Something went wrong: $e',
+      /// Update Local User Model
+      user.update((currentUser) {
+        currentUser?.profilePicture = imageUrl;
+      });
+
+      AppLoaders.successSnackBar(
+        title: 'Congratulations',
+        message: 'Your profile picture has been updated.',
       );
+    } catch (e) {
+      AppLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     } finally {
       imageUploading.value = false;
     }

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lohaghara_carrier/core/constants/colors.dart';
+import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/helpers/helper_functions.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ShimmerEffect extends StatelessWidget {
   const ShimmerEffect({
     super.key,
-    required this.width,
+    this.width = double.infinity,
     required this.height,
-    this.radius = 15,
+    this.radius = AppSizes.cardRadiusLg,
     this.color,
   });
 

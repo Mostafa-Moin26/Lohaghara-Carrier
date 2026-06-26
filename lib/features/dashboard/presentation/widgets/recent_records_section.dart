@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:lohaghara_carrier/core/common/widgets/loaders/recent_records_skeleton.dart';
 
 import 'package:lohaghara_carrier/core/common/widgets/records/record_tile.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
@@ -15,6 +16,10 @@ class RecentRecordsSection extends StatelessWidget {
     final controller = DashboardController.instance;
 
     return Obx(() {
+      if (controller.isLoading.value) {
+        return const RecentRecordsSkeleton();
+      }
+
       final records = controller.recentRecords;
 
       if (records.isEmpty) {

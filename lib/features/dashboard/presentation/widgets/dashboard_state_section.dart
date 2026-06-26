@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:lohaghara_carrier/core/common/widgets/loaders/dashboard_stats_skeleton.dart';
 
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/features/dashboard/presentation/controllers/dashboard_controller.dart';
@@ -14,6 +15,10 @@ class DashboardStatsSection extends StatelessWidget {
     final controller = DashboardController.instance;
 
     return Obx(() {
+      if (controller.isLoading.value) {
+        return const DashboardStatsSkeleton();
+      }
+
       final dashboard = controller.dashboard.value;
 
       return LayoutBuilder(
