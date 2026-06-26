@@ -12,7 +12,7 @@ import 'package:month_picker_dialog/month_picker_dialog.dart';
 class MonthSelector extends StatelessWidget {
   MonthSelector({super.key});
 
-  final controller = Get.put(DashboardController());
+  final controller = DashboardController.instance;
 
   Future<void> pickMonth(BuildContext context) async {
     final dark = AppHelperFunctions.isDarkMode(context);
@@ -99,9 +99,14 @@ class MonthSelector extends StatelessWidget {
       ),
     );
 
-    if (picked != null) {
-      controller.updateSelectedMonth(picked);
+    if (picked == null) return;
+
+    if (picked.year == controller.selectedMonth.value.year &&
+        picked.month == controller.selectedMonth.value.month) {
+      return;
     }
+
+    await controller.updateSelectedMonth(picked);
   }
 
   @override
