@@ -56,11 +56,8 @@ class AllRecord extends StatelessWidget {
             /// Search Placeholder
             SearchContainer(
               controller: controller.searchController,
-              hintText: 'Search rcords...',
-              onChanged: (value) {
-                controller.searchQuery.value = value;
-                controller.applyFilters();
-              },
+              hintText: 'Search by factory or truck...',
+              onChanged: controller.onSearchChanged,
             ),
 
             const SizedBox(height: AppSizes.spaceBtwItems),

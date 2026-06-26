@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import 'package:lohaghara_carrier/core/constants/image_strings.dart';
 import 'package:lohaghara_carrier/core/helpers/network_manager.dart';
+import 'package:lohaghara_carrier/core/helpers/search_helper.dart';
 import 'package:lohaghara_carrier/core/popups/full_screen_loader.dart';
 import 'package:lohaghara_carrier/core/popups/loaders.dart';
 import 'package:lohaghara_carrier/features/company/data/models/company_model.dart';
@@ -212,6 +215,10 @@ class AddRecordController extends GetxController {
         date: selectedDate ?? DateTime.now(),
 
         monthKey: monthKey,
+        searchTokens: SearchHelper.buildSearchTokens(
+          factoryName: factory.name,
+          truckNumber: truckController.text.trim(),
+        ),
 
         companyId: company.id,
         companyName: company.name,
@@ -314,7 +321,10 @@ class AddRecordController extends GetxController {
         date: updatedDate,
 
         monthKey: DateFormat('yyyy-MM').format(updatedDate),
-
+        searchTokens: SearchHelper.buildSearchTokens(
+          factoryName: factory.name,
+          truckNumber: truckController.text.trim(),
+        ),
         companyId: company.id,
         companyName: company.name,
 

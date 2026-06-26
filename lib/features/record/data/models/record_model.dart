@@ -5,6 +5,7 @@ class RecordModel {
 
   final DateTime date;
   final String monthKey;
+  final List<String> searchTokens;
 
   final String companyId;
   final String companyName;
@@ -32,6 +33,7 @@ class RecordModel {
     required this.id,
     required this.date,
     required this.monthKey,
+    required this.searchTokens,
     required this.companyId,
     required this.companyName,
     required this.factoryId,
@@ -54,6 +56,7 @@ class RecordModel {
     id: '',
     date: DateTime.now(),
     monthKey: '',
+    searchTokens: const [],
     companyId: '',
     companyName: '',
     factoryId: '',
@@ -76,6 +79,7 @@ class RecordModel {
     String? id,
     DateTime? date,
     String? monthKey,
+    List<String>? searchTokens,
     String? companyId,
     String? companyName,
     String? factoryId,
@@ -96,6 +100,7 @@ class RecordModel {
       id: id ?? this.id,
       date: date ?? this.date,
       monthKey: monthKey ?? this.monthKey,
+      searchTokens: searchTokens ?? this.searchTokens,
       companyId: companyId ?? this.companyId,
       companyName: companyName ?? this.companyName,
       factoryId: factoryId ?? this.factoryId,
@@ -119,6 +124,7 @@ class RecordModel {
     return {
       'Date': Timestamp.fromDate(date),
       'MonthKey': monthKey,
+      'SearchTokens': searchTokens,
 
       'CompanyId': companyId,
       'CompanyName': companyName,
@@ -155,6 +161,7 @@ class RecordModel {
 
         date: (data['Date'] as Timestamp).toDate(),
         monthKey: data['MonthKey'] ?? '',
+        searchTokens: List<String>.from(data['SearchTokens'] ?? []),
 
         companyId: data['CompanyId'] ?? '',
         companyName: data['CompanyName'] ?? '',
