@@ -11,11 +11,19 @@ class SearchContainer extends StatelessWidget {
     required this.controller,
     this.hintText = 'Search...',
     this.onChanged,
+
+    /// Optional Trailing Widget
+    this.trailingIcon,
+    this.onTrailingTap,
   });
 
   final TextEditingController controller;
   final String hintText;
   final ValueChanged<String>? onChanged;
+
+  /// Optional Action Button
+  final IconData? trailingIcon;
+  final VoidCallback? onTrailingTap;
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +36,9 @@ class SearchContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppSizes.cardRadiusLg),
         border: Border.all(color: AppColors.grey.withValues(alpha: .3)),
       ),
-      child: ValueListenableBuilder(
+      child: ValueListenableBuilder<TextEditingValue>(
         valueListenable: controller,
-        builder: (_, _, _) {
+        builder: (_, __, ___) {
           return TextField(
             controller: controller,
             onChanged: onChanged,
@@ -48,16 +56,48 @@ class SearchContainer extends StatelessWidget {
 
               hintText: hintText,
 
-              suffixIcon: controller.text.isEmpty
-                  ? null
-                  : IconButton(
+              suffixIcon: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  /// Calendar / Filter / Any Action Icon
+                  if (trailingIcon != null)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 4),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(100),
+                          onTap: onTrailingTap,
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: AppColors.primaryColor.withValues(
+                                alpha: .08,
+                              ),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              trailingIcon,
+                              size: 18,
+                              color: AppColors.primaryColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                  /// Clear Button
+                  if (controller.text.isNotEmpty)
+                    IconButton(
+                      splashRadius: 20,
                       onPressed: () {
                         controller.clear();
-
                         onChanged?.call('');
                       },
                       icon: const Icon(Icons.close_rounded),
                     ),
+                ],
+              ),
             ),
           );
         },

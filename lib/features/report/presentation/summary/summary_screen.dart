@@ -99,6 +99,7 @@ class SummaryScreen extends StatelessWidget {
                         final factory = factoryController.factories[index];
 
                         return FactoryCard(
+                          companyName: 'Meghna Executive Holding',
                           name: factory["name"] as String,
                           trips: factory["trips"] as int,
                           amount: factory["amount"] as int,
