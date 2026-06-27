@@ -123,4 +123,21 @@ class FactoryRepository extends GetxController {
       factoryName: factoryName,
     );
   }
+
+  /// Fetch Factory Monthly Data
+  Future<QuerySnapshot<Map<String, dynamic>>> fetchFactoryMonthly({
+    required Query<Map<String, dynamic>> query,
+  }) async {
+    try {
+      return await query.get();
+    } on FirebaseException catch (e) {
+      throw LFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const LFormatException();
+    } on PlatformException catch (e) {
+      throw LPlatformException(e.code).message;
+    } catch (_) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
 }

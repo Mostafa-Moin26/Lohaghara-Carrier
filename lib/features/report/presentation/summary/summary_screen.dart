@@ -86,31 +86,31 @@ class SummaryScreen extends StatelessWidget {
                 /// =========================
                 /// FACTORIES LIST
                 /// =========================
-                Obx(
-                  () => SliverPadding(
-                    padding: const EdgeInsets.only(
-                      left: AppSizes.defaultSpace,
-                      right: AppSizes.defaultSpace,
-                      bottom: 120, // 👈 prevents FAB overlap
-                    ),
+                // Obx(
+                //   () => SliverPadding(
+                //     padding: const EdgeInsets.only(
+                //       left: AppSizes.defaultSpace,
+                //       right: AppSizes.defaultSpace,
+                //       bottom: 120, // 👈 prevents FAB overlap
+                //     ),
 
-                    sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate((_, index) {
-                        final factory = factoryController.factories[index];
+                //     sliver: SliverList(
+                //       delegate: SliverChildBuilderDelegate((_, index) {
+                //         final factory = factoryController.factories[index];
 
-                        return FactoryCard(
-                          companyName: 'Meghna Executive Holding',
-                          name: factory["name"] as String,
-                          trips: factory["trips"] as int,
-                          amount: factory["amount"] as int,
-                          onTap: () {
-                            // TODO: Navigate later
-                          },
-                        );
-                      }, childCount: factoryController.factories.length),
-                    ),
-                  ),
-                ),
+                //         return FactoryCard(
+                //           companyName: 'Meghna Executive Holding',
+                //           name: factory["name"] as String,
+                //           trips: factory["trips"] as int,
+                //           amount: factory["amount"] as int,
+                //           onTap: () {
+                //             // TODO: Navigate later
+                //           },
+                //         );
+                //       }, childCount: factoryController.factories.length),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
 

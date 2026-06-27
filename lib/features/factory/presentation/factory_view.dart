@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
 import 'package:lohaghara_carrier/core/common/widgets/containers/search_container.dart';
+import 'package:lohaghara_carrier/core/common/widgets/loaders/factory_list_skeleton.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/features/factory/presentation/controller/factory_controller.dart';
 import 'package:lohaghara_carrier/features/factory/presentation/widgets/factory_card.dart';
+import 'package:lohaghara_carrier/features/factory/presentation/widgets/factory_header_info.dart';
 
 class FactoryView extends StatelessWidget {
   FactoryView({super.key, required this.showBackArrow});
@@ -29,36 +31,50 @@ class FactoryView extends StatelessWidget {
 
             /// Search
             SearchContainer(
-              controller: TextEditingController(),
+              controller: controller.searchController,
               hintText: 'Search factory...',
+              onChanged: controller.onSearchChanged,
 
-              // onChanged: controller.onSearchChanged,
               trailingIcon: Iconsax.calendar_1,
 
               onTrailingTap: () {
-                // controller.pickMonth(context);
+                controller.pickMonth(context);
               },
             ),
             const SizedBox(height: AppSizes.spaceBtwItems),
 
+            FactoryHeaderInfo(),
+            const SizedBox(height: AppSizes.spaceBtwItems),
+
             /// List
             Expanded(
-              child: Obx(
-                () => ListView.builder(
-                  itemCount: controller.factories.length,
-                  itemBuilder: (_, index) {
-                    final factory = controller.factories[index];
+              child: Obx(() {
+                if (controller.isLoading.value) {
+                  return const FactoryListSkeleton();
+                }
 
-                    return FactoryCard(
-                      companyName: 'Meghna Executive Holding',
-                      name: factory["name"] as String,
-                      trips: factory["trips"] as int,
-                      amount: factory["amount"] as int,
-                      onTap: () {},
-                    );
-                  },
-                ),
-              ),
+                if (controller.filteredFactories.isEmpty) {
+                  return const Center(child: Text('No factories found'));
+                }
+
+                return RefreshIndicator(
+                  onRefresh: controller.refreshFactories,
+
+                  child: ListView.builder(
+                    itemCount: controller.filteredFactories.length,
+                    itemBuilder: (_, index) {
+                      final factory = controller.filteredFactories[index];
+
+                      return FactoryCard(
+                        name: factory.factoryName,
+                        companyName: factory.companyName,
+                        trips: factory.totalTrips,
+                        amount: factory.totalAmount.toInt(),
+                      );
+                    },
+                  ),
+                );
+              }),
             ),
           ],
         ),

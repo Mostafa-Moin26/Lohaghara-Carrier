@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
 import 'package:lohaghara_carrier/core/common/widgets/chips/app_filter_chip.dart';
 import 'package:lohaghara_carrier/core/common/widgets/containers/search_container.dart';
+import 'package:lohaghara_carrier/core/common/widgets/loaders/record_list_skeleton.dart';
 import 'package:lohaghara_carrier/core/common/widgets/records/record_tile.dart';
 import 'package:lohaghara_carrier/core/constants/colors.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
@@ -116,7 +117,7 @@ class AllRecord extends StatelessWidget {
             Expanded(
               child: Obx(() {
                 if (controller.isLoading.value) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const RecordListSkeleton();
                 }
 
                 if (controller.filteredRecords.isEmpty) {
