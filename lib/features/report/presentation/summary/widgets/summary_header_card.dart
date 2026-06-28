@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/constants/colors.dart';
 import 'package:lohaghara_carrier/core/constants/image_strings.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/core/helpers/helper_functions.dart';
+import 'package:lohaghara_carrier/core/utils/date_formatter.dart';
+import 'package:lohaghara_carrier/features/report/presentation/summary/controller/summary_controller.dart';
 
 class SummaryHeaderCard extends StatelessWidget {
   const SummaryHeaderCard({super.key});
@@ -11,6 +14,7 @@ class SummaryHeaderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = AppHelperFunctions.isDarkMode(context);
+    final controller = SummaryController.instance;
 
     return Container(
       padding: const EdgeInsets.all(AppSizes.md),
@@ -30,54 +34,57 @@ class SummaryHeaderCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 /// TEXT CONTENT
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      /// SUMMARY TEXT
-                      Text(
-                        "Summary: Jan 2026",
-                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                          color: dark
-                              ? AppColors.primaryLight
-                              : AppColors.primaryColor,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-
-                      const SizedBox(height: AppSizes.xs),
-
-                      /// COMPANY NAME
-                      Text(
-                        "Meghna Executive Holding",
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-
-                      const SizedBox(height: AppSizes.xs),
-
-                      /// BILL NO
-                      RichText(
-                        text: TextSpan(
-                          text: AppTextStrings.billNo,
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodySmall!.copyWith(color: Colors.grey),
-                          children: [
-                            TextSpan(
-                              text: "${AppTextStrings.lohagara} 16",
-                              style: TextStyle(
+                Obx(
+                  () => Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        /// SUMMARY TEXT
+                        Text(
+                          "Summary: ${DateFormatter.monthYear(controller.selectedMonth.value)}",
+                          style: Theme.of(context).textTheme.labelLarge!
+                              .copyWith(
                                 color: dark
                                     ? AppColors.primaryLight
                                     : AppColors.primaryColor,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w500,
                               ),
-                            ),
-                          ],
                         ),
-                      ),
-                    ],
+
+                        const SizedBox(height: AppSizes.xs),
+
+                        /// COMPANY NAME
+                        Text(
+                          controller.selectedCompany.value?.name ??
+                              'Select Company',
+                          style: Theme.of(context).textTheme.titleSmall!
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+
+                        const SizedBox(height: AppSizes.xs),
+
+                        /// BILL NO
+                        RichText(
+                          text: TextSpan(
+                            text: AppTextStrings.billNo,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodySmall!.copyWith(color: Colors.grey),
+                            children: [
+                              TextSpan(
+                                text: controller.billNumber,
+                                style: TextStyle(
+                                  color: dark
+                                      ? AppColors.primaryLight
+                                      : AppColors.primaryColor,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
