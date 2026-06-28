@@ -10,6 +10,8 @@ import 'package:lohaghara_carrier/core/popups/loaders.dart';
 import 'package:lohaghara_carrier/core/utils/date_formatter.dart';
 import 'package:lohaghara_carrier/features/company/data/models/company_model.dart';
 import 'package:lohaghara_carrier/features/report/presentation/summary/controller/summary_controller.dart';
+import 'package:lohaghara_carrier/features/report/services/pdf/summary_pdf_service.dart';
+import 'package:printing/printing.dart';
 
 class ReportFiltersSection extends StatelessWidget {
   const ReportFiltersSection({super.key});
@@ -104,7 +106,7 @@ class ReportFiltersSection extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
-              onPressed: () {
+              onPressed: () async {
                 if (controller.summaryFactories.isEmpty) {
                   AppLoaders.warningSnackBar(
                     title: 'No Data Found',
@@ -113,6 +115,12 @@ class ReportFiltersSection extends StatelessWidget {
                   );
                   return;
                 }
+
+                final pdfBytes = await SummaryPdfService.generate(
+                  report: controller.report.value,
+                );
+
+                await Printing.layoutPdf(onLayout: (_) async => pdfBytes);
               },
               icon: const Icon(Iconsax.chart_21),
               label: const Text(AppTextStrings.generateReport),

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:lohaghara_carrier/core/helpers/amount_in_words_helper.dart';
 import 'package:lohaghara_carrier/core/helpers/bill_number_helper.dart';
 import 'package:lohaghara_carrier/core/helpers/month_picker_helper.dart';
 import 'package:lohaghara_carrier/features/company/data/models/company_model.dart';
 import 'package:lohaghara_carrier/features/factory/data/models/factory_monthly_model.dart';
+import 'package:lohaghara_carrier/features/report/data/models/summary_report_model.dart';
 import 'package:lohaghara_carrier/features/report/data/repositories/summary_repository.dart';
 
 class SummaryController extends GetxController {
@@ -30,6 +32,36 @@ class SummaryController extends GetxController {
 
   /// Factory Summary
   final summaryFactories = <FactoryMonthlyModel>[].obs;
+
+  /// Generated Report
+  final report = SummaryReportModel.empty().obs;
+
+  void _buildReportModel() {
+    if (selectedCompany.value == null) return;
+
+    final factories = List<FactoryMonthlyModel>.from(summaryFactories);
+
+    final totalTrips = factories.fold<int>(
+      0,
+      (sum, item) => sum + item.totalTrips,
+    );
+
+    final totalAmount = factories.fold<double>(
+      0,
+      (sum, item) => sum + item.totalAmount,
+    );
+
+    report.value = SummaryReportModel(
+      company: selectedCompany.value!,
+      monthKey: DateFormat('yyyy-MM').format(selectedMonth.value),
+      month: selectedMonth.value,
+      billNo: BillNumberHelper.generate(selectedMonth.value),
+      factories: factories,
+      totalTrips: totalTrips,
+      totalAmount: totalAmount,
+      amountInWords: AmountInWordsHelper.convert(totalAmount),
+    );
+  }
 
   @override
   void onInit() {
@@ -72,6 +104,9 @@ class SummaryController extends GetxController {
       );
 
       summaryFactories.assignAll(result);
+
+      /// NEW
+      _buildReportModel();
     } catch (e) {
       Get.snackbar('Oh Snap!', e.toString());
     } finally {
