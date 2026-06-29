@@ -229,9 +229,8 @@ class SummaryPdfService {
   ///==========================================================
   static pw.Widget _buildAmountInWords(SummaryReportModel report) {
     return pw.Column(
-      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      crossAxisAlignment: pw.CrossAxisAlignment.center,
       children: [
-        // pw.Divider(thickness: .8),
         PdfHelper.smallGap(),
 
         pw.Text(

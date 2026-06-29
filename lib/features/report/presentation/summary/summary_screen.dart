@@ -154,10 +154,10 @@ class SummaryScreen extends StatelessWidget {
               bottom: 16,
               child: ReportActionButtons(
                 onDownload: () {
-                  // TODO
+                  controller.downloadPdf();
                 },
                 onShare: () {
-                  // TODO
+                  controller.sharePdf();
                 },
               ),
             ),

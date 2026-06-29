@@ -1,13 +1,20 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lohaghara_carrier/core/helpers/amount_in_words_helper.dart';
 import 'package:lohaghara_carrier/core/helpers/bill_number_helper.dart';
 import 'package:lohaghara_carrier/core/helpers/month_picker_helper.dart';
+import 'package:lohaghara_carrier/core/helpers/pdf_file_name_helper.dart';
 import 'package:lohaghara_carrier/features/company/data/models/company_model.dart';
 import 'package:lohaghara_carrier/features/factory/data/models/factory_monthly_model.dart';
 import 'package:lohaghara_carrier/features/report/data/models/summary_report_model.dart';
 import 'package:lohaghara_carrier/features/report/data/repositories/summary_repository.dart';
+import 'package:lohaghara_carrier/features/report/services/pdf/pdf_download_service.dart';
+import 'package:lohaghara_carrier/features/report/services/pdf/pdf_preview_service.dart';
+import 'package:lohaghara_carrier/features/report/services/pdf/pdf_share_service.dart';
+import 'package:lohaghara_carrier/features/report/services/pdf/summary_pdf_service.dart';
 
 class SummaryController extends GetxController {
   static SummaryController get instance => Get.find();
@@ -36,6 +43,16 @@ class SummaryController extends GetxController {
   /// Generated Report
   final report = SummaryReportModel.empty().obs;
 
+  ///==========================================================
+  /// PDF Cache
+  ///==========================================================
+
+  Uint8List? _cachedPdf;
+
+  String? _cachedCompanyId;
+
+  String? _cachedMonthKey;
+
   void _buildReportModel() {
     if (selectedCompany.value == null) return;
 
@@ -61,6 +78,44 @@ class SummaryController extends GetxController {
       totalAmount: totalAmount,
       amountInWords: AmountInWordsHelper.convert(totalAmount),
     );
+  }
+
+  ///==========================================================
+  /// Generate PDF (With Cache)
+  ///==========================================================
+
+  Future<Uint8List> _generatePdf() async {
+    final companyId = selectedCompany.value!.id;
+    final monthKey = DateFormat('yyyy-MM').format(selectedMonth.value);
+
+    /// Return Cache
+    if (_cachedPdf != null &&
+        _cachedCompanyId == companyId &&
+        _cachedMonthKey == monthKey) {
+      return _cachedPdf!;
+    }
+
+    /// Build Report
+    _buildReportModel();
+
+    final pdf = await SummaryPdfService.generate(report: report.value);
+
+    /// Save Cache
+    _cachedPdf = pdf;
+    _cachedCompanyId = companyId;
+    _cachedMonthKey = monthKey;
+
+    return pdf;
+  }
+
+  ///==========================================================
+  /// Clear PDF Cache
+  ///==========================================================
+
+  void _clearPdfCache() {
+    _cachedPdf = null;
+    _cachedCompanyId = null;
+    _cachedMonthKey = null;
   }
 
   @override
@@ -117,11 +172,15 @@ class SummaryController extends GetxController {
   Future<void> updateSelectedCompany(CompanyModel company) async {
     selectedCompany.value = company;
 
+    _clearPdfCache();
+
     await loadSummary();
   }
 
   Future<void> updateSelectedMonth(DateTime month) async {
     selectedMonth.value = month;
+
+    _clearPdfCache();
 
     await loadSummary();
   }
@@ -138,7 +197,56 @@ class SummaryController extends GetxController {
   }
 
   Future<void> refreshSummary() async {
+    _clearPdfCache();
+
     await loadSummary();
+  }
+
+  Future<void> previewPdf() async {
+    try {
+      isGeneratingPdf.value = true;
+
+      final pdfBytes = await _generatePdf();
+
+      await PdfPreviewService.preview(pdfBytes);
+    } catch (e) {
+      Get.snackbar('PDF Error', e.toString());
+    } finally {
+      isGeneratingPdf.value = false;
+    }
+  }
+
+  Future<void> downloadPdf() async {
+    try {
+      isGeneratingPdf.value = true;
+
+      final pdfBytes = await _generatePdf();
+
+      await PdfDownloadService.saveAndOpen(
+        pdfBytes: pdfBytes,
+        fileName: pdfFileName,
+      );
+
+      Get.snackbar('Success', 'PDF downloaded successfully.');
+    } catch (e) {
+      Get.snackbar('PDF Error', e.toString());
+    } finally {
+      isGeneratingPdf.value = false;
+    }
+  }
+
+  Future<void> sharePdf() async {
+    try {
+      isGeneratingPdf.value = true;
+
+      final pdfBytes = await _generatePdf();
+
+      await PdfShareService.share(pdfBytes: pdfBytes, fileName: pdfFileName);
+    } catch (e) {
+      Get.snackbar('PDF Error', e.toString());
+    } finally {
+      isGeneratingPdf.value = false;
+    }
   }
 
   int get totalFactories => summaryFactories.length;
@@ -156,5 +264,12 @@ class SummaryController extends GetxController {
 
   String get billNumber {
     return BillNumberHelper.generate(selectedMonth.value);
+  }
+
+  String get pdfFileName {
+    return PdfFileNameHelper.summary(
+      companyName: selectedCompany.value!.name,
+      month: selectedMonth.value,
+    );
   }
 }

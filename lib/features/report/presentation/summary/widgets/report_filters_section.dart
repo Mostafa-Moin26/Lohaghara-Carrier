@@ -10,8 +10,6 @@ import 'package:lohaghara_carrier/core/popups/loaders.dart';
 import 'package:lohaghara_carrier/core/utils/date_formatter.dart';
 import 'package:lohaghara_carrier/features/company/data/models/company_model.dart';
 import 'package:lohaghara_carrier/features/report/presentation/summary/controller/summary_controller.dart';
-import 'package:lohaghara_carrier/features/report/services/pdf/summary_pdf_service.dart';
-import 'package:printing/printing.dart';
 
 class ReportFiltersSection extends StatelessWidget {
   const ReportFiltersSection({super.key});
@@ -43,7 +41,7 @@ class ReportFiltersSection extends StatelessWidget {
             () => DropdownButtonFormField<CompanyModel>(
               initialValue: controller.selectedCompany.value,
               isExpanded: true,
-              icon: const Icon(Iconsax.arrow_down_1),
+              icon: Icon(Iconsax.arrow_down_1, size: 18),
 
               decoration: InputDecoration(
                 prefixIcon: const Icon(Iconsax.building_3),
@@ -116,11 +114,7 @@ class ReportFiltersSection extends StatelessWidget {
                   return;
                 }
 
-                final pdfBytes = await SummaryPdfService.generate(
-                  report: controller.report.value,
-                );
-
-                await Printing.layoutPdf(onLayout: (_) async => pdfBytes);
+                controller.previewPdf();
               },
               icon: const Icon(Iconsax.chart_21),
               label: const Text(AppTextStrings.generateReport),
@@ -152,7 +146,12 @@ class ReportFiltersSection extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
       child: Container(
-        padding: const EdgeInsets.all(AppSizes.sm),
+        padding: const EdgeInsets.only(
+          top: AppSizes.sm,
+          bottom: AppSizes.sm,
+          left: AppSizes.sm,
+          right: AppSizes.md,
+        ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
           border: Border.all(
