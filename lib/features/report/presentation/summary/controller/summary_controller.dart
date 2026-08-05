@@ -11,13 +11,18 @@ import 'package:lohaghara_carrier/features/company/data/models/company_model.dar
 import 'package:lohaghara_carrier/features/factory/data/models/factory_monthly_model.dart';
 import 'package:lohaghara_carrier/features/report/data/models/summary_report_model.dart';
 import 'package:lohaghara_carrier/features/report/data/repositories/summary_repository.dart';
-import 'package:lohaghara_carrier/features/report/services/pdf/pdf_download_service.dart';
-import 'package:lohaghara_carrier/features/report/services/pdf/pdf_preview_service.dart';
-import 'package:lohaghara_carrier/features/report/services/pdf/pdf_share_service.dart';
-import 'package:lohaghara_carrier/features/report/services/pdf/summary_pdf_service.dart';
+import 'package:lohaghara_carrier/features/report/services/common/pdf_download_service.dart';
+import 'package:lohaghara_carrier/features/report/services/common/pdf_preview_service.dart';
+import 'package:lohaghara_carrier/features/report/services/common/pdf_share_service.dart';
+import 'package:lohaghara_carrier/features/report/services/summary_pdf/summary_pdf_service.dart';
+
+import '../../../services/report_services.dart';
+import '../../history/controller/reports_controller.dart';
 
 class SummaryController extends GetxController {
   static SummaryController get instance => Get.find();
+
+  // final reportService = ReportService();
 
   /// Repository
   final repository = Get.put(SummaryRepository());
@@ -98,7 +103,15 @@ class SummaryController extends GetxController {
     /// Build Report
     _buildReportModel();
 
+    /// Generate PDF
     final pdf = await SummaryPdfService.generate(report: report.value);
+
+    /// Save Report History
+    await ReportService.saveSummary(report: report.value, createdBy: 'system');
+
+    if (Get.isRegistered<ReportsController>()) {
+      await Get.find<ReportsController>().loadReports();
+    }
 
     /// Save Cache
     _cachedPdf = pdf;

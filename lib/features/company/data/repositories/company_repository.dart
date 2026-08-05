@@ -59,6 +59,30 @@ class CompanyRepository extends GetxController {
     }
   }
 
+  //==========================================================
+  // Get Company By Id
+  //==========================================================
+
+  Future<CompanyModel> fetchCompanyById(String companyId) async {
+    try {
+      final snapshot = await _db.collection('Companies').doc(companyId).get();
+
+      if (!snapshot.exists) {
+        throw 'Company not found.';
+      }
+
+      return CompanyModel.fromSnapshot(snapshot);
+    } on FirebaseException catch (e) {
+      throw LFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const LFormatException();
+    } on PlatformException catch (e) {
+      throw LPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again.';
+    }
+  }
+
   /// Create Company
   Future<CompanyModel> createCompany({required String companyName}) async {
     try {

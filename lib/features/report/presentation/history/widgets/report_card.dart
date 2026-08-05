@@ -1,30 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
 import 'package:lohaghara_carrier/core/common/styles/shadows.dart';
 import 'package:lohaghara_carrier/core/constants/colors.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/core/helpers/helper_functions.dart';
+import 'package:lohaghara_carrier/features/report/presentation/history/widgets/confirmation_dialog.dart';
+
+import '../../../data/models/report_model.dart';
+import '../../../services/report_history_pdf_service.dart';
 
 class ReportCard extends StatelessWidget {
-  const ReportCard({
-    super.key,
-    required this.type,
-    required this.title,
-    required this.date,
-    required this.billNo,
-    required this.amount,
-    required this.trucks,
-    required this.time,
-  });
+  const ReportCard({super.key, required this.report, required this.onDelete});
 
-  final String type;
-  final String title;
-  final String date;
-  final String billNo;
-  final String amount;
-  final String trucks;
-  final String time;
+  final ReportModel report;
+
+  final VoidCallback onDelete;
+
+  String _timeAgo(DateTime dateTime) {
+    final difference = DateTime.now().difference(dateTime);
+
+    if (difference.inDays > 0) {
+      if (difference.inDays == 1) return 'Yesterday';
+
+      return '${difference.inDays} days ago';
+    }
+
+    if (difference.inHours > 0) {
+      return '${difference.inHours} hours ago';
+    }
+
+    if (difference.inMinutes > 0) {
+      return '${difference.inMinutes} minutes ago';
+    }
+
+    return 'Today';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +73,9 @@ class ReportCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
-                        type,
+                        report.reportType == 'monthly'
+                            ? 'Monthly Report'
+                            : 'Summary Report',
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           color: AppColors.primaryColor,
                           fontWeight: FontWeight.w600,
@@ -73,7 +87,7 @@ class ReportCard extends StatelessWidget {
 
                     /// Title
                     Text(
-                      title,
+                      report.factoryName ?? report.companyName,
                       style: Theme.of(context).textTheme.titleMedium!.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -96,7 +110,7 @@ class ReportCard extends StatelessWidget {
                             const SizedBox(width: 5),
 
                             Text(
-                              date,
+                              DateFormat('MMM yyyy').format(report.month),
                               style: Theme.of(context).textTheme.labelLarge!
                                   .copyWith(fontWeight: FontWeight.w500),
                             ),
@@ -111,7 +125,7 @@ class ReportCard extends StatelessWidget {
 
                         /// Bill No
                         Text(
-                          '${AppTextStrings.billNo}$billNo',
+                          '${AppTextStrings.billNo}${report.billNo}',
                           style: Theme.of(context).textTheme.labelLarge!
                               .copyWith(fontWeight: FontWeight.w500),
                         ),
@@ -125,9 +139,40 @@ class ReportCard extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(time, style: Theme.of(context).textTheme.bodySmall),
+                  Text(
+                    _timeAgo(report.updatedAt),
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+
                   const SizedBox(width: AppSizes.sm),
-                  const Icon(Icons.more_vert, color: Colors.grey),
+
+                  InkWell(
+                    borderRadius: BorderRadius.circular(100),
+                    onTap: () {
+                      ConfirmationDialog.show(
+                        title: 'Delete Report',
+                        message:
+                            'Are you sure you want to delete this report?\n\n'
+                            'This action cannot be undone.',
+                        confirmText: 'Delete',
+                        cancelText: 'Cancel',
+                        confirmColor: Colors.red,
+                        onConfirm: onDelete,
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        color: Colors.red.withValues(alpha: 0.08),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.delete_outline,
+                        color: Colors.red,
+                        size: AppSizes.iconMd,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -160,7 +205,7 @@ class ReportCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '৳$amount',
+                        '৳${report.totalAmount.toStringAsFixed(0)}',
                         style: const TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
@@ -194,7 +239,7 @@ class ReportCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        trucks,
+                        report.totalTrips.toString(),
                         style: const TextStyle(
                           color: AppColors.primaryColor,
                           fontWeight: FontWeight.bold,
@@ -216,11 +261,29 @@ class ReportCard extends StatelessWidget {
           /// 🔹 Actions
           Row(
             children: [
-              _ActionButton(icon: Iconsax.eye, label: "View"),
+              _ActionButton(
+                icon: Iconsax.eye,
+                label: 'View',
+                onTap: () async {
+                  await ReportHistoryPdfService.preview(report);
+                },
+              ),
               const SizedBox(width: 8),
-              _ActionButton(icon: Iconsax.document_download, label: "Download"),
+              _ActionButton(
+                icon: Iconsax.document_download,
+                label: 'Download',
+                onTap: () async {
+                  await ReportHistoryPdfService.download(report);
+                },
+              ),
               const SizedBox(width: 8),
-              _ActionButton(icon: Iconsax.share, label: "Share"),
+              _ActionButton(
+                icon: Iconsax.share,
+                label: 'Share',
+                onTap: () async {
+                  await ReportHistoryPdfService.share(report);
+                },
+              ),
             ],
           ),
         ],
@@ -231,39 +294,53 @@ class ReportCard extends StatelessWidget {
 
 /// 🔥 Reusable Action Button
 class _ActionButton extends StatelessWidget {
-  const _ActionButton({required this.icon, required this.label});
+  const _ActionButton({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
 
   final IconData icon;
   final String label;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final dark = AppHelperFunctions.isDarkMode(context);
+
     return Expanded(
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: BoxDecoration(
-          color: dark
-              ? AppColors.grey.withValues(alpha: 0.1)
-              : AppColors.primaryColor.withValues(alpha: 0.1),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
           borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              size: AppSizes.iconSm,
-              color: dark ? Colors.grey : AppColors.primaryDark,
+          child: Ink(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            decoration: BoxDecoration(
+              color: dark
+                  ? AppColors.grey.withValues(alpha: 0.1)
+                  : AppColors.primaryColor.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(10),
             ),
-            const SizedBox(width: 6),
-            Text(
-              label,
-              style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                color: dark ? Colors.grey : AppColors.primaryDark,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  icon,
+                  size: AppSizes.iconSm,
+                  color: dark ? Colors.grey : AppColors.primaryDark,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  label,
+                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                    color: dark ? Colors.grey : AppColors.primaryDark,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

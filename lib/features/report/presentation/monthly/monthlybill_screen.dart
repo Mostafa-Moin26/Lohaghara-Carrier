@@ -6,16 +6,22 @@ import 'package:lohaghara_carrier/core/common/widgets/records/record_tile.dart';
 import 'package:lohaghara_carrier/core/common/widgets/texts/section_heading.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
+import 'package:lohaghara_carrier/core/formatters/formatter.dart';
 import 'package:lohaghara_carrier/features/report/presentation/monthly/widgets/filter_section.dart';
 import 'package:lohaghara_carrier/features/report/presentation/monthly/widgets/monthly_header_card.dart';
 import 'package:lohaghara_carrier/features/report/presentation/shared/widgets/stats_card.dart';
+import 'package:lohaghara_carrier/features/report/presentation/summary/controller/monthly_bill_controller.dart';
 import 'package:lohaghara_carrier/routes/app_routes.dart';
+
+import '../../data/repositories/report_repository.dart';
 
 class MonthlybillScreen extends StatelessWidget {
   const MonthlybillScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = MonthlyBillController.instance;
+    Get.put(ReportRepository());
     return Scaffold(
       appBar: CustomAppBar(
         title: const Text(AppTextStrings.monthlyBill),
@@ -50,9 +56,19 @@ class MonthlybillScreen extends StatelessWidget {
                         const SizedBox(height: AppSizes.spaceBtwItems),
 
                         /// Stats Card
-                        const ReportStatsCard(
-                          numOfTrucks: '131',
-                          totalAmount: '৳23,19,300',
+                        Obx(
+                          () => ReportStatsCard(
+                            numOfTrucks: controller
+                                .factoryMonthly
+                                .value
+                                .totalTrips
+                                .toString(),
+                            totalAmount: controller
+                                .factoryMonthly
+                                .value
+                                .totalAmount
+                                .toString(),
+                          ),
                         ),
 
                         const SizedBox(height: AppSizes.spaceBtwItems),
@@ -75,37 +91,44 @@ class MonthlybillScreen extends StatelessWidget {
                 /// =========================
                 /// RECORDS LIST
                 /// =========================
-                SliverPadding(
-                  padding: const EdgeInsets.only(
-                    left: AppSizes.defaultSpace,
-                    right: AppSizes.defaultSpace,
-                    bottom: 120, // 👈 FAB overlap protection
-                  ),
-
-                  sliver: SliverList(
+                Obx(() {
+                  if (controller.previewRecords.isEmpty) {
+                    return SliverToBoxAdapter(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(40),
+                          child: Text('No trip records found.'),
+                        ),
+                      ),
+                    );
+                  }
+                  return SliverList(
                     delegate: SliverChildBuilderDelegate((_, index) {
+                      final record = controller.previewRecords[index];
+
                       return Padding(
                         padding: const EdgeInsets.only(
                           bottom: AppSizes.spaceBtwItems,
                         ),
-
                         child: RecordTile(
-                          truckNumber: 'DM TA-18-4209',
+                          truckNumber: record.truckNumber,
 
-                          companyName: 'Meghna Knit Composite Ltd.',
+                          // Monthly Report Screen-এ Company name-এর পরিবর্তে
+                          // Unload Point দেখানো বেশি useful হবে
+                          companyName: record.unloadPoint,
 
-                          amount: '15,500',
+                          amount: record.totalAmount.toString(),
 
-                          date: AppTextStrings.today,
+                          date: AppFormatter.formatDate(record.date),
 
                           onTap: () {
-                            Get.toNamed(AppRoutes.recordDetail);
+                            // পরে Full Record Details screen-এ নিয়ে যাবো
                           },
                         ),
                       );
-                    }, childCount: 3),
-                  ),
-                ),
+                    }, childCount: controller.previewRecords.length),
+                  );
+                }),
               ],
             ),
 
@@ -119,11 +142,11 @@ class MonthlybillScreen extends StatelessWidget {
 
               child: ReportActionButtons(
                 onDownload: () {
-                  // TODO: Download PDF
+                  controller.downloadPdf();
                 },
 
                 onShare: () {
-                  // TODO: Share Report
+                  controller.sharePdf();
                 },
               ),
             ),

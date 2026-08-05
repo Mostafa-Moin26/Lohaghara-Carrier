@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/common/widgets/appbar/appbar.dart';
 import 'package:lohaghara_carrier/core/common/widgets/chips/app_filter_chip.dart';
-import 'package:lohaghara_carrier/core/common/widgets/containers/temporary_search.dart';
+import 'package:lohaghara_carrier/core/common/widgets/containers/search_container.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/core/constants/text_strings.dart';
 import 'package:lohaghara_carrier/core/extensions/filter_type_extension.dart';
+import 'package:lohaghara_carrier/features/company/data/repositories/company_repository.dart';
 import 'package:lohaghara_carrier/features/report/presentation/history/controller/reports_controller.dart';
 import 'package:lohaghara_carrier/features/report/presentation/history/widgets/report_card.dart';
 
@@ -16,6 +17,8 @@ class ReportsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(CompanyRepository());
+    final searchController = TextEditingController();
     return Scaffold(
       appBar: CustomAppBar(title: const Text(AppTextStrings.reports)),
 
@@ -27,11 +30,12 @@ class ReportsScreen extends StatelessWidget {
         child: Column(
           children: [
             /// 🔍 Search
-            TSearchContainer(
-              text: 'Search reports....',
-              padding: EdgeInsets.only(bottom: AppSizes.md),
-              // onTap: controller.updateSearch,
+            SearchContainer(
+              controller: searchController,
+              hintText: 'Search reports...',
+              onChanged: controller.updateSearch,
             ),
+            const SizedBox(height: AppSizes.md),
 
             /// 🎯 Filters
             Obx(() {
@@ -58,24 +62,29 @@ class ReportsScreen extends StatelessWidget {
 
             /// 📄 List
             Expanded(
-              child: Obx(
-                () => ListView.builder(
+              child: Obx(() {
+                if (controller.isLoading.value) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                if (controller.reports.isEmpty) {
+                  return const Center(child: Text('No reports found'));
+                }
+
+                return ListView.builder(
                   itemCount: controller.reports.length,
                   itemBuilder: (_, index) {
                     final report = controller.reports[index];
 
                     return ReportCard(
-                      type: report["type"] as String,
-                      title: report["title"] as String,
-                      date: report["date"] as String,
-                      billNo: report["billNo"] as String,
-                      amount: report["amount"] as String,
-                      trucks: report["trucks"] as String,
-                      time: report["time"] as String,
+                      report: report,
+                      onDelete: () {
+                        controller.deleteReport(report.id);
+                      },
                     );
                   },
-                ),
-              ),
+                );
+              }),
             ),
           ],
         ),

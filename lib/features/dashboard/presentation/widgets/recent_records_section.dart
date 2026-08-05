@@ -6,6 +6,7 @@ import 'package:lohaghara_carrier/core/common/widgets/loaders/recent_records_ske
 import 'package:lohaghara_carrier/core/common/widgets/records/record_tile.dart';
 import 'package:lohaghara_carrier/core/constants/sizes.dart';
 import 'package:lohaghara_carrier/features/dashboard/presentation/controllers/dashboard_controller.dart';
+import 'package:lohaghara_carrier/features/record/data/repositories/record_repository.dart';
 import 'package:lohaghara_carrier/routes/app_routes.dart';
 
 class RecentRecordsSection extends StatelessWidget {
@@ -14,6 +15,7 @@ class RecentRecordsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = DashboardController.instance;
+    Get.put(RecordRepository());
 
     return Obx(() {
       if (controller.isLoading.value) {

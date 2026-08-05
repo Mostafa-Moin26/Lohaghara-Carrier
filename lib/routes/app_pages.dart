@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:lohaghara_carrier/bindings/monthly_billing_binding.dart';
 import 'package:lohaghara_carrier/features/auth/presentation/login/login_screen.dart';
 import 'package:lohaghara_carrier/features/auth/presentation/password/forgot/forgot_password_screen.dart';
 import 'package:lohaghara_carrier/features/auth/presentation/password/success/password_reset_successful_screen.dart';
@@ -75,7 +76,11 @@ class AppPages {
       page: () => FactoryView(showBackArrow: true),
     ),
     GetPage(name: AppRoutes.summaryScreen, page: () => SummaryScreen()),
-    GetPage(name: AppRoutes.monthlyBillScreen, page: () => MonthlybillScreen()),
+    GetPage(
+      name: AppRoutes.monthlyBillScreen,
+      page: () => MonthlybillScreen(),
+      binding: MonthlyBillBinding(),
+    ),
 
     GetPage(name: AppRoutes.profileDetails, page: () => ProfileDetailsScreen()),
   ];

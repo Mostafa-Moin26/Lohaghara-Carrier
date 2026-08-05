@@ -97,15 +97,14 @@ class PdfHelper {
     return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
-        divider(),
-
+        // divider(),
         sectionGap(8),
 
-        pw.Text('Taka (In Words):', style: PdfStyle.totalLabel),
+        pw.Text('Taka (In Words): $text', style: PdfStyle.amountInWords),
 
         smallGap(4),
 
-        pw.Text(text, style: PdfStyle.amountInWords),
+        // pw.Text(text, style: PdfStyle.amountInWords),
       ],
     );
   }

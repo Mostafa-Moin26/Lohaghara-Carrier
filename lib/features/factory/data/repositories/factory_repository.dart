@@ -36,6 +36,30 @@ class FactoryRepository extends GetxController {
     }
   }
 
+  //==========================================================
+  // Get Factory By Id
+  //==========================================================
+
+  Future<FactoryModel> fetchFactoryById(String factoryId) async {
+    try {
+      final snapshot = await _db.collection('Factories').doc(factoryId).get();
+
+      if (!snapshot.exists) {
+        throw 'Factory not found.';
+      }
+
+      return FactoryModel.fromSnapshot(snapshot);
+    } on FirebaseException catch (e) {
+      throw LFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const LFormatException();
+    } on PlatformException catch (e) {
+      throw LPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again.';
+    }
+  }
+
   /// Get Factory By Name
   Future<FactoryModel?> getFactoryByName({
     required String companyId,

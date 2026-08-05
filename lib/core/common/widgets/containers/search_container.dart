@@ -38,10 +38,14 @@ class SearchContainer extends StatelessWidget {
       ),
       child: ValueListenableBuilder<TextEditingValue>(
         valueListenable: controller,
-        builder: (_, __, ___) {
+        builder: (_, _, _) {
           return TextField(
             controller: controller,
             onChanged: onChanged,
+
+            onSubmitted: (_) {
+              FocusScope.of(context).unfocus();
+            },
             textInputAction: TextInputAction.search,
 
             decoration: InputDecoration(

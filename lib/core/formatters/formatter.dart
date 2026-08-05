@@ -8,8 +8,16 @@ class AppFormatter {
     return DateFormat('dd-MMM-yyy').format(date);
   }
 
+  static String formatPdfDate(DateTime date) {
+    return DateFormat('dd.MM.yy').format(date);
+  }
+
   static String formatCurrency(double amount) {
     return NumberFormat.currency(locale: 'en_US', symbol: '\$').format(amount);
+  }
+
+  static String formatMonthYear(DateTime date) {
+    return DateFormat('MMMM yyyy').format(date);
   }
 
   static String formatPhoneNumber(String phoneNumber) {

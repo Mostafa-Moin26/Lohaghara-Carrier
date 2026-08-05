@@ -18,6 +18,7 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(DashboardController());
+
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(

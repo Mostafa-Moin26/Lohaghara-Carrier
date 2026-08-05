@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:lohaghara_carrier/core/helpers/network_manager.dart';
 import 'package:lohaghara_carrier/features/auth/data/repositories/authentication_repository.dart';
 
+import '../features/report/data/repositories/report_repository.dart';
+
 /// App-wide dependency injection.
 /// Services registered here are available EVERYWHERE immediately.
 /// Feature-specific controllers are registered in their own bindings (later).
@@ -17,5 +19,6 @@ class InitialBinding extends Bindings {
 
     Get.put(NetworkManager());
     Get.put(AuthenticationRepository());
+    Get.put(ReportRepository());
   }
 }

@@ -7,9 +7,9 @@ import 'package:pdf/widgets.dart' as pw;
 
 import 'package:lohaghara_carrier/features/report/data/models/summary_report_model.dart';
 
-import 'pdf_fonts.dart';
-import 'pdf_helper.dart';
-import 'pdf_style.dart';
+import '../common/pdf_fonts.dart';
+import '../common/pdf_helper.dart';
+import '../common/pdf_style.dart';
 
 class SummaryPdfService {
   SummaryPdfService._();
