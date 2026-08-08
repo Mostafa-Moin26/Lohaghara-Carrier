@@ -3,12 +3,18 @@
 ### Smart Logistics. Smooth Deliveries.
 
 Lohagara Carrier is a Flutter-based transport and billing management
-application designed to simplify transportation records, factory
+application developed to solve a real-world logistics and business
+management problem for a client.
+
+The application is designed to simplify transportation records, factory
 operations, monthly billing, and professional report generation.
 
 The application provides a centralized workflow for managing transport
 records, automatically maintaining company and factory information,
 tracking monthly financial data, and generating professional PDF reports.
+
+The application is currently used by the client for their business
+operations.
 
 <p align="center">
   <img
@@ -24,6 +30,10 @@ tracking monthly financial data, and generating professional PDF reports.
 
 Lohagara Carrier is a business-focused logistics and transport
 management application built with Flutter and Firebase.
+
+The application was developed for a client's personal business to
+digitize and simplify their day-to-day transportation and billing
+workflow.
 
 The application is designed around a record-based workflow where
 transportation records are the core source of operational data.
@@ -52,8 +62,10 @@ uses GetX for state management and dependency injection.
 
 - Firebase Authentication
 - User sign-in
+- Email verification
 - Password reset
 - Logout
+- Delete Account
 - User profile management
 
 ---
@@ -278,16 +290,16 @@ specific report.
 
 # 🛠️ Tech Stack
 
-| Technology | Purpose |
-|------------|---------|
-| **Flutter** | Cross-platform application development |
-| **Dart** | Programming language |
-| **GetX** | State management and dependency injection |
-| **Firebase Authentication** | User authentication |
-| **Cloud Firestore** | Application database |
-| **Firebase Storage** | File and media storage |
-| **PDF Package** | PDF report generation |
-| **Intl** | Date and number formatting |
+| Technology                  | Purpose                                   |
+| --------------------------- | ----------------------------------------- |
+| **Flutter**                 | Cross-platform application development    |
+| **Dart**                    | Programming language                      |
+| **GetX**                    | State management and dependency injection |
+| **Firebase Authentication** | User authentication                       |
+| **Cloud Firestore**         | Application database and report history   |
+| **Firebase Storage**        | File and media storage                    |
+| **PDF Package**             | PDF report generation                     |
+| **Intl**                    | Date and number formatting                |
 
 ---
 
