@@ -3,137 +3,185 @@
 ### Smart Logistics. Smooth Deliveries.
 
 Lohagara Carrier is a Flutter-based transport and billing management
-application designed to simplify company, factory, trip, billing, and
-report management through a centralized mobile application.
+application designed to simplify transportation records, factory
+operations, monthly billing, and professional report generation.
 
-The application provides a structured workflow for managing companies
-and factories, recording truck trips, tracking monthly financial data,
-and generating professional business reports.
+The application provides a centralized workflow for managing transport
+records, automatically maintaining company and factory information,
+tracking monthly financial data, and generating professional PDF reports.
 
-![Lohagara Carrier Showcase](screenshots/showcase/lohagara_carrier_showcase.png)
-
----
-
-## ✨ Overview
-
-Lohagara Carrier was developed as a practical logistics and transport
-management solution for managing day-to-day transportation operations.
-
-The application allows users to:
-
-- Manage companies and factories
-- Record and manage truck trips
-- Track monthly transportation expenses
-- Monitor business statistics through a dashboard
-- Generate monthly and summary reports
-- Generate professional PDF documents
-- Maintain a searchable report history
-- Preview, download, and share generated reports
-
-The project follows a feature-based Clean Architecture approach with
-GetX for state management and Firebase as the backend infrastructure.
+<p align="center">
+  <img src="screenshots/showcase/lohagara_carrier_showcase.png"
+       alt="Lohagara Carrier Showcase"
+       width="850"/>
+</p>
 
 ---
 
-## 🚀 Key Features
+## 📌 Overview
 
-### 🔐 Authentication
+Lohagara Carrier is a business-focused logistics and transport
+management application built with Flutter and Firebase.
+
+The application is designed around a record-based workflow where
+transportation records are the core source of operational data.
+
+When a user adds transportation records, the associated company and
+factory information is automatically created and maintained as part of
+the record workflow.
+
+The collected data is then used for:
+
+- Dashboard statistics
+- Factory-wise monthly aggregation
+- Monthly billing
+- Company-wise summary reports
+- PDF report generation
+- Report history
+
+The project follows a feature-based Clean Architecture approach and
+uses GetX for state management and dependency injection.
+
+---
+
+# ✨ Key Features
+
+## 🔐 Authentication
 
 - Firebase Authentication
-- Secure user login
+- User sign-in
 - Password reset
 - Logout
 - User profile management
 
 ---
 
-### 🏢 Company Management
+## 🏢 Company & Factory Management
 
-- Create and manage companies
-- View company information
-- Search companies
-- Company-based factory management
-- Delete companies with confirmation
+Company and factory information are not managed through separate
+manual CRUD screens.
+
+Instead, they are automatically created and maintained through the
+transportation record workflow.
+
+### Company
+
+- Company information is captured from transportation records
+- Company-wise record organization
+- Company-based factory relationship
+- Reusable company information across records
+
+### Factory
+
+- Factory information is captured from transportation records
+- Factory-to-company relationship
+- Factory-wise transportation tracking
+- Factory-wise monthly aggregation
 
 ---
 
-### 🏭 Factory Management
+## 🚚 Transport Record Management
 
-- Create and manage factories
-- Associate factories with companies
-- View factory information
-- Track factory-wise transportation activity
-- Delete factories with confirmation
+Transportation records are the core operational data of the application.
 
----
+### Record Features
 
-### 🚚 Transport Record Management
-
-- Add new transportation records
+- Add transportation records
 - Edit existing records
 - Delete records
-- Company → Factory dependent selection
-- Truck number management
-- Fare calculation
+- Company selection
+- Factory selection based on company
+- Truck number
+- Fare
 - Load demurrage
 - Unload demurrage
 - Total amount calculation
 - Unload point
 - Item information
 - Remarks
-- Record search and filtering
+- Record date
+- Monthly record organization
+- Record search
+- Record filtering
 - Paginated record loading
 
 ---
 
-### 📊 Dashboard
+## 📊 Dashboard
 
-The dashboard provides an overview of important business information,
-including:
+The dashboard provides an overview of important transportation and
+billing information.
+
+### Dashboard Statistics
 
 - Monthly billing
 - Total trips
 - Total demurrage
-- Active factories
+- Active factory count
 - Recent transportation records
 - Quick actions
 
+The dashboard data is derived from the application's operational
+records and monthly aggregation data.
+
 ---
 
-### 🧾 Monthly Billing
+# 🧾 Monthly Billing
+
+Lohagara Carrier provides factory-wise monthly billing.
+
+Users can select a factory and month to generate a monthly bill.
+
+### Monthly Billing Features
 
 - Factory-wise monthly billing
-- Automatic monthly bill number generation
 - Monthly trip calculation
 - Monthly total amount calculation
-- Factory monthly aggregation
-- Professional monthly bill generation
+- Monthly factory aggregation
+- Automatic bill number generation
+- Detailed transportation records
+- Amount in words
+- Professional PDF generation
 
 ---
 
-### 📑 Summary Reports
+# 📑 Summary Reports
 
-- Company-wise monthly summary
+The application also provides company-wise monthly summary reports.
+
+A summary report aggregates transportation information across the
+factories associated with a selected company.
+
+### Summary Report Features
+
+- Company-wise summary
+- Month-wise summary
 - Factory-wise trip summary
 - Factory-wise amount summary
+- Total factories
 - Total trips
 - Total amount
 - Amount in words
-- Professional summary report generation
+- Professional PDF generation
 
 ---
 
-### 📄 PDF Reporting
+# 📄 PDF Report Generation
 
-The application provides professional PDF report generation for both
-monthly bills and summary reports.
+Lohagara Carrier supports professional PDF generation for both monthly
+billing and summary reports.
 
-#### Monthly PDF
+## Monthly Bill PDF
 
-- Factory name
+The monthly report can contain:
+
+- Company information
+- Factory information
 - Billing month
 - Bill number
-- Detailed transportation table
+- Transportation records
+- Truck number
+- Date
 - Fare
 - Load demurrage
 - Unload demurrage
@@ -142,22 +190,26 @@ monthly bills and summary reports.
 - Item
 - Remarks
 - Total trips
-- Total amount
+- Grand total
 - Amount in words
 
-#### Summary PDF
+## Summary Report PDF
+
+The summary report contains:
 
 - Company information
 - Billing month
 - Bill number
 - Factory-wise summary
+- Factory-wise trip count
+- Factory-wise amount
 - Total trips
 - Total amount
 - Amount in words
 
 ---
 
-### 📤 PDF Actions
+# 📤 PDF Actions
 
 Generated reports can be:
 
@@ -165,35 +217,41 @@ Generated reports can be:
 - ⬇️ Downloaded
 - 🔗 Shared
 
-The application also uses separate PDF styling and layout logic for
-different report types.
+The application uses dedicated PDF services and report builders to keep
+report generation logic separated from the presentation layer.
 
 ---
 
-### 🗂️ Report History
+# 🗂️ Report History
 
-Generated monthly and summary reports are stored in Firestore so that
-users can access previously generated reports.
+Generated reports are saved to Cloud Firestore so users can access
+previously generated reports from the application.
 
-Features include:
+The report history supports both:
 
-- Report history
-- Monthly reports
-- Summary reports
-- Search
+- Monthly Reports
+- Summary Reports
+
+### Report History Features
+
+- Firestore-based report history
+- Monthly report history
+- Summary report history
+- Report search
 - Report type filtering
-- This month filtering
-- Last three months filtering
+- This Month filtering
+- Last Three Months filtering
 - Report preview
-- Report download
-- Report sharing
-- Report deletion with confirmation
+- PDF download
+- PDF sharing
+- Report deletion
+- Delete confirmation dialog
 
 ---
 
-### 🔍 Search & Filtering
+# 🔍 Search & Filtering
 
-The application provides search and filtering across the report history.
+Report History provides combined search and filtering functionality.
 
 Users can search reports using:
 
@@ -203,7 +261,7 @@ Users can search reports using:
 - Report type
 - Month key
 
-Available report filters include:
+### Available Filters
 
 - All
 - Monthly
@@ -211,28 +269,33 @@ Available report filters include:
 - This Month
 - Last Three Months
 
-Search and filters can also be combined.
+Search and filtering can be applied together to quickly find a
+specific report.
 
 ---
 
-## 🛠️ Tech Stack
+# 🛠️ Tech Stack
 
 | Technology | Purpose |
 |------------|---------|
-| Flutter | Cross-platform application development |
-| Dart | Programming language |
-| GetX | State management and dependency injection |
-| Firebase Authentication | User authentication |
-| Cloud Firestore | Application database |
-| Firebase Storage | File and media storage |
-| PDF Package | PDF report generation |
-| Intl | Date and number formatting |
+| **Flutter** | Cross-platform application development |
+| **Dart** | Programming language |
+| **GetX** | State management and dependency injection |
+| **Firebase Authentication** | User authentication |
+| **Cloud Firestore** | Application database |
+| **Firebase Storage** | File and media storage |
+| **PDF Package** | PDF report generation |
+| **Intl** | Date and number formatting |
 
 ---
 
-## 🏗️ Architecture
+# 🏗️ Architecture
 
-The project follows a feature-based Clean Architecture approach.
+The application follows a feature-based Clean Architecture approach.
+
+The codebase separates presentation logic, data models, repositories,
+business logic, builders, and services to improve maintainability and
+scalability.
 
 ```text
 lib/
@@ -240,6 +303,7 @@ lib/
 ├── core/
 │   ├── common/
 │   ├── constants/
+│   ├── device/
 │   ├── exceptions/
 │   ├── helpers/
 │   └── ...
@@ -257,6 +321,7 @@ lib/
 │   ├── dashboard/
 │   │
 │   └── report/
+│       │
 │       ├── data/
 │       │   ├── models/
 │       │   └── repositories/
@@ -269,4 +334,6 @@ lib/
 │       ├── builders/
 │       └── services/
 │
-└── ...
+├── routes/
+│
+└── app.dart
