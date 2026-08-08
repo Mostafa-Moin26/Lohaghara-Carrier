@@ -12,6 +12,8 @@ void main() async {
   /// GetX local storage
   await GetStorage.init();
 
+  /// Firebase initialization
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const MyApp());
