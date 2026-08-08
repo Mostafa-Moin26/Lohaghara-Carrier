@@ -11,9 +11,11 @@ records, automatically maintaining company and factory information,
 tracking monthly financial data, and generating professional PDF reports.
 
 <p align="center">
-  <img src="screenshots/showcase/lohagara_carrier_showcase.png"
-       alt="Lohagara Carrier Showcase"
-       width="850"/>
+  <img
+    src="screenshots/showcase/lohagara_carrier_showcase.png"
+    alt="Lohagara Carrier Showcase"
+    width="850"
+  />
 </p>
 
 ---
