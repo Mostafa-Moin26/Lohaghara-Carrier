@@ -161,11 +161,11 @@ class MonthlyBillController extends GetxController {
 
   Future<void> previewPdf() async {
     try {
-      if (_cachedPdf == null) {
-        throw 'Please generate the report first.';
-      }
+      /// Generate PDF if it is not already cached
+      final pdfBytes = await _generatePdf();
 
-      await PdfPreviewService.preview(_cachedPdf!);
+      /// Preview generated PDF
+      await PdfPreviewService.preview(pdfBytes);
     } catch (e) {
       Get.snackbar('PDF Error', e.toString());
     }
@@ -277,7 +277,6 @@ class MonthlyBillController extends GetxController {
           factoryId: selectedFactory.value!.id,
           monthKey: selectedMonthKey,
         ),
-
         repository.fetchMonthlyRecords(
           factoryId: selectedFactory.value!.id,
           monthKey: selectedMonthKey,
@@ -288,9 +287,9 @@ class MonthlyBillController extends GetxController {
 
       records.assignAll(results[1] as List<MonthlyBillRecordModel>);
 
+      /// Build report data only.
+      /// Do NOT generate PDF or save report history here.
       _buildReportModel();
-
-      await _generatePdf();
     } catch (e) {
       Get.snackbar('Oh Snap!', e.toString());
     } finally {

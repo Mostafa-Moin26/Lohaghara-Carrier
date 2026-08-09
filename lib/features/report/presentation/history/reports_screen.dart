@@ -68,21 +68,36 @@ class ReportsScreen extends StatelessWidget {
                 }
 
                 if (controller.reports.isEmpty) {
-                  return const Center(child: Text('No reports found'));
+                  return RefreshIndicator(
+                    onRefresh: controller.refresh,
+                    child: ListView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      children: const [
+                        SizedBox(
+                          height: 300,
+                          child: Center(child: Text('No reports found')),
+                        ),
+                      ],
+                    ),
+                  );
                 }
 
-                return ListView.builder(
-                  itemCount: controller.reports.length,
-                  itemBuilder: (_, index) {
-                    final report = controller.reports[index];
+                return RefreshIndicator(
+                  onRefresh: controller.refresh,
+                  child: ListView.builder(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemCount: controller.reports.length,
+                    itemBuilder: (_, index) {
+                      final report = controller.reports[index];
 
-                    return ReportCard(
-                      report: report,
-                      onDelete: () {
-                        controller.deleteReport(report.id);
-                      },
-                    );
-                  },
+                      return ReportCard(
+                        report: report,
+                        onDelete: () {
+                          controller.deleteReport(report.id);
+                        },
+                      );
+                    },
+                  ),
                 );
               }),
             ),
